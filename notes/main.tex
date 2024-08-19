@@ -69,34 +69,56 @@ pdfauthor=author={Jose Alfredo de Leon},
 \maketitle
 
 \section{Ideas}
+The evolution of the chaometer qubit can be understood as a quantum channel:
+\begin{align}
+\rho_1(t) = 
+\mcE[\rho_1(0)] = 
+\Tr_E\qty(e^{-iHt} \rho_1(0)\otimes \rho_E(0) e^{-iHt}),
+\end{align}
+where $\rho_1(0) \otimes \rho_E(0) = \dyad{\psi(0)}$, 
+with $\ket{\psi(0)}$ is a $L$-qubit random product state; and $H$ the spin chain 
+Hamiltonian.
+
+The quantum channel $\mcE$ can be written in its Kraus form:
 \begin{align}
 \mcE(\rho_1) = 
-\Tr_E\qty(e^{-iHt} \rho_1(0)\otimes \rho_E(0) e^{-iHt})
+\sum_{i=1}^{r\leq 4} K_i \rho_1 K_j^\dagger,
 \end{align}
-where
-\begin{align}
-\rho_1 \otimes \rho_E = 
-\dyad{\psi}
-\end{align}
-where $\ket{\psi}$ is a random pure state of $N$ qubits.
+with $r$ is the Kraus rank of $\mcE$.
 
-The quantum channel may be written as 
+The purity $\mcP$ of the chaometer now reads:
 \begin{align}
-\mcE(\rho_1) = 
-\sum_i K_i \rho_1 K_j^\dagger
-\end{align}
-
-The purity of the chaometer can be written as 
-\begin{align}
-\mcP [\mcE(\rho)] &=
-\Tr \qty[\mcE^2(\rho)] \\
-&= \sum_{i,j}
+\mcP [\mcE(\rho_1)] &=
+\Tr \big\{\qty[\mcE(\rho_1)]^2 \big\}\\
+&= \sum_{i,j=1}^{r\leq 4}
 \Tr \qty( K_i \rho K_i^\dagger K_j \rho K_j^\dagger) \\
-&= \sum_{i,j}
+&= \sum_{i,j}^{r\leq 4}
 \Tr \qty( K_j^\dagger K_i \rho K_i^\dagger K_j \rho).
 \end{align}
-Therefore, I conjecture that the chaotic information of the system has to be 
+My guess is that the chaotic information of the system has to be 
 encoded in operators $K_i^\dagger K_j$. To further explore this idea 
-I will explore the relationship $\mcP [\mcE(\rho)]  = \eta $.
+I will examine the relationship $\mcP [\mcE(\rho_1)]  = 1 - \eta $.
+
+Integrable:
+\begin{align}
+\mcP [\mcE(\rho_1)] = 
+\min \qty[
+\frac{1}{N} \sum_{i=1}^N 
+\qty(\frac{1}{T}\int_0^T 
+\Tr [\rho_i^2(t)] dt
+)
+] \approx 1
+\end{align}
+
+Chaotic:
+\begin{align}
+\mcP [\mcE(\rho_1)] = 
+\max \qty[
+\frac{1}{N} \sum_{i=1}^N 
+\qty(\frac{1}{T}\int_0^T 
+\Tr [\rho_i^2(t)] dt
+)
+] \approx \frac{1}{2}
+\end{align}
 
 \end{document}
