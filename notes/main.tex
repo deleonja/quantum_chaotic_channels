@@ -1,0 +1,102 @@
+\documentclass[10pt,letterpaper]{article} 
+\usepackage[margin=1in]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage[english,spanish]{babel}
+
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{physics}
+\usepackage{bbm}
+
+\usepackage{graphicx}
+\graphicspath{{figs/}}
+
+\usepackage[dvipsnames]{xcolor}
+
+\usepackage{float}
+
+\newcommand{\eref}[1]{eq.~(\ref{#1})} 
+\newcommand{\sref}[1]{sec.~\ref{#1}}
+\newcommand{\fref}[1]{Fig.~\ref{#1}}
+\newcommand{\tref}[1]{table~\ref{#1}}
+\newcommand{\Eref}[1]{Eq.~(\ref{#1})} 
+\newcommand{\Sref}[1]{Sec.~\ref{#1}}
+\newcommand{\Fref}[1]{Fig.~\ref{#1}}  
+\newcommand{\Tref}[1]{Table~\ref{#1}}
+
+\usepackage{hyperref}
+\hypersetup{
+colorlinks=true,
+linkcolor=blue,
+filecolor=blue,      
+citecolor=blue,
+urlcolor=blue,
+pdftitle={},
+pdfauthor=author={Jose Alfredo de Leon},
+}
+
+\usepackage{tikz}
+
+\usepackage[mathlines]{lineno}  \linenumbers \setlength\linenumbersep{5pt}
+\usepackage[inline]{showlabels,rotating}
+\renewcommand{\showlabelrefline}{\hrule width 0pt height 3ex depth 0pt}
+\renewcommand{\showlabelfont}{\small\slshape\color{red!70}}
+\usepackage[draft,inline,nomargin]{fixme} \fxsetup{theme=color}
+\definecolor{jacolor}{RGB}{200,40,0} \FXRegisterAuthor{ja}{aja}{\color{jacolor}JA}
+\FXRegisterAuthor{cp}{acp}{\color{blue}CP}
+\FXRegisterAuthor{cd}{acd}{\color{purple}CD}
+
+\decimalpoint
+
+\newcommand{\one}{\mathbbm{1}}
+
+\title{Quantum chaos and quantum channels}
+\author{}
+\date{\today}
+
+\renewcommand{\labelenumii}{\arabic{enumi}.\arabic{enumii}}
+\renewcommand{\labelenumiii}{\arabic{enumi}.\arabic{enumii}.\arabic{enumiii}}
+\renewcommand{\labelenumiv}{\arabic{enumi}.\arabic{enumii}.\arabic{enumiii}.\arabic{enumiv}}
+
+% --------------------------------------------------------------------------------------------------
+% Comamands for this document
+\newcommand{\mcE}{\mathcal E}
+\newcommand{\mcP}{\mathcal P}
+% --------------------------------------------------------------------------------------------------
+
+\begin{document}
+\maketitle
+
+\section{Ideas}
+\begin{align}
+\mcE(\rho_1) = 
+\Tr_E\qty(e^{-iHt} \rho_1(0)\otimes \rho_E(0) e^{-iHt})
+\end{align}
+where
+\begin{align}
+\rho_1 \otimes \rho_E = 
+\dyad{\psi}
+\end{align}
+where $\ket{\psi}$ is a random pure state of $N$ qubits.
+
+The quantum channel may be written as 
+\begin{align}
+\mcE(\rho_1) = 
+\sum_i K_i \rho_1 K_j^\dagger
+\end{align}
+
+The purity of the chaometer can be written as 
+\begin{align}
+\mcP [\mcE(\rho)] &=
+\Tr \qty[\mcE^2(\rho)] \\
+&= \sum_{i,j}
+\Tr \qty( K_i \rho K_i^\dagger K_j \rho K_j^\dagger) \\
+&= \sum_{i,j}
+\Tr \qty( K_j^\dagger K_i \rho K_i^\dagger K_j \rho).
+\end{align}
+Therefore, I conjecture that the chaotic information of the system has to be 
+encoded in operators $K_i^\dagger K_j$. To further explore this idea 
+I will explore the relationship $\mcP [\mcE(\rho)]  = \eta $.
+
+\end{document}
