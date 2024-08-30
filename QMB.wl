@@ -4,6 +4,22 @@ BeginPackage["QMB`"];
 
 
 (* ::Section:: *)
+(*Notas*)
+
+
+(* ::Text:: *)
+(*Hay cosas en IAA_model.nb que 1) hay que migrar para ac\[AAcute] y 2) que hay que revisar si deber\[IAcute]a de poner ac\[AAcute]*)
+
+
+(* ::Text:: *)
+(*Hay cosas en los cuadernos del caometro donde hay rutinas para la secci\[OAcute]n de quantum chaos, como el unfolding etc*)
+
+
+(* ::Text:: *)
+(*Hay cosas de Heisenberg meets fuzzy que tambi\[EAcute]n tengo que pasar para ac\[AAcute]*)
+
+
+(* ::Section:: *)
 (*Usage definitions*)
 
 
@@ -14,7 +30,8 @@ BeginPackage["QMB`"];
 DensityMatrix::usage = "DensityMatrix[\[Psi]] returns \!\(\*TemplateBox[{\"\[Psi]\"},\n\"Ket\"]\)\!\(\*TemplateBox[{\"\[Psi]\"},\n\"Bra\"]\).";
 
 
-Pauli::usage= "Pauli[0-3] gives Pauli Matrices according to wikipedia, and Pauli[{i1,i2,...,in}] gives Pauli[i1] \[CircleTimes]Pauli[i2] \[CircleTimes] ... \[CircleTimes] Pauli[in]"
+Pauli::usage= "Pauli[0-3] gives the Pauli matrices. 
+Pauli[ { \!\(\*SubscriptBox[\(i\), \(1\)]\),\[Ellipsis],\!\(\*SubscriptBox[\(i\), \(n\)]\) } ] gives Pauli[\!\(\*SubscriptBox[\(i\), \(1\)]\)] \[CircleTimes] \[Ellipsis] \[CircleTimes] Pauli[\!\(\*SubscriptBox[\(i\), \(n\)]\)]."
 
 
 MatrixPartialTrace::usage = "MatrixPartialTrace[mat, n, d] calculates the partial trace of mat over the nth subspace, where all subspaces have dimension d.
@@ -37,6 +54,26 @@ Dyad::usage = "Dyad[a] returns \!\(\*TemplateBox[{\"a\"},\n\"Ket\"]\)\!\(\*Templ
 Dyad[a,b] returns \!\(\*TemplateBox[{\"a\"},\n\"Ket\"]\)\!\(\*TemplateBox[{\"b\"},\n\"Bra\"]\).";
 
 
+Commutator::usage="Commutator[A,B] returns A.B-B.A";
+CommutationQ::usage="CommutationQ[A,B] yields True if A and B commute, and False otherwise.";
+MutuallyCommutingSetQ::usage="MutuallyCommutingSetQ[ListOfMatrices] yields True if all matrices in the list mutually commute, and False otherwise.";
+
+
+Braket::usage = "Braket[a,b] gives \!\(\*TemplateBox[{RowBox[{\"a\", \" \"}], RowBox[{\" \", \"b\"}]},\n\"BraKet\"]\).";
+
+
+(* ::Subsection::Closed:: *)
+(*Quantum chaos*)
+
+
+(*buscar la rutina del unfolding para meterla aqu\[IAcute]. Quiz\[AAcute]s tambi\[EAcute]n las cosas de wigner dyson y poisson*)
+
+
+MeanLevelSpacingRatio::usage = "MeanLevelSpacingRatio[\!\(\*
+StyleBox[\"eigenvalues\",\nFontSlant->\"Italic\"]\)] gives \[LeftAngleBracket]\!\(\*SubscriptBox[\(r\), \(n\)]\)\[RightAngleBracket] of \!\(\*
+StyleBox[\"eigenvalues\",\nFontSlant->\"Italic\"]\).";
+
+
 (* ::Subsection::Closed:: *)
 (*Quantum channels*)
 
@@ -45,7 +82,7 @@ Reshuffle::usage = "Reshuffle[m] applies the reshuffle transformation to the mat
 
 
 (* ::Subsection::Closed:: *)
-(*Things para ordenar*)
+(*Bose-Hubbard*)
 
 
 BoseHubbardHamiltonian::usage = "BoseHubbardHamiltonian[N, L, J, U] returns the BH Hamiltonian for N bosons and L sites with hopping parameter J, and interaction parameter U.";
@@ -85,7 +122,14 @@ RenyiEntropy::usage = "RenyiEntropy[\[Alpha], \[Rho]] computes the \[Alpha]-th o
 
 
 (* ::Subsection::Closed:: *)
-(*Ising spin-chain models*)
+(*Spins*)
+
+
+SpinParityEigenvectors::usage = "SpinParityEigenvectors[L] gives a list of {even, odd} eigenvectors of the L-spin system parity operator P; P\!\(\*TemplateBox[{RowBox[{SubscriptBox[\"k\", \"1\"], \",\", \"\[Ellipsis]\", \",\", SubscriptBox[\"k\", \"L\"]}]},\n\"Ket\"]\) = \!\(\*TemplateBox[{RowBox[{SubscriptBox[\"k\", \"L\"], \",\", \"\[Ellipsis]\", \",\", SubscriptBox[\"k\", \"1\"]}]},\n\"Ket\"]\), \!\(\*SubscriptBox[\(k\), \(i\)]\)=0,1.";
+
+
+(* ::Subsubsection::Closed:: *)
+(*Ising-like models*)
 
 
 IsingNNOpenHamiltonian::usage = "IsingNNOpenHamiltonian[\!\(\*SubscriptBox[\(h\), \(x\)]\), \!\(\*SubscriptBox[\(h\), \(z\)]\), {\!\(\*SubscriptBox[\(J\), \(1\)]\),\[Ellipsis],\!\(\*SubscriptBox[\(J\), \(L - 1\)]\)}, L] returns the Hamiltonian \!\(\*UnderoverscriptBox[\(\[Sum]\), \(i = 1\), \(L\)]\)(\!\(\*SubscriptBox[\(h\), \(x\)]\) \!\(\*SubsuperscriptBox[\(\[Sigma]\), \(i\), \(x\)]\) + \!\(\*SubscriptBox[\(h\), \(z\)]\) \!\(\*SubsuperscriptBox[\(\[Sigma]\), \(i\), \(z\)]\)) + \!\(\*UnderoverscriptBox[\(\[Sum]\), \(i = 1\), \(L - 1\)]\) \!\(\*SubscriptBox[\(J\), \(i\)]\) \!\(\*SubsuperscriptBox[\(\[Sigma]\), \(i\), \(z\)]\)\!\(\*SubsuperscriptBox[\(\[Sigma]\), \(i + 1\), \(z\)]\)";
@@ -111,7 +155,7 @@ Begin["`Private`"];
 
 
 (* ::Section:: *)
-(*Definitions*)
+(*Routine definitions*)
 
 
 (*no poner los nombres de funciones p\[UAcute]blicas porque se joden la definici\[OAcute]n de uso*)
@@ -151,6 +195,30 @@ Dyad[a_]:=Outer[Times,a,Conjugate[a]]
 Dyad[a_,b_]:=Outer[Times,a,Conjugate[b]]
 
 
+Commutator[A_,B_]:=A . B-B . A
+
+
+ZeroMatrix[d_]:=ConstantArray[0,{d,d}]
+
+
+CommutationQ[A_,B_]:=Commutator[A,B]==ZeroMatrix[Length[A]]
+
+
+MutuallyCommutingSetQ[ListOfMatrices_]:=Module[{SetLength=Length[ListOfMatrices]},
+AllTrue[Table[CommutationQ@@ListOfMatrices[[{i,j}]],{i,SetLength-1},{j,i+1,SetLength}],TrueQ,2]
+]
+
+
+Braket[a_,b_]:=Conjugate[a] . b
+
+
+(* ::Subsection:: *)
+(*Quantum chaos*)
+
+
+MeanLevelSpacingRatio[eigenvalues_]:=Mean[Min/@Transpose[{#,1/#}]&[Ratios[Differences[Sort[eigenvalues]]]]]
+
+
 (* ::Subsection::Closed:: *)
 (*Quantum channels*)
 
@@ -169,6 +237,34 @@ StateEvolution[t_,psi0_List,eigenvalues_List,eigenvectors_List]:=
 Module[{coefficients},
 coefficients=Conjugate[eigenvectors] . psi0;
 Chop[Total[coefficients*Exp[-I*eigenvalues*N[t]]*eigenvectors]]]
+
+
+(*FockBasis[N,L] computes the Fock basis for N bosons and L sites. 
+It requires the subroutines:
+ * Assignationk[M,N,fockState]
+* HilbertSpaceDim[N,M]*)
+FockBasis[N_,M_]:=Module[{k,fockState},
+k=1;
+Normal[Join[
+(*First lexycographical Fock state*)
+{fockState=SparseArray[{1->N},{M}]},
+(*Rest of Fock states*)
+Table[
+(* With \[Eta] the new Fock state and n the previous one, assign Subscript[\[Eta], i]=Subscript[n, i] (1<=i<=k-1), Subscript[\[Eta], k]=Subscript[n, k]-1 y Subscript[\[Eta], i]=0 (i>=k+2) *)
+fockState=SparseArray[Join[Table[i->fockState[[i]],{i,k-1}],{k->fockState[[k]]-1}],{M}];
+(* With \[Eta] the new Fock state and n the previous one, assign Subscript[\[Eta], k+1]=N-\!\(
+\*UnderoverscriptBox[\(\[Sum]\), \(i = 1\), \(k\)]
+\*SubscriptBox[\(\[Eta]\), \(i\)]\) *)
+fockState[[k+1]]=N-Total[fockState[[1;;k]]];
+(* Compute next value of k *)
+k=Assignationk[M,N,fockState];
+fockState
+,HilbertSpaceDim[N,M]-1]
+]]
+]
+
+
+SortFockBasis[fockBasis_]:=Transpose[Sort[{Tag[#],#}&/@fockBasis]]
 
 
 (* ::Subsection::Closed:: *)
@@ -198,7 +294,14 @@ BoseHubbardHamiltonian[N_, L_, J_, U_] := Module[{},
 ];
 
 
-(*Private routines of BoseHubbardHamiltonian*)
+(*Computes the tag FockBasisElement following Tag[FockBasisElement]=\!\(
+\*UnderoverscriptBox[\(\[Sum]\), \(i = 1\), \(M\)]\(
+\*SqrtBox[\(100 i + 3\)]\*
+StyleBox[
+RowBox[{"FockBasisElement", "[", "i", "]"}],
+FontSlant->"Italic"]\)\)*)
+Tag[FockBasisElement_]:=N[Round[Sum[Sqrt[100 i+3]#[[i+1]],{i,0,Length[#]-1}]&[FockBasisElement],10^-8]]
+Tag[Nothing]:=Nothing
 
 
 (* ::Subsubsection:: *)
@@ -294,51 +397,30 @@ FromDigits[Flatten[Position[sortedTagsFockBasis,Tag[fockState]],1]]
 (*Check definitions*)
 
 
-(*FockBasis[N,L] computes the Fock basis for N bosons and L sites. 
-It requires the subroutines:
- * Assignationk[M,N,fockState]
-* HilbertSpaceDim[N,M]*)
-FockBasis[N_,M_]:=Module[{k,fockState},
-k=1;
-Normal[Join[
-(*First lexycographical Fock state*)
-{fockState=SparseArray[{1->N},{M}]},
-(*Rest of Fock states*)
-Table[
-(* With \[Eta] the new Fock state and n the previous one, assign Subscript[\[Eta], i]=Subscript[n, i] (1<=i<=k-1), Subscript[\[Eta], k]=Subscript[n, k]-1 y Subscript[\[Eta], i]=0 (i>=k+2) *)
-fockState=SparseArray[Join[Table[i->fockState[[i]],{i,k-1}],{k->fockState[[k]]-1}],{M}];
-(* With \[Eta] the new Fock state and n the previous one, assign Subscript[\[Eta], k+1]=N-\!\(
-\*UnderoverscriptBox[\(\[Sum]\), \(i = 1\), \(k\)]
-\*SubscriptBox[\(\[Eta]\), \(i\)]\) *)
-fockState[[k+1]]=N-Total[fockState[[1;;k]]];
-(* Compute next value of k *)
-k=Assignationk[M,N,fockState];
-fockState
-,HilbertSpaceDim[N,M]-1]
-]]
-]
-
-
 Assignationk[M_,N_,n_]:=If[n[[1;;M-1]]==ConstantArray[0,M-1],M-1,FromDigits[Last[Position[Normal[n[[1;;M-1]]],x_ /;x!=0]]]]
-
-
-SortFockBasis[fockBasis_]:=Transpose[Sort[{Tag[#],#}&/@fockBasis]]
-
-
-(*Computes the tag FockBasisElement following Tag[FockBasisElement]=\!\(
-\*UnderoverscriptBox[\(\[Sum]\), \(i = 1\), \(M\)]\(
-\*SqrtBox[\(100 i + 3\)]\*
-StyleBox[
-RowBox[{"FockBasisElement", "[", "i", "]"}],
-FontSlant->"Italic"]\)\)*)
-Tag[FockBasisElement_]:=N[Round[Sum[Sqrt[100 i+3]#[[i+1]],{i,0,Length[#]-1}]&[FockBasisElement],10^-8]]
-Tag[Nothing]:=Nothing
 
 
 RenyiEntropy[\[Alpha]_,\[Rho]_]:=1/(1-\[Alpha]) Log[Tr[MatrixPower[\[Rho],\[Alpha]]]]
 
 
 (* ::Subsection::Closed:: *)
+(*Spins*)
+
+
+SpinParityEigenvectors[L_]:=Module[{tuples,nonPalindromes,palindromes},
+tuples=Tuples[{0,1},L];
+nonPalindromes=Select[tuples,#!=Reverse[#]&];
+palindromes=Complement[tuples,nonPalindromes];
+nonPalindromes=DeleteDuplicatesBy[nonPalindromes,Sort[{#,Reverse[#]}]&];
+Normal[
+{
+Join[SparseArray[FromDigits[#,2]+1->1.,2^L]&/@palindromes,Normalize[SparseArray[{FromDigits[#,2]+1->1.,FromDigits[Reverse[#],2]+1->1.},2^L]]&/@nonPalindromes],
+Normalize[SparseArray[{FromDigits[#,2]+1->-1.,FromDigits[Reverse[#],2]+1->1.},2^L]]&/@nonPalindromes
+}]
+]
+
+
+(* ::Subsubsection::Closed:: *)
 (*Ising spin chain models*)
 
 
