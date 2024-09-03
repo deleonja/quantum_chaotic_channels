@@ -1,0 +1,235 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 14.0' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       158,          7]
+NotebookDataLength[      7564,        227]
+NotebookOptionsPosition[      6689,        204]
+NotebookOutlinePosition[      7082,        220]
+CellTagsIndexPosition[      7039,        217]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+
+Cell[CellGroupData[{
+Cell["Estado estacionario del canal phase-flip ", "Title",
+ CellChangeTimes->{{3.934048020604871*^9, 
+  3.934048036240748*^9}},ExpressionUUID->"1e590107-c3ea-43c4-90d9-\
+7826c25d6c23"],
+
+Cell[BoxData[
+ RowBox[{"Get", "[", 
+  RowBox[{
+   RowBox[{"NotebookDirectory", "[", "]"}], "<>", "\"\<../QMB.wl\>\""}], 
+  "]"}]], "Input",
+ CellLabel->
+  "In[363]:=",ExpressionUUID->"b7005bb1-ec0e-4335-bf5e-9967f2e3912f"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"(*", 
+   RowBox[{"siguiendo", " ", "la", " ", 
+    RowBox[{"ec", ".", " ", "10.82"}], " ", "del", " ", "Geometry", " ", "of",
+     " ", "Quantum", " ", "States"}], "*)"}], "\[IndentingNewLine]", 
+  RowBox[{
+   RowBox[{"choi1qubit", "[", 
+    RowBox[{"\[Eta]_", ",", "\[Kappa]_"}], "]"}], ":=", 
+   RowBox[{
+    FractionBox["1", "2"], 
+    RowBox[{"{", 
+     RowBox[{
+      RowBox[{"{", 
+       RowBox[{
+        RowBox[{"1", "+", 
+         RowBox[{"\[Eta]", "[", 
+          RowBox[{"[", "3", "]"}], "]"}], "+", 
+         RowBox[{"\[Kappa]", "[", 
+          RowBox[{"[", "3", "]"}], "]"}]}], ",", "0", ",", 
+        RowBox[{
+         RowBox[{"\[Kappa]", "[", 
+          RowBox[{"[", "1", "]"}], "]"}], "-", 
+         RowBox[{"\[ImaginaryI]", " ", 
+          RowBox[{"\[Kappa]", "[", 
+           RowBox[{"[", "2", "]"}], "]"}]}]}], ",", 
+        RowBox[{
+         RowBox[{"\[Eta]", "[", 
+          RowBox[{"[", "1", "]"}], "]"}], "+", 
+         RowBox[{"\[Eta]", "[", 
+          RowBox[{"[", "2", "]"}], "]"}]}]}], "}"}], ",", 
+      RowBox[{"{", 
+       RowBox[{"0", ",", 
+        RowBox[{"1", "-", 
+         RowBox[{"\[Eta]", "[", 
+          RowBox[{"[", "3", "]"}], "]"}], "+", 
+         RowBox[{"\[Kappa]", "[", 
+          RowBox[{"[", "3", "]"}], "]"}]}], ",", 
+        RowBox[{
+         RowBox[{"\[Eta]", "[", 
+          RowBox[{"[", "1", "]"}], "]"}], "-", 
+         RowBox[{"\[Eta]", "[", 
+          RowBox[{"[", "2", "]"}], "]"}]}], ",", 
+        RowBox[{
+         RowBox[{"\[Kappa]", "[", 
+          RowBox[{"[", "1", "]"}], "]"}], "+", 
+         RowBox[{"\[ImaginaryI]", " ", 
+          RowBox[{"\[Kappa]", "[", 
+           RowBox[{"[", "2", "]"}], "]"}]}]}]}], "}"}], ",", 
+      RowBox[{"{", 
+       RowBox[{
+        RowBox[{
+         RowBox[{"\[Kappa]", "[", 
+          RowBox[{"[", "1", "]"}], "]"}], "-", 
+         RowBox[{"\[ImaginaryI]", " ", 
+          RowBox[{"\[Kappa]", "[", 
+           RowBox[{"[", "2", "]"}], "]"}]}]}], ",", 
+        RowBox[{
+         RowBox[{"\[Eta]", "[", 
+          RowBox[{"[", "1", "]"}], "]"}], "-", 
+         RowBox[{"\[Eta]", "[", 
+          RowBox[{"[", "2", "]"}], "]"}]}], ",", 
+        RowBox[{"1", "-", 
+         RowBox[{"\[Eta]", "[", 
+          RowBox[{"[", "3", "]"}], "]"}], "-", 
+         RowBox[{"\[Kappa]", "[", 
+          RowBox[{"[", "3", "]"}], "]"}]}], ",", "0"}], "}"}], ",", 
+      RowBox[{"{", 
+       RowBox[{
+        RowBox[{
+         RowBox[{"\[Eta]", "[", 
+          RowBox[{"[", "1", "]"}], "]"}], "+", 
+         RowBox[{"\[Eta]", "[", 
+          RowBox[{"[", "2", "]"}], "]"}]}], ",", 
+        RowBox[{
+         RowBox[{"\[Kappa]", "[", 
+          RowBox[{"[", "1", "]"}], "]"}], "-", 
+         RowBox[{"\[ImaginaryI]", " ", 
+          RowBox[{"\[Kappa]", "[", 
+           RowBox[{"[", "2", "]"}], "]"}]}]}], ",", "0", ",", 
+        RowBox[{"1", "+", 
+         RowBox[{"\[Eta]", "[", 
+          RowBox[{"[", "3", "]"}], "]"}], "-", 
+         RowBox[{"\[Kappa]", "[", 
+          RowBox[{"[", "3", "]"}], "]"}]}]}], "}"}]}], "}"}]}]}]}]], "Input",
+ CellChangeTimes->{{3.934048061020336*^9, 3.9340483456140327`*^9}, {
+  3.93404846112191*^9, 3.934048461167642*^9}, {3.934048565917642*^9, 
+  3.934048565995604*^9}},
+ CellLabel->
+  "In[383]:=",ExpressionUUID->"32a45983-ab54-40b5-974f-f7763c52c529"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"(*", 
+   RowBox[{"espectro", " ", "del", " ", "superoperador"}], "*)"}], 
+  "\[IndentingNewLine]", 
+  RowBox[{
+   RowBox[{
+    RowBox[{"p", "=", "0.1"}], ";"}], "\[IndentingNewLine]", 
+   RowBox[{"Eigensystem", "[", 
+    RowBox[{"superoperator", "=", 
+     RowBox[{"Reshuffle", "[", 
+      RowBox[{"choi1qubit", "[", 
+       RowBox[{
+        RowBox[{"{", 
+         RowBox[{
+          RowBox[{"1", "-", "p"}], ",", 
+          RowBox[{"1", "-", "p"}], ",", "1"}], "}"}], ",", 
+        RowBox[{"{", 
+         RowBox[{"0", ",", "0", ",", "0"}], "}"}]}], "]"}], "]"}]}], 
+    "]"}]}]}]], "Input",
+ CellChangeTimes->{{3.934048351749383*^9, 3.9340484158062897`*^9}, {
+  3.934048517675969*^9, 3.934048552042687*^9}, {3.934048596232223*^9, 
+  3.9340485993711157`*^9}},
+ CellLabel->
+  "In[386]:=",ExpressionUUID->"64d01527-1b50-4360-bcb3-32ecf579f758"],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{
+   RowBox[{"{", 
+    RowBox[{"1.`", ",", "1.`", ",", "0.9`", ",", "0.9`"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"1.`", ",", "0.`", ",", "0.`", ",", "0.`"}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"0.`", ",", "0.`", ",", "0.`", ",", "1.`"}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"0.`", ",", "1.`", ",", "0.`", ",", "0.`"}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"0.`", ",", "0.`", ",", "1.`", ",", "0.`"}], "}"}]}], "}"}]}], 
+  "}"}]], "Output",
+ CellChangeTimes->{{3.934048359912447*^9, 3.934048416033144*^9}, 
+   3.934048462089046*^9, {3.9340485523381147`*^9, 3.9340485669739447`*^9}, 
+   3.9340485996129847`*^9},
+ CellLabel->
+  "Out[387]=",ExpressionUUID->"40b91bda-3520-40cb-92cd-7af5377147cd"]
+}, Open  ]],
+
+Cell[TextData[{
+ "El estado estacionario es entonces ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"\[Rho]", "=", 
+    RowBox[{
+     RowBox[{"a", 
+      TemplateBox[{"1"},
+       "Ket"], 
+      TemplateBox[{"1"},
+       "Bra"]}], "+", 
+     RowBox[{
+      RowBox[{"(", 
+       RowBox[{"1", "-", "a"}], ")"}], 
+      TemplateBox[{"0"},
+       "Ket"], 
+      RowBox[{
+       TemplateBox[{"0"},
+        "Bra"], "."}]}]}]}], TraditionalForm]],
+  FormatType->TraditionalForm,ExpressionUUID->
+  "bd11567e-a2ee-4f1f-a508-c6b31eb8b5da"]
+}], "Text",
+ CellChangeTimes->{{3.934048723654319*^9, 
+  3.934048778548359*^9}},ExpressionUUID->"423b2961-a5fe-4b7d-b6df-\
+c9dee4a4bcae"]
+}, Open  ]]
+},
+WindowSize->{1440, 762},
+WindowMargins->{{0, Automatic}, {0, Automatic}},
+FrontEndVersion->"14.0 for Linux x86 (64-bit) (December 12, 2023)",
+StyleDefinitions->"Default.nb",
+ExpressionUUID->"16a5aa6e-2338-4404-acec-8b8ccf556f1e"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[CellGroupData[{
+Cell[580, 22, 184, 3, 74, "Title",ExpressionUUID->"1e590107-c3ea-43c4-90d9-7826c25d6c23"],
+Cell[767, 27, 222, 6, 22, "Input",ExpressionUUID->"b7005bb1-ec0e-4335-bf5e-9967f2e3912f"],
+Cell[992, 35, 3300, 89, 51, "Input",ExpressionUUID->"32a45983-ab54-40b5-974f-f7763c52c529"],
+Cell[CellGroupData[{
+Cell[4317, 128, 877, 24, 53, "Input",ExpressionUUID->"64d01527-1b50-4360-bcb3-32ecf579f758"],
+Cell[5197, 154, 801, 20, 36, "Output",ExpressionUUID->"40b91bda-3520-40cb-92cd-7af5377147cd"]
+}, Open  ]],
+Cell[6013, 177, 660, 24, 30, "Text",ExpressionUUID->"423b2961-a5fe-4b7d-b6df-c9dee4a4bcae"]
+}, Open  ]]
+}
+]
+*)
+
