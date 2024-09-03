@@ -81,7 +81,7 @@ StyleBox[\"eigenvalues\",\nFontSlant->\"Italic\"]\).";
 Reshuffle::usage = "Reshuffle[m] applies the reshuffle transformation to the matrix m with dimension \!\(\*SuperscriptBox[\(d\), \(2\)]\)\[Times]\!\(\*SuperscriptBox[\(d\), \(2\)]\)."
 
 
-(* ::Subsection::Closed:: *)
+(* ::Subsection:: *)
 (*Bose-Hubbard*)
 
 
@@ -119,6 +119,16 @@ FockBasisIndex::usage = "FockBasisIndex[fockState, sortedTagsFockBasis] returns 
 
 
 RenyiEntropy::usage = "RenyiEntropy[\[Alpha], \[Rho]] computes the \[Alpha]-th order Renyi entropy of density matrix \[Rho].";
+
+
+(* ::Subsubsection:: *)
+(*Fuzzy measurements in bosonic systems*)
+
+
+InitializeVariables::usage = "InitializeVariables[n, L, boundaries, FMmodel] sets up the necessary variables for correct running of FuzzyMeasurement[\[Psi], \!\(\*SubscriptBox[\(p\), \(fuzzy\)]\)]; boundaries: 'open' or 'closed'; FMmodel: '#NN'.";
+
+
+FuzzyMeasurement::usage = "FuzzyMeasurement[\[Psi], \!\(\*SubscriptBox[\(p\), \(fuzzy\)]\)] gives \[ScriptCapitalF](\!\(\*TemplateBox[{\"\[Psi]\"},\n\"Ket\"]\)\!\(\*TemplateBox[{\"\[Psi]\"},\n\"Bra\"]\)) = (1 - \!\(\*SubscriptBox[\(p\), \(fuzzy\)]\))\!\(\*TemplateBox[{\"\[Psi]\"},\n\"Ket\"]\)\!\(\*TemplateBox[{\"\[Psi]\"},\n\"Bra\"]\) + \!\(\*SubscriptBox[\(p\), \(fuzzy\)]\) \!\(\*UnderscriptBox[\(\[Sum]\), \(i\)]\) \!\(\*SubscriptBox[\(S\), \(i\)]\)\!\(\*TemplateBox[{\"\[Psi]\"},\n\"Ket\"]\)\!\(\*TemplateBox[{\"\[Psi]\"},\n\"Bra\"]\)\!\(\*SubsuperscriptBox[\(S\), \(i\), \(\[Dagger]\)]\), where \!\(\*SubscriptBox[\(S\), \(i\)]\) must be initizalized runnning InitializeVariables[n, L, boundaries, FMmodel].";
 
 
 (* ::Subsection::Closed:: *)
@@ -267,7 +277,7 @@ fockState
 SortFockBasis[fockBasis_]:=Transpose[Sort[{Tag[#],#}&/@fockBasis]]
 
 
-(* ::Subsection::Closed:: *)
+(* ::Subsection:: *)
 (*Bose Hubbard*)
 
 
@@ -305,6 +315,34 @@ Tag[Nothing]:=Nothing
 
 
 (* ::Subsubsection:: *)
+(*Fuzzy measurements in bosonic systems*)
+
+
+(* Initialization function *)
+InitializeVariables[n_, L_, boundaries_, FMmodel_] := 
+ Module[{basis, SwapAppliedToBasis},
+  
+  indices = Which[
+    boundaries == "open",
+    Table[ReplacePart[Range[L], {i -> Mod[i + 1, L, 1], Mod[i + 1, L, 1] -> i}], {i, L - ToExpression[StringTake[FMmodel, 1]]}],
+    boundaries == "closed" || boundaries == "close",
+    Print["Yet to come"]
+  ];
+  
+  permutedBasisIndices = Table[
+    basis = SortFockBasis[FockBasis[n, L]][[2]];
+    SwapAppliedToBasis = #[[i]] & /@ basis;
+    Flatten[Position[basis, #] & /@ SwapAppliedToBasis],
+    {i, indices}
+  ];
+];
+
+
+FuzzyMeasurement[\[Psi]_,pFuzzy_] := 
+(1 - pFuzzy) Dyad[\[Psi]] + (pFuzzy/Length[permutedBasisIndices]) * Total[ Table[ Dyad[\[Psi][[i]]], {i,permutedBasisIndices}]]
+
+
+(* ::Subsubsection::Closed:: *)
 (*Private routines*)
 
 
