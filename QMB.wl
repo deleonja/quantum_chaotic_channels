@@ -23,7 +23,7 @@ BeginPackage["QMB`"];
 (*Usage definitions*)
 
 
-(* ::Subsection::Closed:: *)
+(* ::Subsection:: *)
 (*General quantum mechanics*)
 
 
@@ -62,6 +62,13 @@ MutuallyCommutingSetQ::usage="MutuallyCommutingSetQ[ListOfMatrices] yields True 
 Braket::usage = "Braket[a,b] gives \!\(\*TemplateBox[{RowBox[{\"a\", \" \"}], RowBox[{\" \", \"b\"}]},\n\"BraKet\"]\).";
 
 
+FixCkForStateEvoultion::usage = "FixCkForStateEvoultion[\!\(\*SubscriptBox[\(\[Psi]\), \(0\)]\), { \!\(\*TemplateBox[{SubscriptBox[\"E\", \"k\"]},\n\"Ket\"]\) }] fixes \!\(\*SubscriptBox[\(c\), \(k\)]\) = \!\(\*TemplateBox[{RowBox[{SubscriptBox[\"E\", \"k\"], \" \"}], RowBox[{\" \", SubscriptBox[\"\[Psi]\", \"0\"]}]},\n\"BraKet\"]\) for StateEvolution[]";
+
+
+StateEvolution::usage = "StateEvolution[t, \!\(\*SubscriptBox[\(\[Psi]\), \(0\)]\), {E_i}, {\!\(\*TemplateBox[{\"E_i\"},\n\"Ket\"]\)} ] returns \!\(\*TemplateBox[{RowBox[{\"\[Psi]\", RowBox[{\"(\", \"t\", \")\"}]}]},\n\"Ket\"]\) = \!\(\*SubscriptBox[\(\[Sum]\), \(\(\\ \)\(i\)\)]\) \!\(\*SuperscriptBox[\(\[ExponentialE]\), \(\(-\[ImaginaryI]\)\\  \*SubscriptBox[\(E\), \(i\)]\\  t\)]\)\!\(\*TemplateBox[{SubscriptBox[\"E\", \"i\"], RowBox[{\" \", SubscriptBox[\"\[Psi]\", \"0\"]}]},\n\"BraKet\"]\)\!\(\*TemplateBox[{SubscriptBox[\"E\", \"i\"]},\n\"Ket\"]\).
+StateEvolution[t, {\!\(\*SubscriptBox[\(E\), \(k\)]\)}] calculates \!\(\*TemplateBox[{RowBox[{\"\[Psi]\", RowBox[{\"(\", \"t\", \")\"}]}]},\"Ket\"]\) = \!\(\*SubscriptBox[\(\[Sum]\), \(\(\\\\\)\(i\)\)]\) \!\(\*SuperscriptBox[\(\[ExponentialE]\), \(\(-\[ImaginaryI]\)\\\\\*SubscriptBox[\(E\), \(i\)]\\\\t\)]\)\!\(\*TemplateBox[{SubscriptBox[\"E\", \"i\"], RowBox[{\" \", SubscriptBox[\"\[Psi]\", \"0\"]}]},\"BraKet\"]\)\!\(\*TemplateBox[{SubscriptBox[\"E\", \"i\"]},\"Ket\"]\) having fixed the \!\(\*SubscriptBox[\(c\), \(k\)]\)'s with FixCkForStateEvoultion[\!\(\*SubscriptBox[\(\[Psi]\), \(0\)]\), { \!\(\*TemplateBox[{SubscriptBox[\"E\", \"k\"]},\n\"Ket\"]\) }].";
+
+
 (* ::Subsection::Closed:: *)
 (*Quantum chaos*)
 
@@ -81,7 +88,7 @@ StyleBox[\"eigenvalues\",\nFontSlant->\"Italic\"]\).";
 Reshuffle::usage = "Reshuffle[m] applies the reshuffle transformation to the matrix m with dimension \!\(\*SuperscriptBox[\(d\), \(2\)]\)\[Times]\!\(\*SuperscriptBox[\(d\), \(2\)]\)."
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*Bose-Hubbard*)
 
 
@@ -112,16 +119,19 @@ Tag::usage = "Tag[ { \!\(\*SubscriptBox[\(k\), \(1\)]\),\!\(\*SubscriptBox[\(k\)
 FockBasisStateAsColumnVector::usage = "FockBasisStateAsColumnVector[FockState, N, L] returns matrix representation of fockState={\!\(\*SubscriptBox[\(i\), \(1\)]\),\!\(\*SubscriptBox[\(i\), \(2\)]\),\[Ellipsis],\!\(\*SubscriptBox[\(i\), \(L\)]\)}. N: bosons, L: sites.";
 
 
-StateEvolution::usage = "StateEvolution[t, \!\(\*SubscriptBox[\(\[Psi]\), \(0\)]\), {E_i}, {\!\(\*TemplateBox[{\"E_i\"},\n\"Ket\"]\)} ] returns \!\(\*TemplateBox[{RowBox[{\"\[Psi]\", RowBox[{\"(\", \"t\", \")\"}]}]},\n\"Ket\"]\) = \!\(\*SubscriptBox[\(\[Sum]\), \(\(\\\ \)\(i\)\)]\) \!\(\*SuperscriptBox[\(\[ExponentialE]\), \(\(-\[ImaginaryI]\)\\\  \*SubscriptBox[\(E\), \(i\)]\\\  t\)]\)\!\(\*TemplateBox[{SubscriptBox[\"E\", \"i\"], RowBox[{\" \", SubscriptBox[\"\[Psi]\", \"0\"]}]},\n\"BraKet\"]\)\!\(\*TemplateBox[{SubscriptBox[\"E\", \"i\"]},\n\"Ket\"]\).";
-
-
 FockBasisIndex::usage = "FockBasisIndex[fockState, sortedTagsFockBasis] returns the position of fockState in the tag-sorted Fock basis with tags sortedTagsFockBasis.";
 
 
 RenyiEntropy::usage = "RenyiEntropy[\[Alpha], \[Rho]] computes the \[Alpha]-th order Renyi entropy of density matrix \[Rho].";
 
 
-(* ::Subsubsection:: *)
+BosonicPartialTrace::usage = "BosonicPartialTrace[\[Rho]] calculates the partial trace of \[Rho]. Requires initialization.";
+
+
+InitializationBosonicPartialTrace::usage = "InitializationBosonicPartialTrace[{\!\(\*SubscriptBox[\(i\), \(1\)]\),\[Ellipsis],\!\(\*SubscriptBox[\(i\), \(k\)]\)}, N, L] initializes variables for BosonicPartialTrace[] to calculate the reduced density matrix of sites {\!\(\*SubscriptBox[\(i\), \(1\)]\),\[Ellipsis],\!\(\*SubscriptBox[\(i\), \(k\)]\)}.";
+
+
+(* ::Subsubsection::Closed:: *)
 (*Fuzzy measurements in bosonic systems*)
 
 
@@ -222,7 +232,27 @@ AllTrue[Table[CommutationQ@@ListOfMatrices[[{i,j}]],{i,SetLength-1},{j,i+1,SetLe
 Braket[a_,b_]:=Conjugate[a] . b
 
 
-(* ::Subsection:: *)
+StateEvolution[t_,psi0_List,eigenvals_List,eigenvecs_List]:=
+(*|\[Psi](t)\[RightAngleBracket] = Underscript[\[Sum], k] Subscript[c, k]\[ExponentialE]^(-Subscript[\[ImaginaryI]E, k]t)|Subscript[E, k]\[RightAngleBracket], Subscript[c, k]=\[LeftAngleBracket]Subscript[E, k]\[VerticalSeparator] Subscript[\[Psi], 0]\[RightAngleBracket]*)
+	Module[{ck},
+		ck = N[Chop[Conjugate[eigenvecs] . psi0]];
+		N[Chop[Total[ ck * Exp[-I*eigenvals*N[t]] * eigenvecs]]]
+	]
+
+
+FixCkForStateEvoultion[\[Psi]0_, eigenvecs_] :=
+	Module[{},
+		ck = N[ Chop[ Conjugate[eigenvecs] . \[Psi]0 ] ];
+		Heigenvecs = eigenvecs;
+	]
+
+
+StateEvolution[t_,eigenvals_List]:=
+(*|\[Psi](t)\[RightAngleBracket] = Underscript[\[Sum], k] Subscript[c, k]\[ExponentialE]^(-Subscript[\[ImaginaryI]E, k]t)|Subscript[E, k]\[RightAngleBracket], Subscript[c, k]=\[LeftAngleBracket]Subscript[E, k]\[VerticalSeparator] Subscript[\[Psi], 0]\[RightAngleBracket]*)
+	N[Chop[Total[ ck * Exp[-I*eigenvals*N[t]] * Heigenvecs]]]
+
+
+(* ::Subsection::Closed:: *)
 (*Quantum chaos*)
 
 
@@ -241,12 +271,6 @@ Reshuffle[m_] := ArrayFlatten[ArrayFlatten/@Partition[Partition[ArrayReshape[#,{
 
 
 FockBasisStateAsColumnVector[FockBasisState_,N_,L_]:=Normal[SparseArray[Position[SortFockBasis[Normal[FockBasis[N,L]]][[2]],FockBasisState]->1,Binomial[N+L-1,L]]]
-
-
-StateEvolution[t_,psi0_List,eigenvalues_List,eigenvectors_List]:=
-Module[{coefficients},
-coefficients=Conjugate[eigenvectors] . psi0;
-Chop[Total[coefficients*Exp[-I*eigenvalues*N[t]]*eigenvectors]]]
 
 
 (*FockBasis[N,L] computes the Fock basis for N bosons and L sites. 
@@ -279,6 +303,10 @@ SortFockBasis[fockBasis_]:=Transpose[Sort[{Tag[#],#}&/@fockBasis]]
 
 (* ::Subsection:: *)
 (*Bose Hubbard*)
+
+
+(* ::Subsubsection::Closed:: *)
+(*General*)
 
 
 (* Define messages for incorrect types *)
@@ -314,6 +342,34 @@ Tag[FockBasisElement_]:=N[Round[Sum[Sqrt[100 i+3]#[[i+1]],{i,0,Length[#]-1}]&[Fo
 Tag[Nothing]:=Nothing
 
 
+InitializationBosonicPartialTrace[SitesOfSubsystem_, n_, L_] :=
+Module[{SubsystemSize,SubsystemComplementSize,SystemFockBasisTags,SystemFockBasis,SubsystemFockBasisTags,SubsystemFockBasis,SubsystemComplementFockBasis,RulesForOrderedSystemBasis,RulesForOrderedSubsystemBasis,FockIndicesInRho,FockIndicesInReducedRho},
+SubsystemSize=Length[SitesOfSubsystem];
+SubsystemComplementSize=L-SubsystemSize;
+(*System's Fock basis*)
+{SystemFockBasisTags,SystemFockBasis}=SortFockBasis[FockBasis[n,L]];
+(*Subsystem's Fock basis*)
+{SubsystemFockBasisTags,SubsystemFockBasis}=SortFockBasis[Flatten[Table[FockBasis[k,SubsystemSize],{k,0,n}],1]];
+(*Complement subsystem's Fock basis*)
+SubsystemComplementFockBasis=Map[ReplacePart[ConstantArray[_,L],Thread[Complement[Range[L],SitesOfSubsystem]->#]]&,Flatten[Table[SortFockBasis[FockBasis[k,SubsystemComplementSize]][[2]],{k,0,n}],1]];(*<<<*)
+RulesForOrderedSystemBasis=Thread[Rule[SystemFockBasisTags,Range[HilbertSpaceDim[n,L]]]];
+SubsystemHilbertSpaceDim=Length[SubsystemFockBasis];
+RulesForOrderedSubsystemBasis=Thread[Rule[SubsystemFockBasisTags,Range[SubsystemHilbertSpaceDim]]];
+FockIndicesInRho=Map[Tuples[{#,#}]&[Extract[SystemFockBasis,Position[SystemFockBasis,#]]]&,SubsystemComplementFockBasis];(*<<<*)
+FockIndicesInReducedRho=Map[#[[All,All,SitesOfSubsystem]]&,FockIndicesInRho];(*<<<*)
+ComputationalIndicesInRho=ReplaceAll[Map[Tag,FockIndicesInRho,{3}],RulesForOrderedSystemBasis];(*<<<*)
+ComputationalIndicesInReducedRho=ReplaceAll[Map[Tag,FockIndicesInReducedRho,{3}],RulesForOrderedSubsystemBasis];(*<<<*)];
+
+
+BosonicPartialTrace[Rho_] := 
+	Module[{MatrixElementsOfRho,rules},
+	
+		MatrixElementsOfRho=Extract[Rho,#]&/@ComputationalIndicesInRho;
+		rules=MapThread[Thread[Rule[#1,#2]]&,{ComputationalIndicesInReducedRho,MatrixElementsOfRho}];
+		Total[Map[SparseArray[#,{SubsystemHilbertSpaceDim,SubsystemHilbertSpaceDim}]&,rules]]
+	]
+
+
 (* ::Subsubsection:: *)
 (*Fuzzy measurements in bosonic systems*)
 
@@ -335,11 +391,13 @@ InitializeVariables[n_, L_, boundaries_, FMmodel_] :=
     Flatten[Position[basis, #] & /@ SwapAppliedToBasis],
     {i, indices}
   ];
+  
+  numberOfPermutations = Length[permutedBasisIndices];
 ];
 
 
 FuzzyMeasurement[\[Psi]_,pFuzzy_] := 
-(1 - pFuzzy) Dyad[\[Psi]] + (pFuzzy/Length[permutedBasisIndices]) * Total[ Table[ Dyad[\[Psi][[i]]], {i,permutedBasisIndices}]]
+(1 - pFuzzy) Dyad[\[Psi]] + (pFuzzy/numberOfPermutations) * Total[ Table[ Dyad[\[Psi][[i]]], {i,permutedBasisIndices}]]
 
 
 (* ::Subsubsection::Closed:: *)
