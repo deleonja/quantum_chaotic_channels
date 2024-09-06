@@ -72,6 +72,9 @@ StateEvolution[t, {\!\(\*SubscriptBox[\(E\), \(k\)]\)}] calculates \!\(\*Templat
 BlochVector::usage = "BlochVector[\[Rho]] calculates \!\(\*SubscriptBox[\(r\), \(i\)]\) = Tr(\!\(\*SubscriptBox[\(\[Sigma]\), \(i\)]\)\[Rho]).";
 
 
+KroneckerVectorProduct::usage = "KroneckerVectorProduct[a,b] calculates \!\(\*TemplateBox[{\"a\"},\n\"Ket\"]\)\[CircleTimes]\!\(\*TemplateBox[{\"b\"},\n\"Ket\"]\).";
+
+
 (* ::Subsection::Closed:: *)
 (*Quantum chaos*)
 
@@ -261,6 +264,9 @@ StateEvolution[t_,eigenvals_List]:=
 
 
 BlochVector[\[Rho]_]:=Chop[Tr[Pauli[#] . \[Rho]]&/@Range[3]]
+
+
+KroneckerVectorProduct[a_,b_]:=Flatten[KroneckerProduct[a,b]]
 
 
 (* ::Subsection::Closed:: *)
