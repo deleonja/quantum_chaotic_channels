@@ -20,7 +20,7 @@ Module[{\[Psi]f,\[Rho]fSE(*SE final state*)},
 Transpose[
 \[Psi]f=StateEvolution[t,KroneckerVectorProduct[VectorFromKetInComputationalBasis[#],\[Psi]0E],eigVals,eigVecs]&/@{{0},{1}};
 \[Rho]fSE=Dyad[\[Psi]f[[#1]],\[Psi]f[[#2]]]&@@@Tuples[{1,2},2];
-Map[Flatten[MatrixPartialTrace[#,2,{2,2^(L-1)}]]&,\[Rho]fSE]
+Transpose[Map[Flatten[MatrixPartialTrace[#,2,{2,2^(L-1)}]]&,\[Rho]fSE]]
 ]
 ]
 
