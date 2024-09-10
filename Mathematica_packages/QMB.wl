@@ -75,6 +75,9 @@ BlochVector::usage = "BlochVector[\[Rho]] calculates \!\(\*SubscriptBox[\(r\), \
 KroneckerVectorProduct::usage = "KroneckerVectorProduct[a,b] calculates \!\(\*TemplateBox[{\"a\"},\n\"Ket\"]\)\[CircleTimes]\!\(\*TemplateBox[{\"b\"},\n\"Ket\"]\).";
 
 
+Purity::usage = "Purity[\[Rho]] calculates the purity of \[Rho].";
+
+
 (* ::Subsection::Closed:: *)
 (*Quantum chaos*)
 
@@ -188,7 +191,7 @@ Begin["`Private`"];
 ClearAll[SigmaPlusSigmaMinus,SigmaMinusSigmaPlus,SigmaPlusSigmaMinus2,SigmaMinusSigmaPlus2]
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*General quantum mechanics*)
 
 
@@ -267,6 +270,9 @@ BlochVector[\[Rho]_]:=Chop[Tr[Pauli[#] . \[Rho]]&/@Range[3]]
 
 
 KroneckerVectorProduct[a_,b_]:=Flatten[KroneckerProduct[a,b]]
+
+
+Purity[\[Rho]_]:=Tr[\[Rho] . \[Rho]] 
 
 
 (* ::Subsection::Closed:: *)
