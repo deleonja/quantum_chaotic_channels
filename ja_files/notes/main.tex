@@ -211,6 +211,117 @@ The chaometer's quantum channel $\mcE$, in general, is divisible into:
 \end{enumerate}
 Both operations do not commute. 
 
+\section{Purity of the chaometer}
+Averaged purity $\mcP$ is defined in Ref.~\cite{mirkin2021quantum} as:
+\begin{equation}\label{eq:avg:purity}
+\overline \mcP =
+\frac{1}{N}
+\sum_{i=1}^{N}
+\qty(
+\frac{1}{T}
+\int_0^T
+\Tr \qty[
+\rho_i^2(t)
+]
+)
+\end{equation}
+where: 
+\begin{itemize}
+\item $\rho_i(t)$: chaometer's density matrix.
+\item $N$: number of different random initial states of the whole chain. 
+$N=50$ in Mirkin and Wisniacki~\cite{mirkin2021quantum}.
+\item $T$: maximum time. $T=50$ in Mirkin and Wisniacki~\cite{mirkin2021quantum}.
+\end{itemize}.
+
+Also, the normalized averaged purity is defined as
+\begin{equation}\label{eq:avg:norm:purity}
+\overline P_{Norm} = 
+\frac{\overline P - \min(\overline P)}{\max(\overline P) - \min(\overline P)},
+\end{equation}
+where $\max(\overline P)$ and $\min(\overline P)$ are the minimum and maximum
+value obtained when sweeping the parameter range ($h_z$ in their case). 
+
+In~\Fref{fig:purity:one:realization} we plot one realization of the dynamics 
+of purity of the chaometer. 
+We compare in \Fref{fig:mirkin2021:fig2:modified} our results and those 
+of Mirkin and Wisniacki~\cite{mirkin2021quantum}.
+
+\section{Purity of Choi matrix}
+We investigate the purity of Choi matrix of the quantum channel $\mcE(t)$ of 
+the chaometer in \Fref{fig:choi:purity}.
+
+\begin{equation}
+\Tr{[ \mcE^R(t)/2]^2}
+\end{equation}
+
+\janote{Comentar el problema de la normalización de Mirkin y Wisniacki y que parece
+que se resuelve aquí}
+
+\section{Non complete positiveness of $\Lambda(t, s)$}
+Any quantum channel $\mcE(t)$ can composed as 
+\begin{equation}\label{eq:Lambda}
+\mcE(t) = 
+\Lambda(t,s) \circ \mcE(s, 0),
+\end{equation}
+nonetheless, $\Lambda(t,s)$ is not in general completely positive. A way to 
+quantify how far is $\Lambda(t,s)$ from being completely positive is through 
+$\tilde \lambda$:
+\begin{equation}\label{eq:lambda:tilde}
+\tilde \lambda = 
+\abs{\min(0, \lambda_{\text{smallest}})},
+\end{equation}
+where $\lambda_{\text{smallest}}$ is the smallest eigenvalue of 
+$\Lambda^R(t,s)/2$. We have added the factor $1/2$ just so 
+$\Tr[\Lambda^R(t,s)/2]~=~1$.
+
+Let us fix $s=0.1$ and investigate the complete positiviness of 
+$\Lambda(t, s)$, see \Fref{fig:lambda:tilde:choi}.
+
+\begin{figure}
+\centering
+\includegraphics[width=.6\textwidth]{purity_one_realization.pdf}
+\caption{Dynamics of chaometer's purity of a single realization 
+with the same initial state of the environment of the first chaometer's 
+quantum channel of the videos.}
+\label{fig:purity:one:realization}
+\end{figure}
+
+\begin{figure}
+\centering
+\includegraphics[width=0.9\linewidth]{mirkin2021_fig2_modified.pdf}
+\caption{Averaged $\overline P$ and averaged normalized purities 
+$\overline P_{Norm}$ [c.f. eqs.~\eqref{eq:avg:purity} and~\eqref{eq:avg:norm:purity}.] for $N=50$ random initial states of 
+the chaometer for each quantum channel showed in the videos.
+\janote{Tendría más sentido sacar la pureza del canal. Lo pienso}
+Taken and modified from Ref.~\cite{mirkin2021quantum}.}
+\label{fig:mirkin2021:fig2:modified}
+\end{figure}
+
+\begin{figure}
+\centering
+\includegraphics[width=\textwidth]{choi_purity.pdf}
+\caption{Purity of Choi matrix in (a) regular ($h_z=2.5$) and (b) chaotic ($h_z=0.5$) for the three random initial states showed in the video.}
+\label{fig:choi:purity}
+\end{figure}
+
+\begin{figure}
+\centering
+\includegraphics[width=\textwidth]{lambda_tilde_choi.pdf}
+\caption{Most negative eigenvalue $\tilde \lambda$ of map $\Lambda(t,s)/2$, 
+with $s=0.1$ [c.f. eqs.~\eqref{eq:Lambda}~and~\eqref{eq:lambda:tilde}].}
+\label{fig:lambda:tilde:choi}
+\end{figure}
+
+\begin{figure}
+\centering
+\includegraphics[width=\textwidth]{burst.pdf}
+\caption{Burst of the Bloch sphere at $t=0.5$ s.}
+\label{fig:burst}
+\end{figure}
+
+
+
+
 \bibliographystyle{unsrt}
 \bibliography{references.bib}
 
