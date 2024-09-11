@@ -1,5 +1,10 @@
+## Preguntas
+- Investigar la U de un depolarizing
+- Ver subsistemas de más de un espín
+- Ver pureza de Choi para un Hamiltoniano GOE
+
 ## Agenda 10.09.24
-- [ ] JA muestra cómo agregar funciones a los paquetes
+- [X] JA muestra cómo agregar funciones a los paquetes
 
 ## Tareas JA
 - [ ] Ver la SFF de la U efectiva (dilatación de Stinespring)
