@@ -2,6 +2,7 @@
 - Investigar la U de un depolarizing
 - Ver subsistemas de más de un espín
 - Ver pureza de Choi para un Hamiltoniano GOE
+- Barrer h_z
 
 ## Agenda 10.09.24
 - [X] JA muestra cómo agregar funciones a los paquetes
