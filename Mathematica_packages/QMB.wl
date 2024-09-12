@@ -23,7 +23,7 @@ BeginPackage["QMB`"];
 (*Usage definitions*)
 
 
-(* ::Subsection::Closed:: *)
+(* ::Subsection:: *)
 (*General quantum mechanics*)
 
 
@@ -76,6 +76,12 @@ KroneckerVectorProduct::usage = "KroneckerVectorProduct[a,b] calculates \!\(\*Te
 
 
 Purity::usage = "Purity[\[Rho]] calculates the purity of \[Rho].";
+
+
+qubit::usage = "Generates a state with the parametrization of the Bloch sphere (\[Theta],\[Phi])"
+
+
+coherentstate::usage = "coherentstate[state,L] Generates a spin coherent state of L spins given a general single qubit state"
 
 
 (* ::Subsection::Closed:: *)
@@ -140,7 +146,7 @@ BosonicPartialTrace::usage = "BosonicPartialTrace[\[Rho]] calculates the partial
 InitializationBosonicPartialTrace::usage = "InitializationBosonicPartialTrace[{\!\(\*SubscriptBox[\(i\), \(1\)]\),\[Ellipsis],\!\(\*SubscriptBox[\(i\), \(k\)]\)}, N, L] initializes variables for BosonicPartialTrace[] to calculate the reduced density matrix of sites {\!\(\*SubscriptBox[\(i\), \(1\)]\),\[Ellipsis],\!\(\*SubscriptBox[\(i\), \(k\)]\)}.";
 
 
-(* ::Subsubsection::Closed:: *)
+(* ::Subsubsection:: *)
 (*Fuzzy measurements in bosonic systems*)
 
 
@@ -157,7 +163,7 @@ FuzzyMeasurement::usage = "FuzzyMeasurement[\[Psi], \!\(\*SubscriptBox[\(p\), \(
 SpinParityEigenvectors::usage = "SpinParityEigenvectors[L] gives a list of {even, odd} eigenvectors of the L-spin system parity operator P; P\!\(\*TemplateBox[{RowBox[{SubscriptBox[\"k\", \"1\"], \",\", \"\[Ellipsis]\", \",\", SubscriptBox[\"k\", \"L\"]}]},\n\"Ket\"]\) = \!\(\*TemplateBox[{RowBox[{SubscriptBox[\"k\", \"L\"], \",\", \"\[Ellipsis]\", \",\", SubscriptBox[\"k\", \"1\"]}]},\n\"Ket\"]\), \!\(\*SubscriptBox[\(k\), \(i\)]\)=0,1.";
 
 
-(* ::Subsubsection::Closed:: *)
+(* ::Subsubsection:: *)
 (*Ising-like models*)
 
 
@@ -191,7 +197,7 @@ Begin["`Private`"];
 ClearAll[SigmaPlusSigmaMinus,SigmaMinusSigmaPlus,SigmaPlusSigmaMinus2,SigmaMinusSigmaPlus2]
 
 
-(* ::Subsection::Closed:: *)
+(* ::Subsection:: *)
 (*General quantum mechanics*)
 
 
@@ -275,6 +281,12 @@ KroneckerVectorProduct[a_,b_]:=Flatten[KroneckerProduct[a,b]]
 Purity[\[Rho]_]:=Tr[\[Rho] . \[Rho]] 
 
 
+qubit[\[Theta]_,\[Phi]_]:=FullSimplify[Normalize[{Cos[\[Theta]/2],Exp[I \[Phi]]Sin[\[Theta]/2]}]]
+
+
+coherentstate[state_,L_]:=Flatten[KroneckerProduct@@Table[state,L]]
+
+
 (* ::Subsection::Closed:: *)
 (*Quantum chaos*)
 
@@ -328,7 +340,7 @@ SortFockBasis[fockBasis_]:=Transpose[Sort[{Tag[#],#}&/@fockBasis]]
 (*Bose Hubbard*)
 
 
-(* ::Subsubsection::Closed:: *)
+(* ::Subsubsection:: *)
 (*General*)
 
 
@@ -393,7 +405,7 @@ BosonicPartialTrace[Rho_] :=
 	]
 
 
-(* ::Subsubsection::Closed:: *)
+(* ::Subsubsection:: *)
 (*Fuzzy measurements in bosonic systems*)
 
 
@@ -423,7 +435,7 @@ FuzzyMeasurement[\[Psi]_,pFuzzy_] :=
 (1 - pFuzzy) Dyad[\[Psi]] + (pFuzzy/numberOfPermutations) * Total[ Table[ Dyad[\[Psi][[i]]], {i,permutedBasisIndices}]]
 
 
-(* ::Subsubsection::Closed:: *)
+(* ::Subsubsection:: *)
 (*Private routines*)
 
 
@@ -539,7 +551,7 @@ Normalize[SparseArray[{FromDigits[#,2]+1->-1.,FromDigits[Reverse[#],2]+1->1.},2^
 ]
 
 
-(* ::Subsubsection::Closed:: *)
+(* ::Subsubsection:: *)
 (*Ising spin chain models*)
 
 
@@ -587,7 +599,7 @@ FuzzyMeasurementChannel[\[Rho]_, pErrors_List, SwapMatrices_] := Module[
 ]
 
 
-(* ::Subsubsection::Closed:: *)
+(* ::Subsubsection:: *)
 (*Private functions*)
 
 
