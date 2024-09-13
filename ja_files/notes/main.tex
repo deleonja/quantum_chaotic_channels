@@ -7,10 +7,8 @@
 \usepackage{amsfonts}
 \usepackage{amssymb}
 \usepackage{physics}
-\usepackage{bbm}
 
-\usepackage{graphicx}
-\graphicspath{{../figs/}}
+\usepackage{graphicx}\graphicspath{{../figs/}}
 
 \usepackage[dvipsnames]{xcolor}
 
@@ -32,12 +30,13 @@ linkcolor=blue,
 filecolor=blue,      
 citecolor=blue,
 urlcolor=blue,
-pdftitle={},
+pdftitle={Notes quantum chaos meets quantum channels},
 pdfauthor=author={Jose Alfredo de Leon},
 }
 
 \usepackage{tikz}
 
+%number lines, show labels, and comments{
 \usepackage[mathlines]{lineno}  \linenumbers \setlength\linenumbersep{5pt}
 \usepackage[inline]{showlabels,rotating}
 \renewcommand{\showlabelrefline}{\hrule width 0pt height 3ex depth 0pt}
@@ -45,25 +44,28 @@ pdfauthor=author={Jose Alfredo de Leon},
 \usepackage[draft,inline,nomargin]{fixme} \fxsetup{theme=color}
 \definecolor{jacolor}{RGB}{200,40,0} \FXRegisterAuthor{ja}{aja}{\color{jacolor}JA}
 \FXRegisterAuthor{cp}{acp}{\color{blue}CP}
-\FXRegisterAuthor{cd}{acd}{\color{purple}CD}
+%}
 
 \decimalpoint
-
-\newcommand{\one}{\mathbbm{1}}
-
-\title{Quantum chaos meets quantum channels}
-\author{}
-\date{\today}
 
 \renewcommand{\labelenumii}{\arabic{enumi}.\arabic{enumii}}
 \renewcommand{\labelenumiii}{\arabic{enumi}.\arabic{enumii}.\arabic{enumiii}}
 \renewcommand{\labelenumiv}{\arabic{enumi}.\arabic{enumii}.\arabic{enumiii}.\arabic{enumiv}}
 
-% --------------------------------------------------------------------------------------------------
-% Comamands for this document
+%comandos para este Tex{
+\usepackage{bbm}\newcommand{\one}{\mathbbm{1}}
 \newcommand{\mcE}{\mathcal E}
 \newcommand{\mcP}{\mathcal P}
-% --------------------------------------------------------------------------------------------------
+\newcommand{\mcD}{\mathcal D}
+\newcommand{\mcH}{\mathcal H}
+\newcommand{\jami}{Jamiołkowski}
+%}
+
+%title, author, date{
+\title{Quantum chaos meets quantum channels}
+\author{}
+\date{\today}
+%}
 
 \begin{document}
 \maketitle
@@ -134,7 +136,6 @@ h_z \sigma_i^z
 \sum_{i=1}^{L-1}
 J_z \sigma_{i}^z \sigma_{i+1}^z.
 \end{equation}
-
 \section{Mean level spacing ratio}
 The level spacing ratio $\tilde r_n$ is defined as:
 \begin{equation}\label{eq:level:spacing:ratio}
@@ -192,7 +193,7 @@ spectrum.}
 
 \section{Chaometer's quantum channel}
 The reduced dyanmics of the chaometer is described by the quantum channel: 
-\begin{equation}
+\begin{equation}\label{eq:chaometer:channel}
 \mcE(\rho) = 
 \Tr_E \qty(
 e^{-i H t}
@@ -248,16 +249,127 @@ of purity of the chaometer.
 We compare in \Fref{fig:mirkin2021:fig2:modified} our results and those 
 of Mirkin and Wisniacki~\cite{mirkin2021quantum}.
 
-\section{Purity of Choi matrix}
-We investigate the purity of Choi matrix of the quantum channel $\mcE(t)$ of 
-the chaometer in \Fref{fig:choi:purity}.
+\section{Purity of Choi-\jami{} matrix}
+We investigate the purity of Choi-\jami{} matrix of quantum channel $\mcE(t)$ 
+of the chaometer [c.f.~\eref{eq:chaometer:channel}] in \Fref{fig:choi:purity}.
+\begin{figure}
+\centering
+\includegraphics[width=\textwidth]{choi_purity.pdf}
+\caption{Purity of Choi-\jami{} matrix in (a) regular ($h_z=2.5$) and (b) chaotic ($h_z=0.5$) for the three random initial states showed in the video.}
+\label{fig:choi:purity}
+\end{figure}
 
-\begin{equation}
-\Tr{[ \mcE^R(t)/2]^2}
-\end{equation}
+To compute the Choi-\jami{} matrix $\mcD(t)$ of the chaometer's quantum channel 
+in~\eref{eq:chaometer:channel} we use the definition 
+$\qty(\mcE \otimes \one) \qty[\dyad{\phi^+}]$, with $\ket{\phi^+}=1/\sqrt{2}\qty(\ket{0,0} + \ket{1,1})$
+is the maximally entangled state between two spins, and obtain
+\begin{align}\label{eq:choi:chaometer}
+\mcD(t) &= 
+\frac{1}{2}
+\sum_{i,j,p,q}
+\bra{j, \psi_{0E}} U^\dagger(t) \qty( \dyad{p}{q}\otimes \one_E ) U(t)
+\ket{i, \psi_{0E}} \dyad{q,i}{p,j}.
+\end{align}
 
-\janote{Comentar el problema de la normalización de Mirkin y Wisniacki y que parece
-que se resuelve aquí}
+Let us write $\mcE(\rho)$ in computational basis. From \eref{eq:chaometer:channel}
+we write
+\begin{align}
+%{
+\mcE(\rho) &= 
+\sum_{k,l} 
+e^{-i (E_k - E_l)t}
+\bra{E_k}  \qty(\rho \otimes \dyad{\psi_{E}}) \ket{E_l} \Tr_E \qty(\dyad{E_k}{E_l})\\
+%}
+%{
+&= 
+\sum_{k,l, p, p', \vec q, \vec q'}
+e^{-i (E_k - E_l)t}
+\bra{E_k} 
+\qty(\rho \otimes \dyad{\psi_{E}}) 
+\ket{E_l} 
+\Tr_E \qty( \ket{p,\vec q} \braket{p,\vec q}{E_k} 
+\braket{E_l}{p', \vec q'} \bra{p', \vec q'}), \\
+%}
+\intertext{where $\vec q$ and $\vec q'$ are indices of elements of the 
+basis of the environment,}
+%{
+&= 
+\sum_{p, p', \vec q}
+\bra{p, \vec q}
+U(t) \qty(\rho \otimes \dyad{\psi_{E}}) U^\dagger(t)
+\ket{p', \vec q}
+\dyad{p}{p'} \\
+%}
+%{
+&= \label{eq:chaometer:channel:2}
+\sum_{p, p'}
+\bra{p}
+\Tr_E[U(t) \qty(\rho \otimes \dyad{\psi_{E}}) U^\dagger(t) ]
+\ket{p'}
+\dyad{p}{p'}.
+%}
+\end{align}
+
+To compute the Choi-\jami{} matrix $\mcD(t)$ of the chaometer's quantum channel 
+in~\eref{eq:chaometer:channel} we use the definition 
+$\qty(\mcE \otimes \one) \qty[\dyad{\phi^+}]$, with $\ket{\phi^+}=1/\sqrt{2}\qty(\ket{0,0} + \ket{1,1})$
+is the maximally entangled state between two spins, and \eref{eq:chaometer:channel:2} to obtain
+\begin{align}
+%{
+\mcD(t) &=  
+\frac{1}{2} 
+\sum_{i, j, p, p', \vec q}
+\bra{p, \vec q}
+U(t) \qty(\dyad{i,\psi_{E}}{j,\psi_{E}}) U^\dagger(t)
+\ket{p', \vec q}
+\dyad{p,i}{p',j} \\
+%}
+%{
+&= \label{eq:choi:chaometer:computational:basis}
+\frac{1}{2}
+\sum_{i, j, p, p'}
+\bra{j, \psi_{0E}} U^\dagger(t) \qty( \dyad{p'}{p}\otimes \one_E ) U(t)
+\ket{i, \psi_{0E}} \dyad{p, i}{p', j},
+%}
+\end{align}
+where we have only reordered the factors and used the resolution of identity over 
+$\mcH_E$.
+
+We compute the purity of $\mcD(t)$. From \eref{eq:choi:chaometer} 
+it is straightforward to obtain
+\begin{align}\label{eq:choi:chaometer:purity:1}
+\Tr[\mcD^2(t)]  &= 
+\frac{1}{4}
+\sum_{i,j,p,q}
+\abs{\matrixel{i, \psi_{0E}}
+{U^\dagger(t) \big(\dyad{p}{q} \otimes \one_E\big) U(t)}
+{j, \psi_{0E}}
+}^2.
+\end{align}
+Moreover, reordering this expression an interesting interpretation of the purity 
+of the Choi-\jami{} matrix is revealed. Let us conveniently rewrite
+\eref{eq:choi:chaometer:purity:1} as
+\begin{align}\label{eq:choi:chaometer:purity:2}
+\Tr[\mcD^2(t)]  &= 
+\sum_i
+\bra{i, \psi_{0E}}
+U^\dagger(t) 
+\sum_{p, q} \qty[
+\qty(\frac{\dyad{p}{q}}{\sqrt{2}} \otimes \one_E ) 
+U(t)
+\qty( \frac{\one_S}{2} \otimes \dyad{\psi_{0E}})
+U^\dagger(t) 
+\qty(\frac{\dyad{q}{p}}{\sqrt{2}} \otimes \one_E ) 
+]
+U(t)
+\ket{i, \psi_{0E}}.
+\end{align}
+In other words, the purity of $\mcD(t)$ represents the probability that the 
+environment remains in its initial state after the following process: First, the system
+and environment are initialized in a product state, with the system in a maximally
+mixed state. Next, the combined system evolves. Then, a completely depolarizing
+channel is applied to the system. Finally, the system and environment undergo 
+reverse evolution.
 
 \section{Non complete positiveness of $\Lambda(t, s)$}
 Any quantum channel $\mcE(t)$ can composed as 
@@ -277,7 +389,7 @@ $\Lambda^R(t,s)/2$. We have added the factor $1/2$ just so
 $\Tr[\Lambda^R(t,s)/2]~=~1$.
 
 Let us fix $s=0.1$ and investigate the complete positiviness of 
-$\Lambda(t, s)$, see \Fref{fig:lambda:tilde:choi}.
+$\Lambda(t, s)$, see \Fref{fig:lambda:tilde:Choi-\jami{}}.
 
 \begin{figure}
 \centering
@@ -301,17 +413,10 @@ Taken and modified from Ref.~\cite{mirkin2021quantum}.}
 
 \begin{figure}
 \centering
-\includegraphics[width=\textwidth]{choi_purity.pdf}
-\caption{Purity of Choi matrix in (a) regular ($h_z=2.5$) and (b) chaotic ($h_z=0.5$) for the three random initial states showed in the video.}
-\label{fig:choi:purity}
-\end{figure}
-
-\begin{figure}
-\centering
 \includegraphics[width=\textwidth]{lambda_tilde_choi.pdf}
 \caption{Most negative eigenvalue $\tilde \lambda$ of map $\Lambda(t,s)/2$, 
 with $s=0.1$ [c.f. eqs.~\eqref{eq:Lambda}~and~\eqref{eq:lambda:tilde}].}
-\label{fig:lambda:tilde:choi}
+\label{fig:lambda:tilde:Choi-\jami{}}
 \end{figure}
 
 \begin{figure}
@@ -321,10 +426,9 @@ with $s=0.1$ [c.f. eqs.~\eqref{eq:Lambda}~and~\eqref{eq:lambda:tilde}].}
 \label{fig:burst}
 \end{figure}
 
-
-
-
+%bibliography{{{
 \bibliographystyle{unsrt}
 \bibliography{references.bib}
+%}}}
 
 \end{document}
