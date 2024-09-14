@@ -252,6 +252,25 @@ of Mirkin and Wisniacki~\cite{mirkin2021quantum}.
 \section{Purity of Choi-\jami{} matrix}
 We investigate the purity of Choi-\jami{} matrix of quantum channel $\mcE(t)$ 
 of the chaometer [c.f.~\eref{eq:chaometer:channel}] in \Fref{fig:choi:purity}.
+
+\begin{figure}
+\centering
+\includegraphics[width=.6\textwidth]{purity_one_realization.pdf}
+\caption{Dynamics of chaometer's purity of a single realization 
+with the same initial state of the environment of the first chaometer's 
+quantum channel of the videos.}
+\label{fig:purity:one:realization}
+\end{figure}
+\begin{figure}
+\centering
+\includegraphics[width=0.9\linewidth]{mirkin2021_fig2_modified.pdf}
+\caption{Averaged $\overline P$ and averaged normalized purities 
+$\overline P_{Norm}$ [c.f. eqs.~\eqref{eq:avg:purity} and~\eqref{eq:avg:norm:purity}.] for $N=50$ random initial states of 
+the chaometer for each quantum channel showed in the videos.
+\janote{Tendría más sentido sacar la pureza del canal. Lo pienso}
+Taken and modified from Ref.~\cite{mirkin2021quantum}.}
+\label{fig:mirkin2021:fig2:modified}
+\end{figure}
 \begin{figure}
 \centering
 \includegraphics[width=\textwidth]{choi_purity.pdf}
@@ -393,26 +412,6 @@ $\Lambda(t, s)$, see \Fref{fig:lambda:tilde:Choi-\jami{}}.
 
 \begin{figure}
 \centering
-\includegraphics[width=.6\textwidth]{purity_one_realization.pdf}
-\caption{Dynamics of chaometer's purity of a single realization 
-with the same initial state of the environment of the first chaometer's 
-quantum channel of the videos.}
-\label{fig:purity:one:realization}
-\end{figure}
-
-\begin{figure}
-\centering
-\includegraphics[width=0.9\linewidth]{mirkin2021_fig2_modified.pdf}
-\caption{Averaged $\overline P$ and averaged normalized purities 
-$\overline P_{Norm}$ [c.f. eqs.~\eqref{eq:avg:purity} and~\eqref{eq:avg:norm:purity}.] for $N=50$ random initial states of 
-the chaometer for each quantum channel showed in the videos.
-\janote{Tendría más sentido sacar la pureza del canal. Lo pienso}
-Taken and modified from Ref.~\cite{mirkin2021quantum}.}
-\label{fig:mirkin2021:fig2:modified}
-\end{figure}
-
-\begin{figure}
-\centering
 \includegraphics[width=\textwidth]{lambda_tilde_choi.pdf}
 \caption{Most negative eigenvalue $\tilde \lambda$ of map $\Lambda(t,s)/2$, 
 with $s=0.1$ [c.f. eqs.~\eqref{eq:Lambda}~and~\eqref{eq:lambda:tilde}].}
@@ -425,6 +424,26 @@ with $s=0.1$ [c.f. eqs.~\eqref{eq:Lambda}~and~\eqref{eq:lambda:tilde}].}
 \caption{Burst of the Bloch sphere at $t=0.5$ s.}
 \label{fig:burst}
 \end{figure}
+
+\section{Purity of Choi-\jami{} matrix of a U from COE}
+
+\begin{figure}
+\centering
+\includegraphics[width=0.7\textwidth]{choi_purity_goe_L_3_to_9.pdf}
+\caption{
+\janote{La pureza de la matriz de Choi de una matriz U de COE se comporta así
+variando el número de espines $L$ desde 3 hasta 9. Parece que para $L$ muy grande
+el límite asintótico tiende a 0.25, Se podrá probar analíticamente? }}
+\end{figure}
+\begin{figure}
+\centering
+\includegraphics[width=0.7\linewidth]{choi_purity_goe_asymptotic_vs_L.pdf}
+\caption{
+\janote{$\Tr[\mcD^2_\infty]$ vs $L$. Creo que se podría conseguir un mejor ajusto
+teniendo estadística para cada punto.}
+}
+\end{figure}
+
 
 %bibliography{{{
 \bibliographystyle{unsrt}
