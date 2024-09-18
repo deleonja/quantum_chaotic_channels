@@ -370,8 +370,8 @@ of the Choi-\jami{} matrix is revealed. Let us conveniently rewrite
 \eref{eq:choi:chaometer:purity:1} as
 \begin{align}\label{eq:choi:chaometer:purity:2}
 \Tr[\mcD^2(t)]  &= 
-\sum_i
-\bra{i, \psi_{0E}}
+\bra{\psi_{0E}}
+\Tr_S\{
 U^\dagger(t) 
 \sum_{p, q} \qty[
 \qty(\frac{\dyad{p}{q}}{\sqrt{2}} \otimes \one_E ) 
@@ -380,15 +380,22 @@ U(t)
 U^\dagger(t) 
 \qty(\frac{\dyad{q}{p}}{\sqrt{2}} \otimes \one_E ) 
 ]
-U(t)
-\ket{i, \psi_{0E}}.
+U(t)\}
+\ket{\psi_{0E}}.
 \end{align}
+\janote{esta es una especie de echo de Loschmidt!!!}
 In other words, the purity of $\mcD(t)$ represents the probability that the 
 environment remains in its initial state after the following process: First, the system
 and environment are initialized in a product state, with the system in a maximally
 mixed state. Next, the combined system evolves. Then, a completely depolarizing
 channel is applied to the system. Finally, the system and environment undergo 
 reverse evolution.
+
+The Loschmidt echo is defined as
+\begin{equation}\label{eq:loschmidt:echo}
+M(t) = 
+\abs{\expval{e^{-i H_2 t/\hbar}e^{-i H_1 t/\hbar}}{\psi_0}}^2
+\end{equation}
 
 \section{Non complete positiveness of $\Lambda(t, s)$}
 Any quantum channel $\mcE(t)$ can composed as 
