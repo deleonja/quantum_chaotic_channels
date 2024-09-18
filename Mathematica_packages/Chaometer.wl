@@ -9,6 +9,11 @@ Superoperator::usage = "Superoperator[t, EnvironentInitialState, eigenvaluesH, e
 QubitChannelSuperoperator::usage = "QubitChannelSuperoperator[\[Eta],\[Kappa]] calculates the superoperator of single-qubit quantum channel transforming the Bloch sphere as \!\(\*OverscriptBox[\(r\), \(\[RightVector]\)]\) \[RightTeeArrow] \!\(\*OverscriptBox[\(\[Eta]\), \(\[RightVector]\)]\) . \!\(\*OverscriptBox[\(r\), \(\[RightVector]\)]\) + \!\(\*OverscriptBox[\(\[Kappa]\), \(\[RightVector]\)]\).";
 
 
+KrausOperatorsFromSuperoperator::usage = "KrausOperatorsFromSuperoperator[\!\(\*
+StyleBox[\"superoperator\",\nFontSlant->\"Italic\"]\)] calculates the Kraus operators of \!\(\*
+StyleBox[\"superoperator\",\nFontSlant->\"Italic\"]\).";
+
+
 Begin["`Private`"];
 
 
@@ -24,6 +29,9 @@ Superoperator[t_,\[Psi]0E_,eigVals_,eigVecs_,L_]:=
 
 
 QubitChannelSuperoperator[\[Eta]_,\[Kappa]_]:=1/2*Reshuffle[{{1+\[Eta][[3]]+\[Kappa][[3]],0,\[Kappa][[1]]-I \[Kappa][[2]],\[Eta][[1]]+\[Eta][[2]]},{0,1-\[Eta][[3]]+\[Kappa][[3]],\[Eta][[1]]-\[Eta][[2]],\[Kappa][[1]]+I \[Kappa][[2]]},{\[Kappa][[1]]-I \[Kappa][[2]],\[Eta][[1]]-\[Eta][[2]],1-\[Eta][[3]]-\[Kappa][[3]],0},{\[Eta][[1]]+\[Eta][[2]],\[Kappa][[1]]-I \[Kappa][[2]],0,1+\[Eta][[3]]-\[Kappa][[3]]}}]
+
+
+KrausOperatorsFromSuperoperator[superoperator_]:=ArrayReshape[Times[Sqrt[#1],#2]&@@Eigensystem[1/2Reshuffle[superoperator]],{4,2,2}]
 
 
 End[];
