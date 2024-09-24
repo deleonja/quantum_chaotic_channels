@@ -1,0 +1,77 @@
+% !TEX root = main.tex
+\section{Choi}
+\begin{align}
+%{
+\label{eq:appendix:A:1}
+\Tr[\mcD^2(t)] &= 
+\frac{1}{4}
+\qty(
+\sum_{i,j,p}
+\abs{\matrixel{i, \psi_{0E}}
+{U^\dagger(t) \big(\dyad{p} \otimes \one_E\big) U(t)}
+{j, \psi_{0E}}
+}^2 +
+\sum_{i,j,p\ne q}
+\abs{\matrixel{i, \psi_{0E}}
+{U^\dagger(t) \big(\dyad{p}{q} \otimes \one_E\big) U(t)}
+{j, \psi_{0E}}
+}^2
+) \\
+%}
+%{
+\label{eq:appendix:A:2}
+&= 
+\frac{1}{4}
+\Bigg(
+\sum_{i,j}
+\abs{\matrixel{i, \psi_{0E}}
+{U^\dagger(t) \big(\one_S \otimes \one_E\big) U(t)}
+{j, \psi_{0E}}
+}^2 
+\nonumber \\
+&\hspace*{10mm}
+- 2 \sum_{i,j}
+\Re(
+\matrixel{i, \psi_{0E}}
+{U^\dagger(t) \big(\dyad{0}{0} \otimes \one_E\big) U(t)}
+{j, \psi_{0E}}
+\matrixel{j, \psi_{0E}}
+{U^\dagger(t) \big(\dyad{1}{1} \otimes \one_E\big) U(t)}
+{i, \psi_{0E}}
+)
+\nonumber \\
+& \hspace*{10mm}
++ \sum_{i,j,p\ne q}
+\abs{\matrixel{i, \psi_{0E}}
+{U^\dagger(t) \big(\dyad{p}{q} \otimes \one_E\big) U(t)}
+{j, \psi_{0E}}
+}^2
+\Bigg) \\
+%}
+%{
+&= 
+\frac{1}{2} 
+\Bigg(
+1 - 
+\sum_{i,j}
+\Big( \Re(
+\matrixel{i, \psi_{0E}}
+{U^\dagger(t) \big(\dyad{0}{0} \otimes \one_E\big) U(t)}
+{j, \psi_{0E}}
+\matrixel{j, \psi_{0E}}
+{U^\dagger(t) \big(\dyad{1}{1} \otimes \one_E\big) U(t)}
+{i, \psi_{0E}}
+)
+\nonumber \\
+& \hspace*{10mm}
++
+\abs{\matrixel{i, \psi_{0E}}
+{U^\dagger(t) \big(\dyad{0}{1} \otimes \one_E\big) U(t)}
+{j, \psi_{0E}}
+}^2
+\Big)
+\Bigg)
+%}
+\end{align}
+
+\janote{cuando la $U$ es separable el segundo término creo que es cero}
