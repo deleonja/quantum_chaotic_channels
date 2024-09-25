@@ -1,3 +1,6 @@
+## Carpeta google Drive para PDFs
+[https://drive.google.com/drive/folders/1tVKmk2BN779Zl4QcUDgjItkdAP4243sv?usp=drive_link](https://drive.google.com/drive/folders/1tVKmk2BN779Zl4QcUDgjItkdAP4243sv?usp=drive_link)
+
 ## Preguntas
 - Investigar la U de un depolarizing
 - Ver subsistemas de más de un espín
