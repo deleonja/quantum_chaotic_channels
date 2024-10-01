@@ -1,4 +1,5 @@
 % !TEX root = main.tex
+% !TeX spellcheck = en_US
 
 %\section{Ideas}
 %The evolution of the chaometer qubit can be understood as a quantum channel:
@@ -178,11 +179,6 @@ In~\Fref{fig:purity:one:realization} we plot one realization of the dynamics
 of purity of the chaometer. 
 We compare in \Fref{fig:mirkin2021:fig2:modified} our results and those 
 of Mirkin and Wisniacki~\cite{mirkin2021quantum}.
-% }
-
-\subsection{Purity of Choi-\jami{} matrix}% {
-We investigate the purity of Choi-\jami{} matrix of quantum channel $\mcE(t)$ 
-of the chaometer [c.f.~\eref{eq:chaometer:channel}] in \Fref{fig:choi:purity}.
 
 \begin{figure}
 \centering
@@ -192,6 +188,7 @@ with the same initial state of the environment of the first chaometer's
 quantum channel of the videos.}
 \label{fig:purity:one:realization}
 \end{figure}
+
 \begin{figure}
 \centering
 \includegraphics[width=0.9\linewidth]{mirkin2021_fig2_modified.pdf}
@@ -202,12 +199,27 @@ the chaometer for each quantum channel showed in the videos.
 Taken and modified from Ref.~\cite{mirkin2021quantum}.}
 \label{fig:mirkin2021:fig2:modified}
 \end{figure}
+% }
+
+\subsection{Purity of Choi-\jami{} matrix}% {
+We investigate the purity of Choi-\jami{} matrix of quantum channel $\mcE(t)$ 
+of the chaometer [c.f.~\eref{eq:chaometer:channel}] in \Fref{fig:choi:purity}.
+
 \begin{figure}
 \centering
 \includegraphics[width=\textwidth]{choi_purity.pdf}
 \caption{Purity of Choi-\jami{} matrix in (a) regular ($h_z=2.5$) and (b) chaotic ($h_z=0.5$) for the three random initial states showed in the video.}
 \label{fig:choi:purity}
 \end{figure}
+
+\begin{figure}
+\centering
+\includegraphics[width=\linewidth]{choi/purity_dynamics/purity_dynamics.pdf}
+\caption{Dynamics of purity of the Choi-\jami{} matrix for various 
+lengths $L$ of the spin chain.}
+\label{fig:choi:purity:dynamics}
+\end{figure}
+
 
 To compute the Choi-\jami{} matrix $\mcD(t)$ of the chaometer's quantum channel 
 in~\eref{eq:chaometer:channel} we use the definition 

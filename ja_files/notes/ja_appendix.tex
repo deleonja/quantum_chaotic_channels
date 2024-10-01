@@ -71,9 +71,32 @@
 {j, \psi_{0E}}
 }^2
 \Big)
+\Bigg) \\
+%}
+%{
+\label{eq:appendix:A:4}
+&= 
+\frac{1}{2} 
+\Bigg(
+1 - 
+\sum_{i,j}
+\Big(
+\matrixel{i, \psi_{0E}}
+{U^\dagger(t) \big(\dyad{0}{0} \otimes \one_E\big) U(t)}
+{j, \psi_{0E}}
+\matrixel{j, \psi_{0E}}
+{U^\dagger(t) \big(\dyad{1}{1} \otimes \one_E\big) U(t)}
+{i, \psi_{0E}}
+\nonumber \\
+& \hspace*{10mm}
++
+\abs{\matrixel{i, \psi_{0E}}
+{U^\dagger(t) \big(\dyad{0}{1} \otimes \one_E\big) U(t)}
+{j, \psi_{0E}}
+}^2
+\Big)
 \Bigg)
 %}
 \end{align}
-
 \janote{cuando la $U$ es separable el segundo término creo que es cero}
 \janote{trabajando en analytic\_choi\_check.nb}
