@@ -314,7 +314,7 @@ of the Choi-\jami{} matrix is revealed. Let us conveniently rewrite
 \begin{align}\label{eq:choi:chaometer:purity:2}
 \Tr[\mcD^2(t)]  &= 
 \bra{\psi_{0E}}
-\Tr_S\{
+\Tr_S\Bigg\{
 U^\dagger(t) 
 \sum_{p, q} \qty[
 \qty(\frac{\dyad{p}{q}}{\sqrt{2}} \otimes \one_E ) 
@@ -323,10 +323,28 @@ U(t)
 U^\dagger(t) 
 \qty(\frac{\dyad{q}{p}}{\sqrt{2}} \otimes \one_E ) 
 ]
-U(t)\}
+U(t)\Bigg\}
 \ket{\psi_{0E}}.
 \end{align}
-\janote{esta es una especie de echo de Loschmidt!!!}
+
+\begin{itemize}
+\item First, a forward evolution $\rho(t) = U(t) \rho_0 U^\dagger(t) $ occurs, 
+with $\rho_0 = \qty( \frac{\one_S}{2} \otimes \dyad{\psi_{0E}})$.
+\item Second, backwards evolution of $\rho(t)$ is followed, 
+$\tilde \rho_0 = U^\dagger(t) 
+\sum_{p, q} \qty[
+\qty(\frac{\dyad{p}{q}}{\sqrt{2}} \otimes \one_E ) 
+\rho(t)
+\qty(\frac{\dyad{q}{p}}{\sqrt{2}} \otimes \one_E ) 
+]
+U(t)$, where before evolving backwards with $U^\dagger(t)$ a completely 
+depolarizing quantum channel acts over the system.
+\item Finally, $\Tr[\mcD^2(t)]$ is the probability of finding the environment 
+in its initial state.
+\end{itemize}
+
+\janote{esta es una especie de echo de Loschmidt!!! Cálculos en el 
+apéndice \ref{app:choi}}
 In other words, the purity of $\mcD(t)$ represents the probability that the 
 environment remains in its initial state after the following process: First, the system
 and environment are initialized in a product state, with the system in a maximally
