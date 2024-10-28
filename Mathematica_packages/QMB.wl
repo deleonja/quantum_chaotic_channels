@@ -156,7 +156,7 @@ InitializeVariables::usage = "InitializeVariables[n, L, boundaries, FMmodel] set
 FuzzyMeasurement::usage = "FuzzyMeasurement[\[Psi], \!\(\*SubscriptBox[\(p\), \(fuzzy\)]\)] gives \[ScriptCapitalF](\!\(\*TemplateBox[{\"\[Psi]\"},\n\"Ket\"]\)\!\(\*TemplateBox[{\"\[Psi]\"},\n\"Bra\"]\)) = (1 - \!\(\*SubscriptBox[\(p\), \(fuzzy\)]\))\!\(\*TemplateBox[{\"\[Psi]\"},\n\"Ket\"]\)\!\(\*TemplateBox[{\"\[Psi]\"},\n\"Bra\"]\) + \!\(\*SubscriptBox[\(p\), \(fuzzy\)]\) \!\(\*UnderscriptBox[\(\[Sum]\), \(i\)]\) \!\(\*SubscriptBox[\(S\), \(i\)]\)\!\(\*TemplateBox[{\"\[Psi]\"},\n\"Ket\"]\)\!\(\*TemplateBox[{\"\[Psi]\"},\n\"Bra\"]\)\!\(\*SubsuperscriptBox[\(S\), \(i\), \(\[Dagger]\)]\), where \!\(\*SubscriptBox[\(S\), \(i\)]\) must be initizalized runnning InitializeVariables[n, L, boundaries, FMmodel].";
 
 
-(* ::Subsection::Closed:: *)
+(* ::Subsection:: *)
 (*Spins*)
 
 
@@ -168,6 +168,22 @@ SpinParityEigenvectors::usage = "SpinParityEigenvectors[L] gives a list of {even
 
 
 IsingNNOpenHamiltonian::usage = "IsingNNOpenHamiltonian[\!\(\*SubscriptBox[\(h\), \(x\)]\), \!\(\*SubscriptBox[\(h\), \(z\)]\), {\!\(\*SubscriptBox[\(J\), \(1\)]\),\[Ellipsis],\!\(\*SubscriptBox[\(J\), \(L - 1\)]\)}, L] returns the Hamiltonian \!\(\*UnderoverscriptBox[\(\[Sum]\), \(i = 1\), \(L\)]\)(\!\(\*SubscriptBox[\(h\), \(x\)]\) \!\(\*SubsuperscriptBox[\(\[Sigma]\), \(i\), \(x\)]\) + \!\(\*SubscriptBox[\(h\), \(z\)]\) \!\(\*SubsuperscriptBox[\(\[Sigma]\), \(i\), \(z\)]\)) + \!\(\*UnderoverscriptBox[\(\[Sum]\), \(i = 1\), \(L - 1\)]\) \!\(\*SubscriptBox[\(J\), \(i\)]\) \!\(\*SubsuperscriptBox[\(\[Sigma]\), \(i\), \(z\)]\)\!\(\*SubsuperscriptBox[\(\[Sigma]\), \(i + 1\), \(z\)]\)";
+
+
+ClosedXXZHamiltonian::usage = "ClosedXXZHamiltonian[\!\(\*
+StyleBox[\"L\",\nFontSlant->\"Italic\"]\)\!\(\*
+StyleBox[\",\",\nFontSlant->\"Italic\"]\)\!\(\*
+StyleBox[\"\[CapitalDelta]\",\nFontSlant->\"Italic\"]\)] returns the closed XXZ 1/2-spin chain. [Quantum 8, 1510 (2024)]";
+
+
+OpenXXZHamiltonian::usage= "OpenXXZHamiltonian[\!\(\*
+StyleBox[\"L\",\nFontSlant->\"Italic\"]\)\!\(\*
+StyleBox[\",\",\nFontSlant->\"Italic\"]\)\!\(\*
+StyleBox[\"\[CapitalDelta]\",\nFontSlant->\"Italic\"]\)\!\(\*
+StyleBox[\",\",\nFontSlant->\"Italic\"]\)\!\(\*
+StyleBox[\"h1\",\nFontSlant->\"Italic\"]\)\!\(\*
+StyleBox[\",\",\nFontSlant->\"Italic\"]\)\!\(\*
+StyleBox[\"h2\",\nFontSlant->\"Italic\"]\)] returns the open XXZ 1/2-spin chain. [Quantum 8, 1510 (2024)]";
 
 
 (* ::Subsection::Closed:: *)
@@ -534,7 +550,7 @@ Assignationk[M_,N_,n_]:=If[n[[1;;M-1]]==ConstantArray[0,M-1],M-1,FromDigits[Last
 RenyiEntropy[\[Alpha]_,\[Rho]_]:=1/(1-\[Alpha]) Log[Tr[MatrixPower[\[Rho],\[Alpha]]]]
 
 
-(* ::Subsection::Closed:: *)
+(* ::Subsection:: *)
 (*Spins*)
 
 
@@ -558,6 +574,19 @@ Normalize[SparseArray[{FromDigits[#,2]+1->-1.,FromDigits[Reverse[#],2]+1->1.},2^
 IsingNNOpenHamiltonian[hx_,hz_,J_,L_] := Module[{NNIndices},
 	NNIndices=Normal[SparseArray[Thread[{#,#+1}->3],{L}]&/@Range[L-1]];
 	Normal[Total[{hx*Pauli[#]+hz*Pauli[3#]&/@IdentityMatrix[L],-J*(Pauli/@NNIndices)},2]]]
+
+
+ClosedXXZHamiltonian[L_,\[CapitalDelta]_]:=
+Module[{NNindices},
+NNindices=Normal[SparseArray[Thread[{#,Mod[#+1,L,1]}->1],{L}]&/@Range[L]];
+Normal[-1/2*Total[Join[Pauli/@NNindices,Pauli/@(2NNindices),\[CapitalDelta] (Pauli[#]-IdentityMatrix[2^L])&/@(3NNindices)]]]
+]
+
+
+OpenXXZHamiltonian[L_,\[CapitalDelta]_,h1_,h2_]:=
+Module[{NNindices},
+Normal[ClosedXXZHamiltonian[L,\[CapitalDelta]]-1/2*(h1 Pauli[Join[{1},ConstantArray[0,L-1]]]+h2 Pauli[Join[ConstantArray[0,L-1],{1}]])+1/2*(h1+h2)IdentityMatrix[2^L]]
+]
 
 
 (* ::Subsection::Closed:: *)
