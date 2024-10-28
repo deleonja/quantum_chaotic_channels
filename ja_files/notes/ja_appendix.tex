@@ -177,6 +177,56 @@
 el tercer término se hace approx 0 para el régimen caótico y distinto de 0 
 para regular. De hecho, todos los términos, excepto, el 1/2, son comparables 
 a tiempos largos para el integrable
-\item a tiempos cortos el término que más contribuye es el término dentro la 
+\item a tiempos cortos el término que más contribuye es el término dentro la   
 sumatoria del último término con índices $i=0$ y $j=1$
 \end{itemize}
+
+\newpage
+
+\section{Purity of Choi matrix}
+The quantum channel acting over the first $(i=1)$ spin is defined as:
+\begin{equation}\label{eq:choi:chaometer:channel:2}
+\mcE(\rho) = 
+\Tr_E \qty(
+U^\dagger(t)
+\rho \otimes \dyad{\psi_0}
+U(t)
+),
+\end{equation}
+where $\ket{\psi_0} = \bigotimes_{i=2}^L \ket{\phi_i}$, with $\ket{\phi_i}$
+a random state of a single particle, is the initial state of the environment.
+
+To compute the Choi-\jami{} matrix $\mcD(t)$ of the quantum channel 
+in~\eref{eq:choi:chaometer:channel:2} we use the definition 
+$\qty(\mcE \otimes \one) \qty[\dyad{\phi^+}]$, with $\ket{\phi^+}=1/\sqrt{2}\qty(\ket{0,0} + \ket{1,1})$
+the maximally entangled state between two spins, and obtain
+\begin{align}\label{eq:choi:chaometer:2}
+\mcD(t) &= 
+\frac{1}{2}
+\sum_{i,j,p,q}
+\bra{j, \psi_{0E}} U^\dagger(t) \qty( \dyad{p}{q}\otimes \one_E ) U(t)
+\ket{i, \psi_{0E}} \dyad{q,i}{p,j}.
+\end{align}
+After some algebraic step one may show that the purity of the Choi matrix is written
+as:
+\begin{equation}
+\Tr[\mcD^2(t)] = 
+\Tr( \Tr_S[U(t) (	\one_S \otimes \dyad{\psi_0}) U^\dagger(t)]^2 ).
+\end{equation}
+I believe that when the quantum channel acts over a $d$-dimensional system, 
+and $U(t)=e^{-i H t}$, with $H$ a chaotic Hamiltonian (a matrix that can be taken 
+from an appropriate RMT ensemble), the purity of the Choi matrix is equal to 
+$1/d^2$ for $t\gg 1$ in the chaotic regime, and $1/d$ in the regular regime.
+
+In particular, I would like to consider the spin chain Hamiltonian 
+\begin{equation}\label{eq:H:wisniacki:ising:chain}
+H = 
+\sum_{i=1}^{L}
+\qty(
+h_x \sigma_i^x +
+h_z \sigma_i^z
+) -
+\sum_{i=1}^{L-1}
+J_z \sigma_{i}^z \sigma_{i+1}^z,
+\end{equation}
+for $h_x=j_i=1,\, \forall i$, $h_z=0.5$ (chaotic) and $h_z=2.5$ (regular).
