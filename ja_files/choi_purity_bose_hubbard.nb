@@ -1,0 +1,1166 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Wolfram 14.1' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       154,          7]
+NotebookDataLength[     48939,       1158]
+NotebookOptionsPosition[     46131,       1101]
+NotebookOutlinePosition[     46533,       1117]
+CellTagsIndexPosition[     46490,       1114]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+
+Cell[CellGroupData[{
+Cell["0. Importar paquetes y definiciones", "Section",
+ CellChangeTimes->{{3.937399685598629*^9, 
+  3.937399696800373*^9}},ExpressionUUID->"ea1117ee-639f-4a90-b03d-\
+52bcedac2430"],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"SetDirectory", "[", 
+   RowBox[{"NotebookDirectory", "[", "]"}], "]"}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{
+   RowBox[{
+    RowBox[{"Get", "[", 
+     RowBox[{"\"\<../Mathematica_packages/\>\"", "<>", "#"}], "]"}], "&"}], "/@", 
+   RowBox[{"{", 
+    RowBox[{"\"\<Chaometer.wl\>\"", ",", "\"\<QMB.wl\>\""}], "}"}]}], 
+  ";"}]}], "Input",
+ InitializationCell->True,
+ CellChangeTimes->{{3.935090403773831*^9, 3.935090505813066*^9}},
+ CellLabel->"In[1]:=",ExpressionUUID->"e71076f4-0464-4aea-a8b2-8e20b245b2d8"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["C\[AAcute]lculos ", "Chapter",
+ CellChangeTimes->{{3.9373997024795647`*^9, 
+  3.937399711715197*^9}},ExpressionUUID->"55ffa786-f7c7-47f2-824a-\
+06361512ae20"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"(*", " ", 
+   RowBox[{"Par\[AAcute]metros", " ", "del", " ", "sistema"}], " ", "*)"}], 
+  "\[IndentingNewLine]", 
+  RowBox[{
+   RowBox[{
+    RowBox[{"{", 
+     RowBox[{"n", ",", "L", ",", "J", ",", "U"}], "}"}], "=", 
+    RowBox[{"{", 
+     RowBox[{"3", ",", "3", ",", "1.", ",", "1."}], "}"}]}], 
+   "\[IndentingNewLine]", "\[IndentingNewLine]", 
+   RowBox[{"(*", " ", 
+    RowBox[{"Estado", " ", "inicial"}], " ", "*)"}], "\[IndentingNewLine]", 
+   RowBox[{"\[Psi]0", "=", 
+    RowBox[{"FockBasisStateAsColumnVector", "[", 
+     RowBox[{
+      RowBox[{"Table", "[", 
+       RowBox[{"1", ",", "L"}], "]"}], ",", "n", ",", "L"}], 
+     "]"}]}]}]}]], "Input",
+ CellChangeTimes->{{3.937399733012306*^9, 3.937399771435253*^9}, {
+  3.937399945841378*^9, 3.9373999868853207`*^9}},
+ CellLabel->"In[6]:=",ExpressionUUID->"4abaeb9a-1198-4e12-b693-5245b8d0af40"],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{"3", ",", "3", ",", "1.`", ",", "1.`"}], "}"}]], "Output",
+ CellChangeTimes->{3.937399772867222*^9, 3.937399990098716*^9, 
+  3.9374084934716*^9, 3.9374090759710712`*^9},
+ CellLabel->"Out[6]=",ExpressionUUID->"4243ece9-0d4f-45c0-bfc2-f2d71eab5a74"],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{
+  "0", ",", "0", ",", "0", ",", "0", ",", "1", ",", "0", ",", "0", ",", "0", 
+   ",", "0", ",", "0"}], "}"}]], "Output",
+ CellChangeTimes->{3.937399772867222*^9, 3.937399990098716*^9, 
+  3.9374084934716*^9, 3.93740907597169*^9},
+ CellLabel->"Out[7]=",ExpressionUUID->"eb49f66e-ed68-4875-881c-2492490ddd2f"]
+}, Open  ]],
+
+Cell[BoxData[
+ RowBox[{"Module", "[", 
+  RowBox[{
+   RowBox[{"{", "H", "}"}], ",", "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"H", "=", 
+     RowBox[{"BoseHubbardHamiltonian", "[", 
+      RowBox[{"n", ",", "L", ",", "J", ",", "U"}], "]"}]}], ";", 
+    "\[IndentingNewLine]", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"eigenvalues", ",", "eigenvectors"}], "}"}], "=", 
+     RowBox[{"N", "[", 
+      RowBox[{"Chop", "[", 
+       RowBox[{"Eigensystem", "[", "H", "]"}], "]"}], "]"}]}], ";"}]}], 
+  "\[IndentingNewLine]", "]"}]], "Input",
+ CellChangeTimes->{{3.937399775326733*^9, 3.937399860861013*^9}, {
+  3.937399910742857*^9, 3.9373999132688427`*^9}},
+ CellLabel->"In[5]:=",ExpressionUUID->"200b8bfc-5cc5-4e75-a8eb-5132dd1ac320"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"(*", " ", 
+   RowBox[{"Calcular", " ", "el", " ", "superoperador"}], " ", "*)"}], 
+  "\[IndentingNewLine]", "\[IndentingNewLine]", 
+  RowBox[{"(*", " ", 
+   RowBox[{
+    RowBox[{
+    "Calcular", " ", "la", " ", "evoluci\[OAcute]n", " ", "de", " ", "los", 
+     " ", "estados", " ", 
+     TemplateBox[{
+       RowBox[{"0", ",", "1", ",", "...", ",", "1"}]},
+      "Ket"]}], ",", "...", ",", 
+    TemplateBox[{
+      RowBox[{"N", ",", "1", ",", "...", ",", "1"}]},
+     "Ket"]}], " ", "*)"}], "\[IndentingNewLine]", 
+  RowBox[{"\[Psi]", "=", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"StateEvolution", "[", 
+      RowBox[{"t", ",", "\[Psi]0", ",", "eigenvalues", ",", "eigenvectors"}], 
+      "]"}], "&"}], "/@", "\[IndentingNewLine]", "\[IndentingNewLine]", 
+    RowBox[{"(*", " ", 
+     RowBox[{
+     "Hacer", " ", "la", " ", "traza", " ", "parcial", " ", "de", " ", 
+      "todos", " ", "los", " ", "posibles", " ", "productos", " ", 
+      "exteriores", " ", "de", " ", "los", " ", "estados", " ", 
+      "evolucionados"}], " ", "*)"}], "\[IndentingNewLine]", 
+    "\[IndentingNewLine]", 
+    RowBox[{"(*", " ", 
+     RowBox[{
+     "Transponer", " ", "la", " ", "matriz", " ", "del", " ", "paso", " ", 
+      "anterior"}], " ", "*)"}]}]}]}]], "Input",
+ CellChangeTimes->{{3.937408495227083*^9, 3.937408505614752*^9}, {
+  3.937408858809054*^9, 3.937409052855137*^9}, {3.937409083007894*^9, 
+  3.937409140950716*^9}},ExpressionUUID->"5684cfe4-20a4-4519-9e6b-\
+50be957b7efb"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"?", "StateEvolution"}]], "Input",
+ CellChangeTimes->{{3.937409091179462*^9, 3.937409094035437*^9}},
+ CellLabel->"In[8]:=",ExpressionUUID->"63ca8d1e-3c8f-490e-bbd6-e8e18e4051e7"],
+
+Cell[BoxData[
+ InterpretationBox[
+  StyleBox[
+   FrameBox[
+    DynamicModuleBox[{System`InformationDump`open$$ = False, 
+     System`InformationDump`mouseOver$$ = False}, 
+     PaneSelectorBox[{True->
+      TagBox[GridBox[{
+         {
+          ItemBox[
+           PaneBox[
+            StyleBox[
+             TagBox[
+              TooltipBox[
+               StyleBox["\<\" Symbol\"\>", "InformationRowLabel",
+                StripOnInput->False],
+               "\"Symbol\"",
+               TooltipStyle->"TextStyling"],
+              Annotation[#, "Symbol", "Tooltip"]& ], "InformationTitleText",
+             StripOnInput->False,
+             BaseStyle -> None],
+            FrameMargins->{{4, 0}, {-1, 1}}],
+           BaseStyle->"InformationTitleBackground",
+           StripOnInput->False], 
+          ItemBox["\<\"\"\>",
+           BaseStyle->"InformationTitleBackground",
+           StripOnInput->False]},
+         {
+          ItemBox[
+           PaneBox[
+            
+            StyleBox["\<\"StateEvolution[t, \
+\\!\\(\\*SubscriptBox[\\(\[Psi]\\), \\(0\\)]\\), {E_i}, \
+{\\!\\(\\*TemplateBox[{\\\"E_i\\\"},\\n\\\"Ket\\\"]\\)} ] returns \
+\\!\\(\\*TemplateBox[{RowBox[{\\\"\[Psi]\\\", RowBox[{\\\"(\\\", \\\"t\\\", \
+\\\")\\\"}]}]},\\n\\\"Ket\\\"]\\) = \\!\\(\\*SubscriptBox[\\(\[Sum]\\), \
+\\(\\(\\\\ \\)\\(i\\)\\)]\\) \\!\\(\\*SuperscriptBox[\\(\[ExponentialE]\\), \
+\\(\\(-\[ImaginaryI]\\)\\\\  \\*SubscriptBox[\\(E\\), \\(i\\)]\\\\  \
+t\\)]\\)\\!\\(\\*TemplateBox[{SubscriptBox[\\\"E\\\", \\\"i\\\"], \
+RowBox[{\\\" \\\", SubscriptBox[\\\"\[Psi]\\\", \\\"0\\\"]}]},\\n\\\"BraKet\\\
+\"]\\)\\!\\(\\*TemplateBox[{SubscriptBox[\\\"E\\\", \
+\\\"i\\\"]},\\n\\\"Ket\\\"]\\).\\nStateEvolution[t, \
+{\\!\\(\\*SubscriptBox[\\(E\\), \\(k\\)]\\)}] calculates \
+\\!\\(\\*TemplateBox[{RowBox[{\\\"\[Psi]\\\", RowBox[{\\\"(\\\", \\\"t\\\", \
+\\\")\\\"}]}]},\\\"Ket\\\"]\\) = \\!\\(\\*SubscriptBox[\\(\[Sum]\\), \\(\\(\\\
+\\\\\\\\)\\(i\\)\\)]\\) \\!\\(\\*SuperscriptBox[\\(\[ExponentialE]\\), \
+\\(\\(-\[ImaginaryI]\\)\\\\\\\\\\*SubscriptBox[\\(E\\), \\(i\\)]\\\\\\\\t\\)]\
+\\)\\!\\(\\*TemplateBox[{SubscriptBox[\\\"E\\\", \\\"i\\\"], RowBox[{\\\" \
+\\\", SubscriptBox[\\\"\[Psi]\\\", \
+\\\"0\\\"]}]},\\\"BraKet\\\"]\\)\\!\\(\\*TemplateBox[{SubscriptBox[\\\"E\\\", \
+\\\"i\\\"]},\\\"Ket\\\"]\\) having fixed the \\!\\(\\*SubscriptBox[\\(c\\), \
+\\(k\\)]\\)'s with FixCkForStateEvoultion[\\!\\(\\*SubscriptBox[\\(\[Psi]\\), \
+\\(0\\)]\\), { \\!\\(\\*TemplateBox[{SubscriptBox[\\\"E\\\", \
+\\\"k\\\"]},\\n\\\"Ket\\\"]\\) }].\"\>", "InformationUsageText",
+             StripOnInput->False,
+             LineSpacing->{1.5, 1.5, 3.}],
+            FrameMargins->{{10, 10}, {8, 10}}],
+           BaseStyle->"InformationUsageSubtitleBackground",
+           StripOnInput->False], 
+          ItemBox["\<\"\"\>",
+           BaseStyle->"InformationUsageSubtitleBackground",
+           StripOnInput->False]},
+         {
+          PaneBox[
+           TagBox[GridBox[{
+              {
+               StyleBox[
+                TagBox[
+                 TooltipBox[
+                  StyleBox["\<\" Definitions\"\>", "InformationRowLabel",
+                   StripOnInput->False],
+                  "\"Definitions\"",
+                  TooltipStyle->"TextStyling"],
+                 Annotation[#, "Definitions", "Tooltip"]& ], "DialogStyle",
+                StripOnInput->False]},
+              {
+               TemplateBox[{"\"\[ThinSpace]\"", 
+                 GridBox[{{
+                    RowBox[{
+                    RowBox[{"StateEvolution", "[", 
+                    
+                    RowBox[{
+                    "QMB`Private`t_", ",", "QMB`Private`psi0_List", ",", 
+                    "QMB`Private`eigenvals_List", ",", 
+                    "QMB`Private`eigenvecs_List"}], "]"}], ":=", 
+                    RowBox[{"Module", "[", 
+                    RowBox[{
+                    RowBox[{"{", "QMB`Private`ck", "}"}], ",", 
+                    RowBox[{
+                    RowBox[{"QMB`Private`ck", "=", 
+                    RowBox[{"N", "[", 
+                    RowBox[{"Chop", "[", 
+                    RowBox[{
+                    RowBox[{"Conjugate", "[", "QMB`Private`eigenvecs", "]"}], 
+                    ".", "QMB`Private`psi0"}], "]"}], "]"}]}], ";", 
+                    RowBox[{"N", "[", 
+                    RowBox[{"Chop", "[", 
+                    RowBox[{"Total", "[", 
+                    RowBox[{"QMB`Private`ck", " ", 
+                    RowBox[{"Exp", "[", 
+                    RowBox[{
+                    RowBox[{"-", "\[ImaginaryI]"}], " ", 
+                    "QMB`Private`eigenvals", " ", 
+                    RowBox[{"N", "[", "QMB`Private`t", "]"}]}], "]"}], " ", 
+                    "QMB`Private`eigenvecs"}], "]"}], "]"}], "]"}]}]}], 
+                    "]"}]}]}, {" "}, {
+                    RowBox[{
+                    RowBox[{"StateEvolution", "[", 
+                    
+                    RowBox[{
+                    "QMB`Private`t_", ",", "QMB`Private`eigenvals_List"}], 
+                    "]"}], ":=", 
+                    RowBox[{"N", "[", 
+                    RowBox[{"Chop", "[", 
+                    RowBox[{"Total", "[", 
+                    RowBox[{"QMB`Private`ck", " ", 
+                    RowBox[{"Exp", "[", 
+                    RowBox[{
+                    RowBox[{"-", "\[ImaginaryI]"}], " ", 
+                    "QMB`Private`eigenvals", " ", 
+                    RowBox[{"N", "[", "QMB`Private`t", "]"}]}], "]"}], " ", 
+                    "QMB`Private`Heigenvecs"}], "]"}], "]"}], "]"}]}]}, {
+                   " "}}, GridBoxAlignment -> {"Columns" -> {{Left}}}, 
+                  DefaultBaseStyle -> "Column", 
+                  GridBoxItemSize -> {
+                   "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}]},
+                "RowDefault"]}
+             },
+             DefaultBaseStyle->"Column",
+             GridBoxAlignment->{"Columns" -> {{Left}}},
+             
+             GridBoxItemSize->{
+              "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}],
+            "Column"],
+           FrameMargins->{{6, 0}, {3, 6}}], "\<\"\"\>"},
+         {
+          PaneBox[GridBox[{
+             {
+              
+              DynamicModuleBox[{System`InformationDump`open$$ = {
+               False, False, False, False, False, False}}, 
+               StyleBox[GridBox[{
+                  {
+                   TagBox[
+                    TooltipBox[
+                    StyleBox["\<\" Full Name\"\>", "InformationRowLabel",
+                    StripOnInput->False],
+                    "\"FullName\"",
+                    TooltipStyle->"TextStyling"],
+                    
+                    Annotation[#, "FullName", 
+                    "Tooltip"]& ], "\<\"QMB`StateEvolution\"\>"}
+                 },
+                 AutoDelete->False,
+                 GridBoxAlignment->{"Columns" -> {Right, Left}},
+                 GridBoxDividers->None,
+                 GridBoxItemSize->{"Columns" -> {Automatic, Automatic}},
+                 GridBoxSpacings->{"Columns" -> {
+                    Offset[0.27999999999999997`], {
+                    Offset[0.5599999999999999]}, 
+                    Offset[0.27999999999999997`]}, "Rows" -> {
+                    Offset[0.2], {
+                    Offset[0.8]}, 
+                    Offset[0.2]}}], "DialogStyle",
+                StripOnInput->False],
+               DynamicModuleValues:>{}]}
+            },
+            DefaultBaseStyle->"Column",
+            GridBoxAlignment->{"Columns" -> {{Left}}},
+            GridBoxDividers->{"Columns" -> {{False}}, "Rows" -> {{False}}},
+            
+            GridBoxItemSize->{
+             "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}},
+            GridBoxSpacings->{"Columns" -> {
+                Offset[0.27999999999999997`], {
+                 Offset[0.5599999999999999]}, 
+                Offset[0.27999999999999997`]}, "Rows" -> {
+                Offset[0.2], {
+                 Offset[3.6]}, 
+                Offset[0.2]}}],
+           FrameMargins->{{6, 6}, {6, 3}}], ""},
+         {
+          ItemBox[
+           TagBox[
+            ButtonBox[
+             PaneSelectorBox[{False->
+              
+              DynamicBox[FEPrivate`FrontEndResource[
+               "FEBitmaps", "UpPointerOpener"]], True->
+              DynamicBox[FEPrivate`FrontEndResource[
+               "FEBitmaps", "UpPointerOpenerHot"]]}, Dynamic[
+              System`InformationDump`mouseOver$$]],
+             Alignment->Left,
+             Appearance->{"Default" -> None},
+             
+             ButtonFunction:>FEPrivate`Set[
+              System`InformationDump`open$$, False],
+             Evaluator->Automatic,
+             FrameMargins->{{9, 0}, {0, 0}},
+             ImageMargins->0,
+             ImageSize->Full,
+             Method->"Preemptive"],
+            
+            EventHandlerTag[{
+             "MouseEntered" :> 
+              FEPrivate`Set[System`InformationDump`mouseOver$$, True], 
+              "MouseExited" :> 
+              FEPrivate`Set[System`InformationDump`mouseOver$$, False], 
+              Method -> "Preemptive", PassEventsDown -> Automatic, 
+              PassEventsUp -> True}]],
+           BaseStyle->"InformationTitleBackground",
+           StripOnInput->False], "\[SpanFromLeft]"}
+        },
+        AutoDelete->False,
+        FrameStyle->Directive[
+          GrayLevel[0.8], 
+          Thickness[Tiny]],
+        GridBoxAlignment->{"Columns" -> {Left, Right}, "Rows" -> {{Center}}},
+        GridBoxDividers->{
+         "Columns" -> {{None}}, "Rows" -> {False, {True}, False}},
+        GridBoxItemSize->{
+         "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}],
+       "Grid"], False->
+      TagBox[GridBox[{
+         {
+          ItemBox[
+           PaneBox[
+            StyleBox[
+             TagBox[
+              TooltipBox[
+               StyleBox["\<\" Symbol\"\>", "InformationRowLabel",
+                StripOnInput->False],
+               "\"Symbol\"",
+               TooltipStyle->"TextStyling"],
+              Annotation[#, "Symbol", "Tooltip"]& ], "InformationTitleText",
+             StripOnInput->False],
+            FrameMargins->{{4, 0}, {-1, 1}}],
+           BaseStyle->"InformationTitleBackground",
+           StripOnInput->False], 
+          ItemBox["\<\"\"\>",
+           BaseStyle->"InformationTitleBackground",
+           StripOnInput->False]},
+         {
+          ItemBox[
+           PaneBox[
+            
+            StyleBox["\<\"StateEvolution[t, \
+\\!\\(\\*SubscriptBox[\\(\[Psi]\\), \\(0\\)]\\), {E_i}, \
+{\\!\\(\\*TemplateBox[{\\\"E_i\\\"},\\n\\\"Ket\\\"]\\)} ] returns \
+\\!\\(\\*TemplateBox[{RowBox[{\\\"\[Psi]\\\", RowBox[{\\\"(\\\", \\\"t\\\", \
+\\\")\\\"}]}]},\\n\\\"Ket\\\"]\\) = \\!\\(\\*SubscriptBox[\\(\[Sum]\\), \
+\\(\\(\\\\ \\)\\(i\\)\\)]\\) \\!\\(\\*SuperscriptBox[\\(\[ExponentialE]\\), \
+\\(\\(-\[ImaginaryI]\\)\\\\  \\*SubscriptBox[\\(E\\), \\(i\\)]\\\\  \
+t\\)]\\)\\!\\(\\*TemplateBox[{SubscriptBox[\\\"E\\\", \\\"i\\\"], \
+RowBox[{\\\" \\\", SubscriptBox[\\\"\[Psi]\\\", \\\"0\\\"]}]},\\n\\\"BraKet\\\
+\"]\\)\\!\\(\\*TemplateBox[{SubscriptBox[\\\"E\\\", \
+\\\"i\\\"]},\\n\\\"Ket\\\"]\\).\\nStateEvolution[t, \
+{\\!\\(\\*SubscriptBox[\\(E\\), \\(k\\)]\\)}] calculates \
+\\!\\(\\*TemplateBox[{RowBox[{\\\"\[Psi]\\\", RowBox[{\\\"(\\\", \\\"t\\\", \
+\\\")\\\"}]}]},\\\"Ket\\\"]\\) = \\!\\(\\*SubscriptBox[\\(\[Sum]\\), \\(\\(\\\
+\\\\\\\\)\\(i\\)\\)]\\) \\!\\(\\*SuperscriptBox[\\(\[ExponentialE]\\), \
+\\(\\(-\[ImaginaryI]\\)\\\\\\\\\\*SubscriptBox[\\(E\\), \\(i\\)]\\\\\\\\t\\)]\
+\\)\\!\\(\\*TemplateBox[{SubscriptBox[\\\"E\\\", \\\"i\\\"], RowBox[{\\\" \
+\\\", SubscriptBox[\\\"\[Psi]\\\", \
+\\\"0\\\"]}]},\\\"BraKet\\\"]\\)\\!\\(\\*TemplateBox[{SubscriptBox[\\\"E\\\", \
+\\\"i\\\"]},\\\"Ket\\\"]\\) having fixed the \\!\\(\\*SubscriptBox[\\(c\\), \
+\\(k\\)]\\)'s with FixCkForStateEvoultion[\\!\\(\\*SubscriptBox[\\(\[Psi]\\), \
+\\(0\\)]\\), { \\!\\(\\*TemplateBox[{SubscriptBox[\\\"E\\\", \
+\\\"k\\\"]},\\n\\\"Ket\\\"]\\) }].\"\>", "InformationUsageText",
+             StripOnInput->False,
+             LineSpacing->{1.5, 1.5, 3.}],
+            FrameMargins->{{10, 10}, {8, 10}}],
+           BaseStyle->"InformationUsageSubtitleBackground",
+           StripOnInput->False], 
+          ItemBox["\<\"\"\>",
+           BaseStyle->"InformationUsageSubtitleBackground",
+           StripOnInput->False]},
+         {
+          ItemBox[
+           TagBox[
+            ButtonBox[
+             PaneSelectorBox[{False->
+              
+              DynamicBox[FEPrivate`FrontEndResource[
+               "FEBitmaps", "DownPointerOpener"],
+               ImageSizeCache->{10., {2.673828125, 7.326171875}}], True->
+              
+              DynamicBox[FEPrivate`FrontEndResource[
+               "FEBitmaps", "DownPointerOpenerHot"],
+               ImageSizeCache->{10., {2.673828125, 7.326171875}}]}, Dynamic[
+              System`InformationDump`mouseOver$$]],
+             Alignment->Left,
+             Appearance->{"Default" -> None},
+             
+             ButtonFunction:>FEPrivate`Set[
+              System`InformationDump`open$$, True],
+             Evaluator->Automatic,
+             FrameMargins->{{9, 0}, {0, 0}},
+             ImageMargins->0,
+             ImageSize->Full,
+             Method->"Preemptive"],
+            
+            EventHandlerTag[{
+             "MouseEntered" :> 
+              FEPrivate`Set[System`InformationDump`mouseOver$$, True], 
+              "MouseExited" :> 
+              FEPrivate`Set[System`InformationDump`mouseOver$$, False], 
+              Method -> "Preemptive", PassEventsDown -> Automatic, 
+              PassEventsUp -> True}]],
+           BaseStyle->"InformationTitleBackground",
+           StripOnInput->False], "\[SpanFromLeft]"}
+        },
+        AutoDelete->False,
+        FrameStyle->Directive[
+          GrayLevel[0.8], 
+          Thickness[Tiny]],
+        GridBoxAlignment->{"Columns" -> {Left, Right}, "Rows" -> {{Center}}},
+        GridBoxDividers->{
+         "Columns" -> {{None}}, "Rows" -> {False, {True}, False}},
+        GridBoxItemSize->{
+         "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}],
+       "Grid"]}, Dynamic[System`InformationDump`open$$],
+      BaselinePosition->Baseline,
+      FrameMargins->0,
+      ImageSize->Automatic],
+     DynamicModuleValues:>{}],
+    BaseStyle->"InformationGridFrame",
+    StripOnInput->False], "InformationGridPlain",
+   StripOnInput->False],
+  InformationData[<|
+   "ObjectType" -> "Symbol", "Usage" -> 
+    "StateEvolution[t, \!\(\*SubscriptBox[\(\[Psi]\), \(0\)]\), {E_i}, \
+{\!\(\*TemplateBox[{\"E_i\"},\n\"Ket\"]\)} ] returns \
+\!\(\*TemplateBox[{RowBox[{\"\[Psi]\", RowBox[{\"(\", \"t\", \")\"}]}]},\n\
+\"Ket\"]\) = \!\(\*SubscriptBox[\(\[Sum]\), \(\(\\ \)\(i\)\)]\) \
+\!\(\*SuperscriptBox[\(\[ExponentialE]\), \(\(-\[ImaginaryI]\)\\  \
+\*SubscriptBox[\(E\), \(i\)]\\  t\)]\)\!\(\*TemplateBox[{SubscriptBox[\"E\", \
+\"i\"], RowBox[{\" \", SubscriptBox[\"\[Psi]\", \"0\"]}]},\n\"BraKet\"]\)\!\(\
+\*TemplateBox[{SubscriptBox[\"E\", \"i\"]},\n\"Ket\"]\).\nStateEvolution[t, {\
+\!\(\*SubscriptBox[\(E\), \(k\)]\)}] calculates \!\(\*TemplateBox[{RowBox[{\"\
+\[Psi]\", RowBox[{\"(\", \"t\", \")\"}]}]},\"Ket\"]\) = \!\(\*SubscriptBox[\(\
+\[Sum]\), \(\(\\\\\)\(i\)\)]\) \!\(\*SuperscriptBox[\(\[ExponentialE]\), \
+\(\(-\[ImaginaryI]\)\\\\\*SubscriptBox[\(E\), \
+\(i\)]\\\\t\)]\)\!\(\*TemplateBox[{SubscriptBox[\"E\", \"i\"], RowBox[{\" \", \
+SubscriptBox[\"\[Psi]\", \
+\"0\"]}]},\"BraKet\"]\)\!\(\*TemplateBox[{SubscriptBox[\"E\", \
+\"i\"]},\"Ket\"]\) having fixed the \!\(\*SubscriptBox[\(c\), \(k\)]\)'s with \
+FixCkForStateEvoultion[\!\(\*SubscriptBox[\(\[Psi]\), \(0\)]\), { \
+\!\(\*TemplateBox[{SubscriptBox[\"E\", \"k\"]},\n\"Ket\"]\) }].", 
+    "Documentation" -> None, "OwnValues" -> None, "UpValues" -> None, 
+    "DownValues" -> 
+    Information`InformationValueForm[
+     DownValues, QMB`StateEvolution, {QMB`StateEvolution[
+         Pattern[QMB`Private`t, 
+          Blank[]], 
+         Pattern[QMB`Private`psi0, 
+          Blank[List]], 
+         Pattern[QMB`Private`eigenvals, 
+          Blank[List]], 
+         Pattern[QMB`Private`eigenvecs, 
+          Blank[List]]] :> Module[{QMB`Private`ck}, QMB`Private`ck = N[
+            Chop[
+             Dot[
+              Conjugate[QMB`Private`eigenvecs], QMB`Private`psi0]]]; N[
+           Chop[
+            Total[
+            QMB`Private`ck Exp[(-I) QMB`Private`eigenvals N[QMB`Private`t]] 
+             QMB`Private`eigenvecs]]]], QMB`StateEvolution[
+         Pattern[QMB`Private`t, 
+          Blank[]], 
+         Pattern[QMB`Private`eigenvals, 
+          Blank[List]]] :> N[
+         Chop[
+          Total[
+          QMB`Private`ck Exp[(-I) QMB`Private`eigenvals N[QMB`Private`t]] 
+           QMB`Private`Heigenvecs]]]}], "SubValues" -> None, "DefaultValues" -> 
+    None, "NValues" -> None, "FormatValues" -> None, "Options" -> None, 
+    "Attributes" -> {}, "FullName" -> "QMB`StateEvolution"|>, 
+   False]]], "Output",
+ CellChangeTimes->{3.937409094368498*^9},
+ CellLabel->"Out[8]=",ExpressionUUID->"fb197f55-cbbf-41da-8d12-3b4f3110470c"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"FockBasisStateAsColumnVector", "[", 
+  RowBox[{
+   RowBox[{"{", 
+    RowBox[{"0", ",", "1", ",", "1"}], "}"}], ",", "n", ",", "L"}], 
+  "]"}]], "Input",
+ CellChangeTimes->{{3.937400247370337*^9, 3.93740025304386*^9}},
+ CellLabel->"In[32]:=",ExpressionUUID->"9e0684a5-9eda-4dbb-a8d8-813a08ec6794"],
+
+Cell[BoxData["1"], "Output",
+ CellChangeTimes->{3.937400254198442*^9},
+ CellLabel->"Out[32]=",ExpressionUUID->"e3f2abe7-bce3-4e03-8eba-1a3a18671801"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"StateEvolution", "[", 
+  RowBox[{
+   RowBox[{"t", "=", "1"}], ",", "\[Psi]0", ",", "eigenvalues", ",", 
+   "eigenvectors"}], "]"}]], "Input",
+ CellChangeTimes->{{3.9373999313348007`*^9, 3.937399937775769*^9}, {
+  3.9373999975901947`*^9, 3.937400023252626*^9}},
+ CellLabel->"In[31]:=",ExpressionUUID->"c4c5ea48-709e-46de-90aa-f4db2fe7a800"],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{
+   RowBox[{
+    RowBox[{"-", "0.3463086369656324`"}], "-", 
+    RowBox[{"0.101738173082762`", " ", "\[ImaginaryI]"}]}], ",", 
+   RowBox[{
+    RowBox[{"-", "0.3407794645573513`"}], "-", 
+    RowBox[{"0.0324119623184807`", " ", "\[ImaginaryI]"}]}], ",", 
+   RowBox[{"0.15442834081383663`", "\[VeryThinSpace]", "+", 
+    RowBox[{"0.14270654508959177`", " ", "\[ImaginaryI]"}]}], ",", 
+   RowBox[{
+    RowBox[{"-", "0.38731945882797114`"}], "-", 
+    RowBox[{"0.17418839000952346`", " ", "\[ImaginaryI]"}]}], ",", 
+   RowBox[{
+    RowBox[{"-", "0.18264177317155983`"}], "-", 
+    RowBox[{"0.005920305083717423`", " ", "\[ImaginaryI]"}]}], ",", 
+   RowBox[{"0.15442834081383536`", "\[VeryThinSpace]", "+", 
+    RowBox[{"0.1427065450895913`", " ", "\[ImaginaryI]"}]}], ",", 
+   RowBox[{"0.1121602734966902`", "\[VeryThinSpace]", "+", 
+    RowBox[{"0.09980748811025628`", " ", "\[ImaginaryI]"}]}], ",", 
+   RowBox[{
+    RowBox[{"-", "0.38731945882797225`"}], "-", 
+    RowBox[{"0.17418839000952382`", " ", "\[ImaginaryI]"}]}], ",", 
+   RowBox[{
+    RowBox[{"-", "0.3407794645573515`"}], "-", 
+    RowBox[{"0.03241196231848048`", " ", "\[ImaginaryI]"}]}], ",", 
+   RowBox[{
+    RowBox[{"-", "0.3463086369656321`"}], "-", 
+    RowBox[{"0.10173817308276153`", " ", "\[ImaginaryI]"}]}]}], 
+  "}"}]], "Output",
+ CellChangeTimes->{{3.937400005780847*^9, 3.937400023579966*^9}},
+ CellLabel->"Out[31]=",ExpressionUUID->"d6626e2e-370f-4b1c-bd5a-a8f03f253c4e"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"?", "StateEvolution"}]], "Input",
+ CellChangeTimes->{{3.9373999247649593`*^9, 3.937399927475017*^9}},
+ CellLabel->"In[25]:=",ExpressionUUID->"1a5a4aca-0289-446d-a62e-6d8501ddcaf8"],
+
+Cell[BoxData[
+ InterpretationBox[
+  StyleBox[
+   FrameBox[
+    DynamicModuleBox[{System`InformationDump`open$$ = False, 
+     System`InformationDump`mouseOver$$ = False}, 
+     PaneSelectorBox[{True->
+      TagBox[GridBox[{
+         {
+          ItemBox[
+           PaneBox[
+            StyleBox[
+             TagBox[
+              TooltipBox[
+               StyleBox["\<\" Symbol\"\>", "InformationRowLabel",
+                StripOnInput->False],
+               "\"Symbol\"",
+               TooltipStyle->"TextStyling"],
+              Annotation[#, "Symbol", "Tooltip"]& ], "InformationTitleText",
+             StripOnInput->False,
+             BaseStyle -> None],
+            FrameMargins->{{4, 0}, {-1, 1}}],
+           BaseStyle->"InformationTitleBackground",
+           StripOnInput->False], 
+          ItemBox["\<\"\"\>",
+           BaseStyle->"InformationTitleBackground",
+           StripOnInput->False]},
+         {
+          ItemBox[
+           PaneBox[
+            
+            StyleBox["\<\"StateEvolution[t, \
+\\!\\(\\*SubscriptBox[\\(\[Psi]\\), \\(0\\)]\\), {E_i}, \
+{\\!\\(\\*TemplateBox[{\\\"E_i\\\"},\\n\\\"Ket\\\"]\\)} ] returns \
+\\!\\(\\*TemplateBox[{RowBox[{\\\"\[Psi]\\\", RowBox[{\\\"(\\\", \\\"t\\\", \
+\\\")\\\"}]}]},\\n\\\"Ket\\\"]\\) = \\!\\(\\*SubscriptBox[\\(\[Sum]\\), \
+\\(\\(\\\\ \\)\\(i\\)\\)]\\) \\!\\(\\*SuperscriptBox[\\(\[ExponentialE]\\), \
+\\(\\(-\[ImaginaryI]\\)\\\\  \\*SubscriptBox[\\(E\\), \\(i\\)]\\\\  \
+t\\)]\\)\\!\\(\\*TemplateBox[{SubscriptBox[\\\"E\\\", \\\"i\\\"], \
+RowBox[{\\\" \\\", SubscriptBox[\\\"\[Psi]\\\", \\\"0\\\"]}]},\\n\\\"BraKet\\\
+\"]\\)\\!\\(\\*TemplateBox[{SubscriptBox[\\\"E\\\", \
+\\\"i\\\"]},\\n\\\"Ket\\\"]\\).\\nStateEvolution[t, \
+{\\!\\(\\*SubscriptBox[\\(E\\), \\(k\\)]\\)}] calculates \
+\\!\\(\\*TemplateBox[{RowBox[{\\\"\[Psi]\\\", RowBox[{\\\"(\\\", \\\"t\\\", \
+\\\")\\\"}]}]},\\\"Ket\\\"]\\) = \\!\\(\\*SubscriptBox[\\(\[Sum]\\), \\(\\(\\\
+\\\\\\\\)\\(i\\)\\)]\\) \\!\\(\\*SuperscriptBox[\\(\[ExponentialE]\\), \
+\\(\\(-\[ImaginaryI]\\)\\\\\\\\\\*SubscriptBox[\\(E\\), \\(i\\)]\\\\\\\\t\\)]\
+\\)\\!\\(\\*TemplateBox[{SubscriptBox[\\\"E\\\", \\\"i\\\"], RowBox[{\\\" \
+\\\", SubscriptBox[\\\"\[Psi]\\\", \
+\\\"0\\\"]}]},\\\"BraKet\\\"]\\)\\!\\(\\*TemplateBox[{SubscriptBox[\\\"E\\\", \
+\\\"i\\\"]},\\\"Ket\\\"]\\) having fixed the \\!\\(\\*SubscriptBox[\\(c\\), \
+\\(k\\)]\\)'s with FixCkForStateEvoultion[\\!\\(\\*SubscriptBox[\\(\[Psi]\\), \
+\\(0\\)]\\), { \\!\\(\\*TemplateBox[{SubscriptBox[\\\"E\\\", \
+\\\"k\\\"]},\\n\\\"Ket\\\"]\\) }].\"\>", "InformationUsageText",
+             StripOnInput->False,
+             LineSpacing->{1.5, 1.5, 3.}],
+            FrameMargins->{{10, 10}, {8, 10}}],
+           BaseStyle->"InformationUsageSubtitleBackground",
+           StripOnInput->False], 
+          ItemBox["\<\"\"\>",
+           BaseStyle->"InformationUsageSubtitleBackground",
+           StripOnInput->False]},
+         {
+          PaneBox[
+           TagBox[GridBox[{
+              {
+               StyleBox[
+                TagBox[
+                 TooltipBox[
+                  StyleBox["\<\" Definitions\"\>", "InformationRowLabel",
+                   StripOnInput->False],
+                  "\"Definitions\"",
+                  TooltipStyle->"TextStyling"],
+                 Annotation[#, "Definitions", "Tooltip"]& ], "DialogStyle",
+                StripOnInput->False]},
+              {
+               TemplateBox[{"\"\[ThinSpace]\"", 
+                 GridBox[{{
+                    RowBox[{
+                    RowBox[{"StateEvolution", "[", 
+                    
+                    RowBox[{
+                    "QMB`Private`t_", ",", "QMB`Private`psi0_List", ",", 
+                    "QMB`Private`eigenvals_List", ",", 
+                    "QMB`Private`eigenvecs_List"}], "]"}], ":=", 
+                    RowBox[{"Module", "[", 
+                    RowBox[{
+                    RowBox[{"{", "QMB`Private`ck", "}"}], ",", 
+                    RowBox[{
+                    RowBox[{"QMB`Private`ck", "=", 
+                    RowBox[{"N", "[", 
+                    RowBox[{"Chop", "[", 
+                    RowBox[{
+                    RowBox[{"Conjugate", "[", "QMB`Private`eigenvecs", "]"}], 
+                    ".", "QMB`Private`psi0"}], "]"}], "]"}]}], ";", 
+                    RowBox[{"N", "[", 
+                    RowBox[{"Chop", "[", 
+                    RowBox[{"Total", "[", 
+                    RowBox[{"QMB`Private`ck", " ", 
+                    RowBox[{"Exp", "[", 
+                    RowBox[{
+                    RowBox[{"-", "\[ImaginaryI]"}], " ", 
+                    "QMB`Private`eigenvals", " ", 
+                    RowBox[{"N", "[", "QMB`Private`t", "]"}]}], "]"}], " ", 
+                    "QMB`Private`eigenvecs"}], "]"}], "]"}], "]"}]}]}], 
+                    "]"}]}]}, {" "}, {
+                    RowBox[{
+                    RowBox[{"StateEvolution", "[", 
+                    
+                    RowBox[{
+                    "QMB`Private`t_", ",", "QMB`Private`eigenvals_List"}], 
+                    "]"}], ":=", 
+                    RowBox[{"N", "[", 
+                    RowBox[{"Chop", "[", 
+                    RowBox[{"Total", "[", 
+                    RowBox[{"QMB`Private`ck", " ", 
+                    RowBox[{"Exp", "[", 
+                    RowBox[{
+                    RowBox[{"-", "\[ImaginaryI]"}], " ", 
+                    "QMB`Private`eigenvals", " ", 
+                    RowBox[{"N", "[", "QMB`Private`t", "]"}]}], "]"}], " ", 
+                    "QMB`Private`Heigenvecs"}], "]"}], "]"}], "]"}]}]}, {
+                   " "}}, GridBoxAlignment -> {"Columns" -> {{Left}}}, 
+                  DefaultBaseStyle -> "Column", 
+                  GridBoxItemSize -> {
+                   "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}]},
+                "RowDefault"]}
+             },
+             DefaultBaseStyle->"Column",
+             GridBoxAlignment->{"Columns" -> {{Left}}},
+             
+             GridBoxItemSize->{
+              "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}],
+            "Column"],
+           FrameMargins->{{6, 0}, {3, 6}}], "\<\"\"\>"},
+         {
+          PaneBox[GridBox[{
+             {
+              
+              DynamicModuleBox[{System`InformationDump`open$$ = {
+               False, False, False, False, False, False}}, 
+               StyleBox[GridBox[{
+                  {
+                   TagBox[
+                    TooltipBox[
+                    StyleBox["\<\" Full Name\"\>", "InformationRowLabel",
+                    StripOnInput->False],
+                    "\"FullName\"",
+                    TooltipStyle->"TextStyling"],
+                    
+                    Annotation[#, "FullName", 
+                    "Tooltip"]& ], "\<\"QMB`StateEvolution\"\>"}
+                 },
+                 AutoDelete->False,
+                 GridBoxAlignment->{"Columns" -> {Right, Left}},
+                 GridBoxDividers->None,
+                 GridBoxItemSize->{"Columns" -> {Automatic, Automatic}},
+                 GridBoxSpacings->{"Columns" -> {
+                    Offset[0.27999999999999997`], {
+                    Offset[0.5599999999999999]}, 
+                    Offset[0.27999999999999997`]}, "Rows" -> {
+                    Offset[0.2], {
+                    Offset[0.8]}, 
+                    Offset[0.2]}}], "DialogStyle",
+                StripOnInput->False],
+               DynamicModuleValues:>{}]}
+            },
+            DefaultBaseStyle->"Column",
+            GridBoxAlignment->{"Columns" -> {{Left}}},
+            GridBoxDividers->{"Columns" -> {{False}}, "Rows" -> {{False}}},
+            
+            GridBoxItemSize->{
+             "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}},
+            GridBoxSpacings->{"Columns" -> {
+                Offset[0.27999999999999997`], {
+                 Offset[0.5599999999999999]}, 
+                Offset[0.27999999999999997`]}, "Rows" -> {
+                Offset[0.2], {
+                 Offset[3.6]}, 
+                Offset[0.2]}}],
+           FrameMargins->{{6, 6}, {6, 3}}], ""},
+         {
+          ItemBox[
+           TagBox[
+            ButtonBox[
+             PaneSelectorBox[{False->
+              
+              DynamicBox[FEPrivate`FrontEndResource[
+               "FEBitmaps", "UpPointerOpener"]], True->
+              DynamicBox[FEPrivate`FrontEndResource[
+               "FEBitmaps", "UpPointerOpenerHot"]]}, Dynamic[
+              System`InformationDump`mouseOver$$]],
+             Alignment->Left,
+             Appearance->{"Default" -> None},
+             
+             ButtonFunction:>FEPrivate`Set[
+              System`InformationDump`open$$, False],
+             Evaluator->Automatic,
+             FrameMargins->{{9, 0}, {0, 0}},
+             ImageMargins->0,
+             ImageSize->Full,
+             Method->"Preemptive"],
+            
+            EventHandlerTag[{
+             "MouseEntered" :> 
+              FEPrivate`Set[System`InformationDump`mouseOver$$, True], 
+              "MouseExited" :> 
+              FEPrivate`Set[System`InformationDump`mouseOver$$, False], 
+              Method -> "Preemptive", PassEventsDown -> Automatic, 
+              PassEventsUp -> True}]],
+           BaseStyle->"InformationTitleBackground",
+           StripOnInput->False], "\[SpanFromLeft]"}
+        },
+        AutoDelete->False,
+        FrameStyle->Directive[
+          GrayLevel[0.8], 
+          Thickness[Tiny]],
+        GridBoxAlignment->{"Columns" -> {Left, Right}, "Rows" -> {{Center}}},
+        GridBoxDividers->{
+         "Columns" -> {{None}}, "Rows" -> {False, {True}, False}},
+        GridBoxItemSize->{
+         "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}],
+       "Grid"], False->
+      TagBox[GridBox[{
+         {
+          ItemBox[
+           PaneBox[
+            StyleBox[
+             TagBox[
+              TooltipBox[
+               StyleBox["\<\" Symbol\"\>", "InformationRowLabel",
+                StripOnInput->False],
+               "\"Symbol\"",
+               TooltipStyle->"TextStyling"],
+              Annotation[#, "Symbol", "Tooltip"]& ], "InformationTitleText",
+             StripOnInput->False],
+            FrameMargins->{{4, 0}, {-1, 1}}],
+           BaseStyle->"InformationTitleBackground",
+           StripOnInput->False], 
+          ItemBox["\<\"\"\>",
+           BaseStyle->"InformationTitleBackground",
+           StripOnInput->False]},
+         {
+          ItemBox[
+           PaneBox[
+            
+            StyleBox["\<\"StateEvolution[t, \
+\\!\\(\\*SubscriptBox[\\(\[Psi]\\), \\(0\\)]\\), {E_i}, \
+{\\!\\(\\*TemplateBox[{\\\"E_i\\\"},\\n\\\"Ket\\\"]\\)} ] returns \
+\\!\\(\\*TemplateBox[{RowBox[{\\\"\[Psi]\\\", RowBox[{\\\"(\\\", \\\"t\\\", \
+\\\")\\\"}]}]},\\n\\\"Ket\\\"]\\) = \\!\\(\\*SubscriptBox[\\(\[Sum]\\), \
+\\(\\(\\\\ \\)\\(i\\)\\)]\\) \\!\\(\\*SuperscriptBox[\\(\[ExponentialE]\\), \
+\\(\\(-\[ImaginaryI]\\)\\\\  \\*SubscriptBox[\\(E\\), \\(i\\)]\\\\  \
+t\\)]\\)\\!\\(\\*TemplateBox[{SubscriptBox[\\\"E\\\", \\\"i\\\"], \
+RowBox[{\\\" \\\", SubscriptBox[\\\"\[Psi]\\\", \\\"0\\\"]}]},\\n\\\"BraKet\\\
+\"]\\)\\!\\(\\*TemplateBox[{SubscriptBox[\\\"E\\\", \
+\\\"i\\\"]},\\n\\\"Ket\\\"]\\).\\nStateEvolution[t, \
+{\\!\\(\\*SubscriptBox[\\(E\\), \\(k\\)]\\)}] calculates \
+\\!\\(\\*TemplateBox[{RowBox[{\\\"\[Psi]\\\", RowBox[{\\\"(\\\", \\\"t\\\", \
+\\\")\\\"}]}]},\\\"Ket\\\"]\\) = \\!\\(\\*SubscriptBox[\\(\[Sum]\\), \\(\\(\\\
+\\\\\\\\)\\(i\\)\\)]\\) \\!\\(\\*SuperscriptBox[\\(\[ExponentialE]\\), \
+\\(\\(-\[ImaginaryI]\\)\\\\\\\\\\*SubscriptBox[\\(E\\), \\(i\\)]\\\\\\\\t\\)]\
+\\)\\!\\(\\*TemplateBox[{SubscriptBox[\\\"E\\\", \\\"i\\\"], RowBox[{\\\" \
+\\\", SubscriptBox[\\\"\[Psi]\\\", \
+\\\"0\\\"]}]},\\\"BraKet\\\"]\\)\\!\\(\\*TemplateBox[{SubscriptBox[\\\"E\\\", \
+\\\"i\\\"]},\\\"Ket\\\"]\\) having fixed the \\!\\(\\*SubscriptBox[\\(c\\), \
+\\(k\\)]\\)'s with FixCkForStateEvoultion[\\!\\(\\*SubscriptBox[\\(\[Psi]\\), \
+\\(0\\)]\\), { \\!\\(\\*TemplateBox[{SubscriptBox[\\\"E\\\", \
+\\\"k\\\"]},\\n\\\"Ket\\\"]\\) }].\"\>", "InformationUsageText",
+             StripOnInput->False,
+             LineSpacing->{1.5, 1.5, 3.}],
+            FrameMargins->{{10, 10}, {8, 10}}],
+           BaseStyle->"InformationUsageSubtitleBackground",
+           StripOnInput->False], 
+          ItemBox["\<\"\"\>",
+           BaseStyle->"InformationUsageSubtitleBackground",
+           StripOnInput->False]},
+         {
+          ItemBox[
+           TagBox[
+            ButtonBox[
+             PaneSelectorBox[{False->
+              
+              DynamicBox[FEPrivate`FrontEndResource[
+               "FEBitmaps", "DownPointerOpener"],
+               ImageSizeCache->{10., {2.673828125, 7.326171875}}], True->
+              
+              DynamicBox[FEPrivate`FrontEndResource[
+               "FEBitmaps", "DownPointerOpenerHot"],
+               ImageSizeCache->{10., {2.673828125, 7.326171875}}]}, Dynamic[
+              System`InformationDump`mouseOver$$]],
+             Alignment->Left,
+             Appearance->{"Default" -> None},
+             
+             ButtonFunction:>FEPrivate`Set[
+              System`InformationDump`open$$, True],
+             Evaluator->Automatic,
+             FrameMargins->{{9, 0}, {0, 0}},
+             ImageMargins->0,
+             ImageSize->Full,
+             Method->"Preemptive"],
+            
+            EventHandlerTag[{
+             "MouseEntered" :> 
+              FEPrivate`Set[System`InformationDump`mouseOver$$, True], 
+              "MouseExited" :> 
+              FEPrivate`Set[System`InformationDump`mouseOver$$, False], 
+              Method -> "Preemptive", PassEventsDown -> Automatic, 
+              PassEventsUp -> True}]],
+           BaseStyle->"InformationTitleBackground",
+           StripOnInput->False], "\[SpanFromLeft]"}
+        },
+        AutoDelete->False,
+        FrameStyle->Directive[
+          GrayLevel[0.8], 
+          Thickness[Tiny]],
+        GridBoxAlignment->{"Columns" -> {Left, Right}, "Rows" -> {{Center}}},
+        GridBoxDividers->{
+         "Columns" -> {{None}}, "Rows" -> {False, {True}, False}},
+        GridBoxItemSize->{
+         "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}],
+       "Grid"]}, Dynamic[System`InformationDump`open$$],
+      BaselinePosition->Baseline,
+      FrameMargins->0,
+      ImageSize->Automatic],
+     DynamicModuleValues:>{}],
+    BaseStyle->"InformationGridFrame",
+    StripOnInput->False], "InformationGridPlain",
+   StripOnInput->False],
+  InformationData[<|
+   "ObjectType" -> "Symbol", "Usage" -> 
+    "StateEvolution[t, \!\(\*SubscriptBox[\(\[Psi]\), \(0\)]\), {E_i}, \
+{\!\(\*TemplateBox[{\"E_i\"},\n\"Ket\"]\)} ] returns \
+\!\(\*TemplateBox[{RowBox[{\"\[Psi]\", RowBox[{\"(\", \"t\", \")\"}]}]},\n\
+\"Ket\"]\) = \!\(\*SubscriptBox[\(\[Sum]\), \(\(\\ \)\(i\)\)]\) \
+\!\(\*SuperscriptBox[\(\[ExponentialE]\), \(\(-\[ImaginaryI]\)\\  \
+\*SubscriptBox[\(E\), \(i\)]\\  t\)]\)\!\(\*TemplateBox[{SubscriptBox[\"E\", \
+\"i\"], RowBox[{\" \", SubscriptBox[\"\[Psi]\", \"0\"]}]},\n\"BraKet\"]\)\!\(\
+\*TemplateBox[{SubscriptBox[\"E\", \"i\"]},\n\"Ket\"]\).\nStateEvolution[t, {\
+\!\(\*SubscriptBox[\(E\), \(k\)]\)}] calculates \!\(\*TemplateBox[{RowBox[{\"\
+\[Psi]\", RowBox[{\"(\", \"t\", \")\"}]}]},\"Ket\"]\) = \!\(\*SubscriptBox[\(\
+\[Sum]\), \(\(\\\\\)\(i\)\)]\) \!\(\*SuperscriptBox[\(\[ExponentialE]\), \
+\(\(-\[ImaginaryI]\)\\\\\*SubscriptBox[\(E\), \
+\(i\)]\\\\t\)]\)\!\(\*TemplateBox[{SubscriptBox[\"E\", \"i\"], RowBox[{\" \", \
+SubscriptBox[\"\[Psi]\", \
+\"0\"]}]},\"BraKet\"]\)\!\(\*TemplateBox[{SubscriptBox[\"E\", \
+\"i\"]},\"Ket\"]\) having fixed the \!\(\*SubscriptBox[\(c\), \(k\)]\)'s with \
+FixCkForStateEvoultion[\!\(\*SubscriptBox[\(\[Psi]\), \(0\)]\), { \
+\!\(\*TemplateBox[{SubscriptBox[\"E\", \"k\"]},\n\"Ket\"]\) }].", 
+    "Documentation" -> None, "OwnValues" -> None, "UpValues" -> None, 
+    "DownValues" -> 
+    Information`InformationValueForm[
+     DownValues, QMB`StateEvolution, {QMB`StateEvolution[
+         Pattern[QMB`Private`t, 
+          Blank[]], 
+         Pattern[QMB`Private`psi0, 
+          Blank[List]], 
+         Pattern[QMB`Private`eigenvals, 
+          Blank[List]], 
+         Pattern[QMB`Private`eigenvecs, 
+          Blank[List]]] :> Module[{QMB`Private`ck}, QMB`Private`ck = N[
+            Chop[
+             Dot[
+              Conjugate[QMB`Private`eigenvecs], QMB`Private`psi0]]]; N[
+           Chop[
+            Total[
+            QMB`Private`ck Exp[(-I) QMB`Private`eigenvals N[QMB`Private`t]] 
+             QMB`Private`eigenvecs]]]], QMB`StateEvolution[
+         Pattern[QMB`Private`t, 
+          Blank[]], 
+         Pattern[QMB`Private`eigenvals, 
+          Blank[List]]] :> N[
+         Chop[
+          Total[
+          QMB`Private`ck Exp[(-I) QMB`Private`eigenvals N[QMB`Private`t]] 
+           QMB`Private`Heigenvecs]]]}], "SubValues" -> None, "DefaultValues" -> 
+    None, "NValues" -> None, "FormatValues" -> None, "Options" -> None, 
+    "Attributes" -> {}, "FullName" -> "QMB`StateEvolution"|>, 
+   False]]], "Output",
+ CellChangeTimes->{3.937399928249382*^9},
+ CellLabel->"Out[25]=",ExpressionUUID->"2d9f2fc1-ebdb-4497-8c34-8c279ec5c671"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData["eigenvalues"], "Input",
+ CellChangeTimes->{{3.937399901577388*^9, 3.937399904105632*^9}},
+ CellLabel->"In[24]:=",ExpressionUUID->"4e303ad2-fcc9-4ea9-b3d7-07e40f7fa09c"],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{
+  "5.616760629686228`", ",", "4.4741936586103765`", ",", 
+   "3.8640228734903324`", ",", 
+   RowBox[{"-", "3.291934491818809`"}], ",", "2.7017641580914176`", ",", 
+   "2.1126808534080492`", ",", 
+   RowBox[{"-", "1.5868745120184231`"}], ",", "1.0000000000000002`", ",", 
+   "0.4899992033299059`", ",", 
+   RowBox[{"-", "0.3806123727790558`"}]}], "}"}]], "Output",
+ CellChangeTimes->{{3.937399904542859*^9, 3.937399914694371*^9}},
+ CellLabel->"Out[24]=",ExpressionUUID->"53cd8d75-f43e-4f9a-aa71-6df2fbec6760"]
+}, Open  ]],
+
+Cell[BoxData[
+ RowBox[{"InitializationBosonicPartialTrace", "[", 
+  RowBox[{
+   RowBox[{"{", "1", "}"}], ",", "n", ",", "L"}], "]"}]], "Input",
+ CellChangeTimes->{{3.937401462032889*^9, 3.9374015139512377`*^9}, {
+  3.937401737160913*^9, 3.937401737685166*^9}},
+ CellLabel->"In[45]:=",ExpressionUUID->"c60bc57e-e5a8-4246-971e-f8d6485d18f6"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"Normal", "@", 
+  RowBox[{"BosonicPartialTrace", "[", 
+   RowBox[{"Dyad", "[", 
+    RowBox[{"FockBasisStateAsColumnVector", "[", 
+     RowBox[{
+      RowBox[{"{", 
+       RowBox[{"1", ",", "1", ",", "1"}], "}"}], ",", "n", ",", "L"}], "]"}], 
+    "]"}], "]"}]}]], "Input",
+ CellChangeTimes->{{3.9374015647514763`*^9, 3.937401572090817*^9}, {
+  3.9374016079916353`*^9, 3.937401666613558*^9}},
+ CellLabel->"In[46]:=",ExpressionUUID->"9684e961-7973-464a-916b-2a2f250c7bcd"],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{
+   RowBox[{"{", 
+    RowBox[{"0", ",", "0", ",", "0", ",", "0"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"0", ",", "1", ",", "0", ",", "0"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"0", ",", "0", ",", "0", ",", "0"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"0", ",", "0", ",", "0", ",", "0"}], "}"}]}], "}"}]], "Output",
+ CellChangeTimes->{{3.937401618157022*^9, 3.937401667006942*^9}, 
+   3.937401741315963*^9, 3.937401820284803*^9},
+ CellLabel->"Out[46]=",ExpressionUUID->"2f7b6e3d-c037-479b-ac86-05809c9bf642"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"Normal", "[", 
+  RowBox[{"BosonicPartialTrace", "[", 
+   RowBox[{"Dyad", "[", 
+    RowBox[{"Normalize", "@", 
+     RowBox[{"Total", "[", 
+      RowBox[{
+       RowBox[{
+        RowBox[{"FockBasisStateAsColumnVector", "[", 
+         RowBox[{"#", ",", "n", ",", "L"}], "]"}], "&"}], "/@", 
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{"{", 
+          RowBox[{"0", ",", "3", ",", "0"}], "}"}], ",", 
+         RowBox[{"{", 
+          RowBox[{"1", ",", "1", ",", "1"}], "}"}], ",", 
+         RowBox[{"{", 
+          RowBox[{"2", ",", "1", ",", "0"}], "}"}], ",", 
+         RowBox[{"{", 
+          RowBox[{"3", ",", "0", ",", "0"}], "}"}]}], "}"}]}], "]"}]}], "]"}],
+    "]"}], "]"}]], "Input",
+ CellChangeTimes->{{3.937401838304203*^9, 3.93740189988978*^9}, {
+  3.937401947887185*^9, 3.937401950953004*^9}},
+ CellLabel->"In[49]:=",ExpressionUUID->"ae518e79-1b7d-4389-95a2-c1669bb24b2b"],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{
+   RowBox[{"{", 
+    RowBox[{
+     FractionBox["1", "4"], ",", "0", ",", "0", ",", "0"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"0", ",", 
+     FractionBox["1", "4"], ",", "0", ",", "0"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"0", ",", "0", ",", 
+     FractionBox["1", "4"], ",", "0"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"0", ",", "0", ",", "0", ",", 
+     FractionBox["1", "4"]}], "}"}]}], "}"}]], "Output",
+ CellChangeTimes->{3.937401872064546*^9, 3.937401904928329*^9, 
+  3.9374019517075033`*^9},
+ CellLabel->"Out[49]=",ExpressionUUID->"d4da69a6-f8f3-421c-9f25-c35335e952b5"]
+}, Open  ]]
+}, Open  ]]
+},
+WindowSize->{1435.5, 755.25},
+WindowMargins->{{-2.25, Automatic}, {Automatic, -22.5}},
+FrontEndVersion->"14.1 for Linux x86 (64-bit) (July 16, 2024)",
+StyleDefinitions->"Default.nb",
+ExpressionUUID->"b782eaf1-915f-49dc-9943-1de06fe738fb"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[CellGroupData[{
+Cell[576, 22, 180, 3, 65, "Section",ExpressionUUID->"ea1117ee-639f-4a90-b03d-52bcedac2430"],
+Cell[759, 27, 541, 14, 65, "Input",ExpressionUUID->"e71076f4-0464-4aea-a8b2-8e20b245b2d8",
+ InitializationCell->True]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[1337, 46, 164, 3, 67, "Chapter",ExpressionUUID->"55ffa786-f7c7-47f2-824a-06361512ae20"],
+Cell[CellGroupData[{
+Cell[1526, 53, 888, 22, 109, "Input",ExpressionUUID->"4abaeb9a-1198-4e12-b693-5245b8d0af40"],
+Cell[2417, 77, 286, 5, 33, "Output",ExpressionUUID->"4243ece9-0d4f-45c0-bfc2-f2d71eab5a74"],
+Cell[2706, 84, 346, 7, 33, "Output",ExpressionUUID->"eb49f66e-ed68-4875-881c-2492490ddd2f"]
+}, Open  ]],
+Cell[3067, 94, 739, 18, 89, "Input",ExpressionUUID->"200b8bfc-5cc5-4e75-a8eb-5132dd1ac320"],
+Cell[3809, 114, 1506, 36, 172, "Input",ExpressionUUID->"5684cfe4-20a4-4519-9e6b-50be957b7efb"],
+Cell[CellGroupData[{
+Cell[5340, 154, 201, 3, 29, "Input",ExpressionUUID->"63ca8d1e-3c8f-490e-bbd6-e8e18e4051e7"],
+Cell[5544, 159, 17061, 380, 130, "Output",ExpressionUUID->"fb197f55-cbbf-41da-8d12-3b4f3110470c"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[22642, 544, 320, 7, 29, "Input",ExpressionUUID->"9e0684a5-9eda-4dbb-a8d8-813a08ec6794"],
+Cell[22965, 553, 149, 2, 33, "Output",ExpressionUUID->"e3f2abe7-bce3-4e03-8eba-1a3a18671801"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[23151, 560, 363, 7, 29, "Input",ExpressionUUID->"c4c5ea48-709e-46de-90aa-f4db2fe7a800"],
+Cell[23517, 569, 1483, 32, 57, "Output",ExpressionUUID->"d6626e2e-370f-4b1c-bd5a-a8f03f253c4e"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[25037, 606, 204, 3, 29, "Input",ExpressionUUID->"1a5a4aca-0289-446d-a62e-6d8501ddcaf8"],
+Cell[25244, 611, 17062, 380, 130, "Output",ExpressionUUID->"2d9f2fc1-ebdb-4497-8c34-8c279ec5c671"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[42343, 996, 182, 2, 29, "Input",ExpressionUUID->"4e303ad2-fcc9-4ea9-b3d7-07e40f7fa09c"],
+Cell[42528, 1000, 548, 11, 33, "Output",ExpressionUUID->"53cd8d75-f43e-4f9a-aa71-6df2fbec6760"]
+}, Open  ]],
+Cell[43091, 1014, 339, 6, 29, "Input",ExpressionUUID->"c60bc57e-e5a8-4246-971e-f8d6485d18f6"],
+Cell[CellGroupData[{
+Cell[43455, 1024, 493, 11, 29, "Input",ExpressionUUID->"9684e961-7973-464a-916b-2a2f250c7bcd"],
+Cell[43951, 1037, 562, 13, 33, "Output",ExpressionUUID->"2f7b6e3d-c037-479b-ac86-05809c9bf642"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[44550, 1055, 915, 23, 29, "Input",ExpressionUUID->"ae518e79-1b7d-4389-95a2-c1669bb24b2b"],
+Cell[45468, 1080, 635, 17, 45, "Output",ExpressionUUID->"d4da69a6-f8f3-421c-9f25-c35335e952b5"]
+}, Open  ]]
+}, Open  ]]
+}
+]
+*)
+
