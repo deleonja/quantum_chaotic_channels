@@ -163,8 +163,8 @@ FuzzyMeasurement::usage = "FuzzyMeasurement[\[Psi], \!\(\*SubscriptBox[\(p\), \(
 SpinParityEigenvectors::usage = "SpinParityEigenvectors[L] gives a list of {even, odd} eigenvectors of the L-spin system parity operator P; P\!\(\*TemplateBox[{RowBox[{SubscriptBox[\"k\", \"1\"], \",\", \"\[Ellipsis]\", \",\", SubscriptBox[\"k\", \"L\"]}]},\n\"Ket\"]\) = \!\(\*TemplateBox[{RowBox[{SubscriptBox[\"k\", \"L\"], \",\", \"\[Ellipsis]\", \",\", SubscriptBox[\"k\", \"1\"]}]},\n\"Ket\"]\), \!\(\*SubscriptBox[\(k\), \(i\)]\)=0,1.";
 
 
-(* ::Subsubsection::Closed:: *)
-(*Ising-like models*)
+(* ::Subsubsection:: *)
+(*Spin chains*)
 
 
 IsingNNOpenHamiltonian::usage = "IsingNNOpenHamiltonian[\!\(\*SubscriptBox[\(h\), \(x\)]\), \!\(\*SubscriptBox[\(h\), \(z\)]\), {\!\(\*SubscriptBox[\(J\), \(1\)]\),\[Ellipsis],\!\(\*SubscriptBox[\(J\), \(L - 1\)]\)}, L] returns the Hamiltonian \!\(\*UnderoverscriptBox[\(\[Sum]\), \(i = 1\), \(L\)]\)(\!\(\*SubscriptBox[\(h\), \(x\)]\) \!\(\*SubsuperscriptBox[\(\[Sigma]\), \(i\), \(x\)]\) + \!\(\*SubscriptBox[\(h\), \(z\)]\) \!\(\*SubsuperscriptBox[\(\[Sigma]\), \(i\), \(z\)]\)) + \!\(\*UnderoverscriptBox[\(\[Sum]\), \(i = 1\), \(L - 1\)]\) \!\(\*SubscriptBox[\(J\), \(i\)]\) \!\(\*SubsuperscriptBox[\(\[Sigma]\), \(i\), \(z\)]\)\!\(\*SubsuperscriptBox[\(\[Sigma]\), \(i + 1\), \(z\)]\)";
@@ -183,7 +183,7 @@ StyleBox[\"L\",\nFontSlant->\"Italic\"]\)] returns the Hamiltonian \!\(\*Underov
 ClosedXXZHamiltonian::usage = "ClosedXXZHamiltonian[\!\(\*
 StyleBox[\"L\",\nFontSlant->\"Italic\"]\)\!\(\*
 StyleBox[\",\",\nFontSlant->\"Italic\"]\)\!\(\*
-StyleBox[\"\[CapitalDelta]\",\nFontSlant->\"Italic\"]\)] returns the closed XXZ 1/2-spin chain. [Quantum 8, 1510 (2024)]";
+StyleBox[\"\[CapitalDelta]\",\nFontSlant->\"Italic\"]\)] returns the closed XXZ 1/2-spin chain as in appendix A.1 of Quantum 8, 1510 (2024).";
 
 
 OpenXXZHamiltonian::usage= "OpenXXZHamiltonian[\!\(\*
@@ -193,7 +193,21 @@ StyleBox[\"\[CapitalDelta]\",\nFontSlant->\"Italic\"]\)\!\(\*
 StyleBox[\",\",\nFontSlant->\"Italic\"]\)\!\(\*
 StyleBox[\"h1\",\nFontSlant->\"Italic\"]\)\!\(\*
 StyleBox[\",\",\nFontSlant->\"Italic\"]\)\!\(\*
-StyleBox[\"h2\",\nFontSlant->\"Italic\"]\)] returns the open XXZ 1/2-spin chain. [Quantum 8, 1510 (2024)]";
+StyleBox[\"h2\",\nFontSlant->\"Italic\"]\)] returns the open XXZ 1/2-spin chain as in appendix A.2 of Quantum 8, 1510 (2024).";
+
+
+LeaSpinChainHamiltonian::usage = "LeaSpinChainHamiltonian[\!\(\*
+StyleBox[\"Jxy\",\nFontSlant->\"Italic\"]\)\!\(\*
+StyleBox[\",\",\nFontSlant->\"Italic\"]\)\!\(\*
+StyleBox[\"Jz\",\nFontSlant->\"Italic\"]\)\!\(\*
+StyleBox[\",\",\nFontSlant->\"Italic\"]\)\!\(\*
+StyleBox[\"\[Omega]\",\nFontSlant->\"Italic\"]\)\!\(\*
+StyleBox[\",\",\nFontSlant->\"Italic\"]\)\!\(\*
+StyleBox[\"\[Epsilon]d\",\nFontSlant->\"Italic\"]\)\!\(\*
+StyleBox[\",\",\nFontSlant->\"Italic\"]\)\!\(\*
+StyleBox[\"L\",\nFontSlant->\"Italic\"]\)\!\(\*
+StyleBox[\",\",\nFontSlant->\"Italic\"]\)\!\(\*
+StyleBox[\"d\",\nFontSlant->\"Italic\"]\)] returns the spin-1/2 chain of eq. (1) in Am. J. Phys. 80, 246\[Dash]251 (2012).";
 
 
 (* ::Subsection::Closed:: *)
@@ -580,30 +594,43 @@ Normalize[SparseArray[{FromDigits[#,2]+1->-1.,FromDigits[Reverse[#],2]+1->1.},2^
 
 
 (* ::Subsubsection:: *)
-(*Ising spin chain models*)
+(*Spin chains*)
 
 
 IsingNNOpenHamiltonian[hx_,hz_,J_,L_] := Module[{NNIndices},
 	NNIndices=Normal[SparseArray[Thread[{#,#+1}->3],{L}]&/@Range[L-1]];
-	Normal[Total[{hx*Pauli[#]+hz*Pauli[3#]&/@IdentityMatrix[L],-J*(Pauli/@NNIndices)},2]]]
+	N[Normal[Total[{hx*Pauli[#]+hz*Pauli[3#]&/@IdentityMatrix[L],-J*(Pauli/@NNIndices)},2]]]]
 
 
 IsingNNClosedHamiltonian[hx_,hz_,J_,L_] := Module[{NNIndices},
 	NNIndices=Normal[SparseArray[Thread[{#,Mod[#+1,L,1]}->3],{L}]&/@Range[L]];
-	Normal[Total[{hx*Pauli[#]+hz*Pauli[3#]&/@IdentityMatrix[L],-J*(Pauli/@NNIndices)},2]]]
+	N[Normal[Total[{hx*Pauli[#]+hz*Pauli[3#]&/@IdentityMatrix[L],-J*(Pauli/@NNIndices)},2]]]]
 
 
 ClosedXXZHamiltonian[L_,\[CapitalDelta]_]:=
-Module[{NNindices},
-NNindices=Normal[SparseArray[Thread[{#,Mod[#+1,L,1]}->1],{L}]&/@Range[L]];
-Normal[-1/2*Total[Join[Pauli/@NNindices,Pauli/@(2NNindices),\[CapitalDelta] (Pauli[#]-IdentityMatrix[2^L])&/@(3NNindices)]]]
-]
+	Module[{NNindices},
+		NNindices = Normal[ SparseArray[Thread[{#, Mod[# + 1, L, 1]}->1], {L}] &/@ Range[L] ];
+		N[Normal[-1/2*Total[Join[Pauli/@NNindices,Pauli/@(2NNindices),\[CapitalDelta] (Pauli[#]-IdentityMatrix[2^L])&/@(3NNindices)]]]]
+	]
 
 
 OpenXXZHamiltonian[L_,\[CapitalDelta]_,h1_,h2_]:=
-Module[{NNindices},
-Normal[ClosedXXZHamiltonian[L,\[CapitalDelta]]-1/2*(h1 Pauli[Join[{1},ConstantArray[0,L-1]]]+h2 Pauli[Join[ConstantArray[0,L-1],{1}]])+1/2*(h1+h2)IdentityMatrix[2^L]]
-]
+	Module[{NNindices},
+		NNindices = Normal[ SparseArray[Thread[{#, Mod[# + 1, L, 1]}->1], {L}] &/@ Range[L-1] ];
+		N[Normal[-1/2*Total[Join[Pauli/@NNindices,Pauli/@(2NNindices),\[CapitalDelta] (Pauli[#]-IdentityMatrix[2^L])&/@(3NNindices)]]  
+		- 1/2*(h1 Pauli[Join[{1},ConstantArray[0,L-1]]] + h2*Pauli[Join[ConstantArray[0,L-1],{1}]])+ 1/2*(h1 + h2)IdentityMatrix[2^L]]]
+	]
+
+
+HamiltonianNN[Jxy_,Jz_,L_]:=
+	Module[{NNindices},
+		NNindices = Normal[ SparseArray[Thread[{#, Mod[# + 1, L, 1]}->1], {L}] &/@ Range[L-1] ];
+		N[Normal[(1/4)*Total[Join[Jxy*(Pauli/@NNindices),Jxy*(Pauli/@(2NNindices)),Jz*(Pauli[#]&/@(3NNindices))]]]]
+	]
+
+HamiltonianZ[\[Omega]_,\[Epsilon]d_,L_,d_]:=N[(1/2)*(\[Omega]*Total[Pauli/@(3*IdentityMatrix[L])]+\[Epsilon]d*Pauli[Normal[SparseArray[d->3,L]]])]
+
+LeaSpinChainHamiltonian[Jxy_,Jz_,\[Omega]_,\[Epsilon]d_,L_,d_]:=HamiltonianNN[Jxy,Jz,L]+HamiltonianZ[\[Omega],\[Epsilon]d,L,d]
 
 
 (* ::Subsection::Closed:: *)
