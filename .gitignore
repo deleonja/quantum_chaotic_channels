@@ -307,3 +307,9 @@ TSWLatexianTemp*
 Main bibliography/Kraus Representation for the Density Operator of a Qubit.pdf
 Main bibliography/entropy-24-01092.pdf
 Main bibliography/s10053-024-00881-z.pdf
+
+# Archivos temporales JA
+ja_files/tmp
+
+# Videos porque pesan mucho
+ja_files/videos
