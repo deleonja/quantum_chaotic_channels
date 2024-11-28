@@ -311,5 +311,6 @@ Main bibliography/s10053-024-00881-z.pdf
 # Archivos temporales JA
 ja_files/tmp
 
-# Videos porque pesan mucho
-ja_files/videos
+# Frames de los videos
+ja_files/videos/bloch_sph_choi_eigvals_dynamics_wisniacki_open_L_10_hx_1_J_1_hz_0.5
+ja_files/videos/bloch_sph_choi_eigvals_dynamics_wisniacki_open_L_10_hx_1_J_1_hz_2.5
