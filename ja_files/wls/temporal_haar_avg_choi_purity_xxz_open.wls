@@ -1,6 +1,9 @@
 #!/usr/bin/env wolframscript
 (* ::Package:: *)
 
+(* Para correr en el servidor: nohup ./temporal_haar_avg_choi_purity_xxz_open.wls > log/xxz_open_L_7_Jz_1_d_3_omega_0.log 2>&1 & *)
+
+
 (* Set directory to this notebook's directory *)
 SetDirectory["/home/jadeleon/Documents/chaos_meets_channels/ja_files"];
 Get["../Mathematica_packages/QMB.wl"];
