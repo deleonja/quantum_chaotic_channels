@@ -2,21 +2,26 @@
 (* ::Package:: *)
 
 (* Set directory to this notebook's directory *)
-SetDirectory["/home/jadeleon/Documents/quantum_chaotic_channels/ja_files"];
+SetDirectory["/home/jadeleon/Documents/chaos_meets_channels/ja_files"];
 Get["../Mathematica_packages/QMB.wl"];
 
 
-(* Par\[AAcute]metros fijos L, Subscript[J, z], \[Omega], \[Epsilon], d (sitio del defecto)*)
+(* Par\[AAcute]metros fijos L, Jz, \[Omega], \[Epsilon], d (sitio del defecto)*)
 L = 7; 
-d = 4;
-{Jz,\[Omega]}={1., 0.};
+d = 3;
+{Jz, \[Omega]}={1., 0.};
+
+(* Indices de las Pauli strings en la suma del valor esperado de Haar de la pureza de Choi *)
 indices = Tuples[Range[0,3],L-1];
 
 (* Lista de promedios temporales del valor esperado de Haar de la pureza de Choi *)
 temporalAverageChoi = {};
 
+(* Lista de tiempos por cada iteraci\[OAcute]n del Do *)
+times={};
+
 Do[
-Print[DateString[]];
+startTime = AbsoluteTime[];
 
 (*Hamiltoniano*)
 H=LeaSpinChainHamiltonian[Jxy,Jz,\[Omega],\[Epsilon],L,d];
@@ -39,11 +44,14 @@ ParallelTable[
 	,{t, 0., 100., 0.5}
 , DistributedContexts -> Full];
 
+(* Exportar datos de la pureza de Choi *)
+Export["data/haar_avg_choi_purity/xxz/L_", L,"/Jz_", Jz,"_d_", d,"_omega_", \[Omega],"/epsilon_", \[Epsilon],"_Jxy_", Jxy,".csv", 
+	Prepend[choiPurity, {"t", "valor esperado de Haar de la pureza de Choi"}], "CSV"];
+
 (* Calcular el promedio temporal de la pureza promedio de Choi *)
 fInterp = Interpolation[choiPurity]; 
 choiPurityTempAvg = NIntegrate[fInterp[t],{t, 0, 100}] / 100.;
-AppendTo[temporalAverageChoi, choiPurityTempAvg];
-
+AppendTo[temporalAverageChoi, {\[Epsilon], Jxy, choiPurityTempAvg}];
 
 (* Graficar la pureza de Choi en el tiempo *)
 (*
@@ -64,12 +72,17 @@ GridLinesStyle->Directive[Gray, Dashed,Thin]
 ];
 *)
 
-Print["Jxy = "<>ToString[Jxy]<>", epsilon = "<>ToString[\[Epsilon]]<>": done, "<>DateString[]];
-
-(* Exportar figura y datos *)
+(* Exportar figura *)
 (*Export["figs_ja/choi/haar/Lea_L_"<>ToString[L]<>"_Jz_"<>ToString[Jz]<>"_d_"<>ToString[d]<>"_omega_"<>ToString[\[Omega]]<>"_epsilon_"<>ToString[\[Epsilon]]<>"_Jxy_"<>ToString[NumberForm[Jxy,{Infinity,2}]]<>".pdf",fig,"PDF"];*)
-Export["figs_ja/choi/haar/data/Lea_L_"<>ToString[L]<>"_Jz_"<>ToString[Jz]<>"_d_"<>ToString[d]<>"_omega_"<>ToString[\[Omega]]<>"_epsilon_"<>ToString[\[Epsilon]]<>"_Jxy_"<>ToString[NumberForm[Jxy,{Infinity,2}]]<>".csv",choiPurity,"CSV"];
+
+endTime = AbsoluteTime[];
+time= endTime - startTime;
+AppendTo[times,time];
+Print["Jxy = ", Jxy, ", epsilon = ", \[Epsilon], " se tard\[OAcute] ", time/60, " min. Faltan aproximadamente ", (441-(Jxy/0.1+1)*(\[Epsilon]/0.1+1))*Mean[times]/3600," h."];
+
 ,{Jxy,Subdivide[0., 2., 20]}, {\[Epsilon], Subdivide[0., 2., 20]}]; 
 
 
-Export["data/temporal_haar_avg_choi_purity/xxz_w_defect_L_"<>ToString[L]<>"_Jz_"<>ToString[Jz]<>"_d_"<>ToString[d]<>"_omega_"<>ToString[\[Omega]]<>"/epsilon_"<>ToString[\[Epsilon]]<>"_Jxy_"<>ToString[NumberForm[Jxy,{Infinity,2}]]<>".csv",temporalAverageChoi,"CSV"];
+(* Exportar el promedio temporal del valor esperado de Haar de la pureza de Choi *)
+Export["data/temporal_haar_avg_choi_purity/xxz_w_defect_L_", L,"_Jz_", Jz,"_d_", d,"_omega_", \[Omega],".csv", 
+	Prepend[temporalAverageChoi, {"\varepsilon", "J_{xy}", "promedio temporal de 0 a 100 del valor esperado de Haar de la pureza de Choi"}], "CSV"];
