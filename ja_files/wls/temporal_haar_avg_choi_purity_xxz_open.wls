@@ -48,7 +48,7 @@ ParallelTable[
 , DistributedContexts -> Full];
 
 (* Exportar datos de la pureza de Choi *)
-Export["data/haar_avg_choi_purity/xxz/L_", L,"/Jz_", Jz,"_d_", d,"_omega_", \[Omega],"/epsilon_", \[Epsilon],"_Jxy_", Jxy,".csv", 
+Export["data/haar_avg_choi_purity/xxz/L_"<>ToString[L]<>"/Jz_"<>ToString[Jz]<>"_d_"<>ToString[d]<>"_omega_"<>ToString[\[Omega]]<>"/epsilon_"<>ToString[NumberForm[\[Epsilon],{Infinity,2}]]<>"_Jxy_"<>ToString[NumberForm[Jxy,{Infinity,2}]]<>".csv", 
 	Prepend[choiPurity, {"t", "valor esperado de Haar de la pureza de Choi"}], "CSV"];
 
 (* Calcular el promedio temporal de la pureza promedio de Choi *)
@@ -87,5 +87,5 @@ Print["Jxy = ", Jxy, ", epsilon = ", \[Epsilon], " se tard\[OAcute] ", time/60, 
 
 
 (* Exportar el promedio temporal del valor esperado de Haar de la pureza de Choi *)
-Export["data/temporal_haar_avg_choi_purity/xxz_w_defect_L_", L,"_Jz_", Jz,"_d_", d,"_omega_", \[Omega],".csv", 
+Export["data/temporal_haar_avg_choi_purity/xxz_w_defect_L_"<>ToString[L]<>"_Jz_"<>ToString[Jz]<>"_d_"<>ToString[d]<>"_omega_"<>ToString[\[Omega]]<>".csv", 
 	Prepend[temporalAverageChoi, {"\varepsilon", "J_{xy}", "promedio temporal de 0 a 100 del valor esperado de Haar de la pureza de Choi"}], "CSV"];
