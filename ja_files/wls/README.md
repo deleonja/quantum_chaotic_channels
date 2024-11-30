@@ -1,3 +1,13 @@
+### Para correr en el servidor
+
+En este directorio ejecutar:
+
+`nohup ./<wls-file> > log/<log-file>.log 2>&1 &`
+
+El comando `nohup` es para ejecutar el comando de bash y éste se siga ejecutando después de cerrar la sesión de SSH. La parte de `> log/<log-file>.log 2>&1 &` guarda el output del script en `log/<log-file>.log` 
+
+### Cadenas
+
 - XXZ abierto
 - XXZ cerrado 
 - Wisniacki abierto 
