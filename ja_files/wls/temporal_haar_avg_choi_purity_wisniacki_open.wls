@@ -82,12 +82,13 @@ GridLinesStyle->Directive[Gray, Dashed,Thin]
 
 endTime = AbsoluteTime[];
 time= endTime - startTime;
+remainingIterations = (100-(10*(((hz-2.1)/0.1+1)-1)+((J-2.1)/0.1+1)));
 AppendTo[times,time];
-Print["hz = ", ToString[NumberForm[hz,{Infinity,2}]], ", J = ", ToString[NumberForm[J,{Infinity,2}]], ": ", ToString[NumberForm[time,{Infinity,2}]], " s. Terminar\[AAcute]: ", DateString[DatePlus[Now,Quantity[(441-(hz/0.1+1)*(J/0.1+1))*Mean[times]/3600,"Hours"]]]];
+Print["hz = ", ToString[NumberForm[hz,{Infinity,1}]], ", J = ", ToString[NumberForm[J,{Infinity,1}]], ": ", ToString[NumberForm[time,{Infinity,0}]], " s. Terminar\[AAcute]: ", DateString[DatePlus[Now,Quantity[remainingIterations*Mean[times]/3600,"Hours"]]]];
 
-,{hz, Subdivide[0., 2., 20]}, {J, Subdivide[0., 2., 20]}]; 
+,{hz, Subdivide[2.1, 3., 9]}, {J, Subdivide[2.1, 3., 9]}]; 
 
 
 (* Exportar el promedio temporal del valor esperado de Haar de la pureza de Choi *)
-Export["data/temporal_haar_avg_choi_purity/wisniacki_open_L_"<>ToString[L]<>"_hx_"<>ToString[hx]<>".csv", 
+Export["data/temporal_haar_avg_choi_purity/wisniacki_open_L_"<>ToString[L]<>"_hx_"<>ToString[hx]<>"_2.csv", 
 	Prepend[temporalAverageChoi, {"hz", "J", "promedio temporal de 0 a 100 del valor esperado de Haar de la pureza de Choi"}], "CSV"];
