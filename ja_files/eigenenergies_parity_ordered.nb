@@ -1,0 +1,409 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Wolfram 14.1' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       154,          7]
+NotebookDataLength[     15059,        401]
+NotebookOptionsPosition[     13109,        357]
+NotebookOutlinePosition[     13511,        373]
+CellTagsIndexPosition[     13468,        370]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+
+Cell[CellGroupData[{
+Cell["Pre\[AAcute]mbulo", "Section",
+ CellChangeTimes->{{3.941976819284129*^9, 
+  3.9419768225387087`*^9}},ExpressionUUID->"caae451a-ef68-43fc-a9a9-\
+44b50ee6f072"],
+
+Cell[CellGroupData[{
+
+Cell["Fijar directorio para este notebook", "Subsection",
+ CellChangeTimes->{{3.941979524942679*^9, 
+  3.941979533556068*^9}},ExpressionUUID->"94a7408f-a683-4f92-b934-\
+fb1321cc3806"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"SetDirectory", "[", 
+  "\"\</home/jadeleon/Documents/chaos_meets_channels/ja_files\>\"", 
+  "]"}]], "Input",
+ CellLabel->"In[1]:=",ExpressionUUID->"522aeaea-2e1a-450e-814d-c088dd936a7d"],
+
+Cell[BoxData["\<\"/home/jadeleon/Documents/chaos_meets_channels/ja_files\"\>"]\
+, "Output",
+ CellChangeTimes->{3.941923294761064*^9},
+ CellLabel->"Out[1]=",ExpressionUUID->"271da513-f0ab-43e9-88a9-508c26f26591"]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Paquetes", "Subsection",
+ CellChangeTimes->{{3.941979519606271*^9, 
+  3.941979520558395*^9}},ExpressionUUID->"60cc480e-39bf-404d-9a86-\
+f726dc8abcac"],
+
+Cell[BoxData[
+ RowBox[{"Get", "[", "\"\<../Mathematica_packages/QMB.wl\>\"", "]"}]], "Input",\
+
+ CellLabel->"In[2]:=",ExpressionUUID->"dcaf85e1-0fa7-4bc9-a644-1a411073ddd7"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Definiciones", "Subsection",
+ CellChangeTimes->{{3.941976824807556*^9, 
+  3.941976828703747*^9}},ExpressionUUID->"112644cc-df7a-4cdd-bf40-\
+9dfed5768a8a"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"ClearAll", "[", "ParityMatrix", "]"}], ";", 
+  RowBox[{
+   RowBox[{"ParityMatrix", "[", "L_", "]"}], ":=", 
+   RowBox[{"SparseArray", "[", 
+    RowBox[{
+     RowBox[{
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{
+          RowBox[{"FromDigits", "[", 
+           RowBox[{"#", ",", "2"}], "]"}], "+", "1"}], ",", 
+         RowBox[{
+          RowBox[{"FromDigits", "[", 
+           RowBox[{
+            RowBox[{"Reverse", "[", "#", "]"}], ",", "2"}], "]"}], "+", 
+          "1"}]}], "}"}], "->", "1."}], "&"}], "/@", 
+     RowBox[{"Tuples", "[", 
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{"0", ",", "1"}], "}"}], ",", "L"}], "]"}]}], 
+    "]"}]}]}]], "Input",
+ CellChangeTimes->{{3.9419769251648293`*^9, 3.941976926255361*^9}},
+ CellLabel->"In[97]:=",ExpressionUUID->"6eae6ca3-0e10-445d-98ec-2f1c20ca6cec"]
+}, Open  ]]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Eigenenerg\[IAcute]as del Hamiltoniano en los subespacios de paridad", \
+"Section",
+ CellChangeTimes->{{3.941977949368186*^9, 3.941977955589025*^9}, {
+  3.941979553648108*^9, 3.941979554659596*^9}, {3.941979719873871*^9, 
+  3.941979733648303*^9}},ExpressionUUID->"7c494fb9-6b31-4224-bb38-\
+9f26a5239663"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"(*", " ", 
+   RowBox[{
+    RowBox[{"Par\[AAcute]metros", " ", "hx"}], ",", " ", "hz", ",", " ", 
+    RowBox[{"J", " ", "y", " ", "L"}]}], "*)"}], "\[IndentingNewLine]", 
+  RowBox[{
+   RowBox[{
+    RowBox[{"L", "=", "7"}], ";"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"hx", "=", "1."}], ";"}], "\[IndentingNewLine]", 
+   "\[IndentingNewLine]", 
+   RowBox[{"(*", " ", 
+    RowBox[{
+    "Matriz", " ", "de", " ", "cambio", " ", "de", " ", "base", " ", "de", 
+     " ", "la", " ", "computacional", " ", "a", " ", "eigenbase", " ", "de", 
+     " ", "paridad"}], " ", "*)"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"P", "=", 
+     RowBox[{"SparseArray", "[", 
+      RowBox[{"Transpose", "[", 
+       RowBox[{"Flatten", "[", 
+        RowBox[{
+         RowBox[{"SpinParityEigenvectors", "[", "L", "]"}], ",", "1"}], "]"}],
+        "]"}], "]"}]}], ";"}], "\[IndentingNewLine]", "\[IndentingNewLine]", 
+   RowBox[{"(*", " ", 
+    RowBox[{
+     RowBox[{"Dimensiones", " ", "subespacios", " ", "de", " ", "paridad"}], 
+     " ", "+", 
+     RowBox[{"1", " ", "y"}], " ", "-", "1"}], " ", "*)"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"dimPplus1", ",", "dimPminus1"}], "}"}], "=", 
+     RowBox[{"Length", "/@", 
+      RowBox[{"SpinParityEigenvectors", "[", "L", "]"}]}]}], ";"}], 
+   "\[IndentingNewLine]", "\[IndentingNewLine]", 
+   RowBox[{"(*", " ", 
+    RowBox[{
+    "Lista", " ", "para", " ", "guardar", " ", "eigenenerg\[IAcute]as"}], " ",
+     "*)"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"eigenenergiesPplus1", "=", 
+     RowBox[{"{", "}"}]}], ";"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"eigenenergiesPminus1", "=", 
+     RowBox[{"{", "}"}]}], ";"}], "\[IndentingNewLine]", 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"Do", "[", "\[IndentingNewLine]", 
+     RowBox[{"(*", " ", "Hamiltoniano", " ", "*)"}], "\[IndentingNewLine]", 
+     RowBox[{
+      RowBox[{
+       RowBox[{"H", "=", 
+        RowBox[{"SparseArray", "[", 
+         RowBox[{"IsingNNOpenHamiltonian", "[", 
+          RowBox[{"hx", ",", "hz", ",", "J", ",", "L"}], "]"}], "]"}]}], ";", 
+       "\[IndentingNewLine]", "\[IndentingNewLine]", 
+       RowBox[{"(*", " ", 
+        RowBox[{
+         RowBox[{
+         "Cambio", " ", "de", " ", "base", " ", "del", " ", "Hamiltoniano"}], 
+         ",", " ", 
+         RowBox[{
+          RowBox[{"P", "^", 
+           RowBox[{"-", "1."}]}], 
+          RowBox[{"H", ".", "P"}], " ", "est\[AAcute]", " ", "en", " ", 
+          "bloques"}]}], " ", "*)"}], "\[IndentingNewLine]", 
+       RowBox[{"HinBlocks", "=", 
+        RowBox[{"Chop", "[", 
+         RowBox[{
+          RowBox[{"ConjugateTranspose", "[", "P", "]"}], ".", "H", ".", "P"}],
+          "]"}]}], ";", "\[IndentingNewLine]", "\[IndentingNewLine]", 
+       RowBox[{"(*", " ", 
+        RowBox[{
+         RowBox[{
+          RowBox[{
+          "Bloques", " ", "del", " ", "Hamiltoniano", " ", "con", " ", 
+           "paridad"}], " ", "+", 
+          RowBox[{"1", " ", "y"}], " ", "-", "1"}], ",", " ", 
+         "respectivamente"}], " ", "*)"}], "\[IndentingNewLine]", 
+       RowBox[{"HblockPplus1", "=", 
+        RowBox[{"HinBlocks", "[", 
+         RowBox[{"[", 
+          RowBox[{
+           RowBox[{"1", ";;", "dimPplus1"}], ",", 
+           RowBox[{"1", ";;", "dimPplus1"}]}], "]"}], "]"}]}], ";", 
+       "\[IndentingNewLine]", 
+       RowBox[{"HblockPminus1", "=", 
+        RowBox[{"HinBlocks", "[", 
+         RowBox[{"[", 
+          RowBox[{
+           RowBox[{
+            RowBox[{"dimPplus1", "+", "1"}], ";;"}], ",", 
+           RowBox[{
+            RowBox[{"dimPplus1", "+", "1"}], ";;"}]}], "]"}], "]"}]}], ";", 
+       "\[IndentingNewLine]", "\[IndentingNewLine]", 
+       RowBox[{"(*", " ", 
+        RowBox[{
+         RowBox[{
+          RowBox[{
+          "Eigenenergias", " ", "de", " ", "los", " ", "subespacios", " ", 
+           "de", " ", "paridad"}], " ", "+", 
+          RowBox[{"1", " ", "y"}], " ", "-", "1"}], ",", " ", 
+         "respectivamente"}], " ", "*)"}], "\[IndentingNewLine]", 
+       RowBox[{"eigenvaluesPplus1", "=", 
+        RowBox[{"Sort", "[", 
+         RowBox[{"Eigenvalues", "[", "HblockPplus1", "]"}], "]"}]}], ";", 
+       "\[IndentingNewLine]", 
+       RowBox[{"eigenvaluesPminus1", "=", 
+        RowBox[{"Sort", "[", 
+         RowBox[{"Eigenvalues", "[", "HblockPminus1", "]"}], "]"}]}], ";", 
+       "\[IndentingNewLine]", "\[IndentingNewLine]", 
+       RowBox[{"(*", " ", 
+        RowBox[{
+        "Agregar", " ", "eigenvaluesPplus1", " ", "a", " ", "eigenenergies"}],
+         " ", "*)"}], "\[IndentingNewLine]", 
+       RowBox[{"AppendTo", "[", 
+        RowBox[{"eigenenergiesPplus1", ",", 
+         RowBox[{"{", 
+          RowBox[{"hz", ",", "J", ",", "eigenvaluesPplus1"}], "}"}]}], "]"}], 
+       ";", "\[IndentingNewLine]", 
+       RowBox[{"AppendTo", "[", 
+        RowBox[{"eigenenergiesPminus1", ",", 
+         RowBox[{"{", 
+          RowBox[{"hz", ",", "J", ",", "eigenvaluesPminus1"}], "}"}]}], "]"}],
+        ";"}], "\[IndentingNewLine]", "\[IndentingNewLine]", ",", 
+      RowBox[{"{", 
+       RowBox[{"hz", ",", 
+        RowBox[{"Subdivide", "[", 
+         RowBox[{"0.", ",", "2.", ",", "20"}], "]"}]}], "}"}], ",", 
+      RowBox[{"{", 
+       RowBox[{"J", ",", 
+        RowBox[{"Subdivide", "[", 
+         RowBox[{"0.", ",", "2.", ",", "20"}], "]"}]}], "}"}]}], "]"}], "//", 
+    "AbsoluteTiming"}]}]}]], "Input",
+ CellChangeTimes->{{3.9419779564834757`*^9, 3.941978096588688*^9}, {
+  3.941978137568177*^9, 3.9419782684066133`*^9}, {3.94197941044869*^9, 
+  3.941979412507834*^9}, {3.9419795657313557`*^9, 3.941979597268466*^9}, {
+  3.9419796537496033`*^9, 3.9419796836126633`*^9}, {3.941979762162586*^9, 
+  3.9419797711425247`*^9}, {3.9419798041669693`*^9, 3.9419798236227093`*^9}},
+ CellLabel->
+  "In[230]:=",ExpressionUUID->"0c937180-bb62-409a-929c-d7adfa56fe11"],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{"0.699134`", ",", "Null"}], "}"}]], "Output",
+ CellChangeTimes->{3.94197826875279*^9, 3.941979414230454*^9, 
+  3.9419797025252047`*^9, 3.94197986023682*^9, 3.941979910366742*^9},
+ CellLabel->
+  "Out[236]=",ExpressionUUID->"f684c4df-5e67-4fff-8f8d-11503e5d4ae5"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"(*", " ", 
+   RowBox[{
+   "Preprocesar", " ", "para", " ", "hacer", " ", "un", " ", "arreglo", " ", 
+    "2", "D", " ", "de", " ", "los", " ", "datos", " ", "y", " ", "poner", 
+    " ", "infor", " ", "en", " ", "la", " ", "primera", " ", "fila"}], " ", 
+   "*)"}], "\[IndentingNewLine]", 
+  RowBox[{
+   RowBox[{
+    RowBox[{"processedeigenenergiesPplus1", "=", 
+     RowBox[{"Flatten", "/@", "eigenenergiesPplus1"}]}], ";"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"PrependTo", "[", 
+     RowBox[{"processedeigenenergiesPplus1", ",", 
+      RowBox[{"{", 
+       RowBox[{
+       "\"\<hz\>\"", ",", "\"\<J\>\"", ",", "\"\<E0\>\"", ",", "\"\<...\>\"", 
+        ",", "\"\<En, con n la dimension del subespacio\>\""}], "}"}]}], 
+     "]"}], "[", 
+    RowBox[{"[", "1", "]"}], "]"}], "\[IndentingNewLine]", 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"processedeigenenergiesPminus1", "=", 
+     RowBox[{"Flatten", "/@", "eigenenergiesPminus1"}]}], ";"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"PrependTo", "[", 
+     RowBox[{"processedeigenenergiesPminus1", ",", 
+      RowBox[{"{", 
+       RowBox[{
+       "\"\<hz\>\"", ",", "\"\<J\>\"", ",", "\"\<E0\>\"", ",", "\"\<...\>\"", 
+        ",", "\"\<En, con n la dimension del subespacio\>\""}], "}"}]}], 
+     "]"}], "[", 
+    RowBox[{"[", "1", "]"}], "]"}]}]}]], "Input",
+ CellChangeTimes->{{3.941978284759913*^9, 3.941978311889127*^9}, {
+   3.941978392690288*^9, 3.941978464188703*^9}, {3.941978671580062*^9, 
+   3.941978679102044*^9}, {3.941978719417924*^9, 3.941978837920094*^9}, 
+   3.941979747690557*^9, {3.9419798078184643`*^9, 3.9419798631522284`*^9}, {
+   3.941979896854416*^9, 3.941979901975576*^9}},
+ CellLabel->
+  "In[237]:=",ExpressionUUID->"a38a4215-e641-474f-9abc-9c2e3723d2f3"],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{"\<\"hz\"\>", ",", "\<\"J\"\>", ",", "\<\"E0\"\>", 
+   ",", "\<\"...\"\>", ",", "\<\"En, con n la dimension del subespacio\"\>"}],
+   "}"}]], "Output",
+ CellChangeTimes->{
+  3.941978286103034*^9, 3.941978465660589*^9, 3.941978838734823*^9, 
+   3.941979421398851*^9, {3.941979856318576*^9, 3.941979864110736*^9}, {
+   3.9419799070633583`*^9, 3.941979910772084*^9}},
+ CellLabel->
+  "Out[238]=",ExpressionUUID->"f37160fa-fa43-4e42-a61c-0eba5e66b329"],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{"\<\"hz\"\>", ",", "\<\"J\"\>", ",", "\<\"E0\"\>", 
+   ",", "\<\"...\"\>", ",", "\<\"En, con n la dimension del subespacio\"\>"}],
+   "}"}]], "Output",
+ CellChangeTimes->{
+  3.941978286103034*^9, 3.941978465660589*^9, 3.941978838734823*^9, 
+   3.941979421398851*^9, {3.941979856318576*^9, 3.941979864110736*^9}, {
+   3.9419799070633583`*^9, 3.941979910773933*^9}},
+ CellLabel->
+  "Out[240]=",ExpressionUUID->"3dcb60d1-8e1f-4bdd-a004-22a22bc2166e"]
+}, Open  ]],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"(*", " ", 
+   RowBox[{"Exportar", " ", "datos", " ", "procesados"}], "*)"}], 
+  "\[IndentingNewLine]", 
+  RowBox[{
+   RowBox[{
+    RowBox[{"Export", "[", 
+     RowBox[{
+     "\"\<data/energies/wisniacki_open/L_7/parity_plus1_hz_and_J_from_0_to_2_\
+step_0.1.csv\>\"", ",", "processedeigenenergiesPplus1", ",", "\"\<CSV\>\""}], 
+     "]"}], ";"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"Export", "[", 
+     RowBox[{
+     "\"\<data/energies/wisniacki_open/L_7/parity_minus1_hz_and_J_from_0_to_2_\
+step_0.1.csv\>\"", ",", "processedeigenenergiesPminus1", ",", "\"\<CSV\>\""}],
+      "]"}], ";"}]}]}]], "Input",
+ CellChangeTimes->{{3.9419798774466667`*^9, 3.9419799145753307`*^9}},
+ CellLabel->
+  "In[241]:=",ExpressionUUID->"ad2ecb78-2b6d-44e5-a5b6-98f354f96e6c"]
+}, Open  ]]
+},
+WindowSize->{1435.5, 755.25},
+WindowMargins->{{-2.25, Automatic}, {Automatic, -22.5}},
+FrontEndVersion->"14.1 for Linux x86 (64-bit) (July 16, 2024)",
+StyleDefinitions->"Default.nb",
+ExpressionUUID->"08f12cfb-81d3-4db3-80d0-66f0d30c133c"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[CellGroupData[{
+Cell[576, 22, 164, 3, 65, "Section",ExpressionUUID->"caae451a-ef68-43fc-a9a9-44b50ee6f072"],
+Cell[CellGroupData[{
+Cell[765, 29, 183, 3, 53, "Subsection",ExpressionUUID->"94a7408f-a683-4f92-b934-fb1321cc3806"],
+Cell[CellGroupData[{
+Cell[973, 36, 210, 4, 29, "Input",ExpressionUUID->"522aeaea-2e1a-450e-814d-c088dd936a7d"],
+Cell[1186, 42, 211, 3, 33, "Output",ExpressionUUID->"271da513-f0ab-43e9-88a9-508c26f26591"]
+}, Open  ]]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[1446, 51, 156, 3, 53, "Subsection",ExpressionUUID->"60cc480e-39bf-404d-9a86-f726dc8abcac"],
+Cell[1605, 56, 173, 3, 29, "Input",ExpressionUUID->"dcaf85e1-0fa7-4bc9-a644-1a411073ddd7"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[1815, 64, 160, 3, 53, "Subsection",ExpressionUUID->"112644cc-df7a-4cdd-bf40-9dfed5768a8a"],
+Cell[1978, 69, 873, 25, 29, "Input",ExpressionUUID->"6eae6ca3-0e10-445d-98ec-2f1c20ca6cec"]
+}, Open  ]]
+}, Closed]],
+Cell[CellGroupData[{
+Cell[2900, 100, 310, 5, 51, "Section",ExpressionUUID->"7c494fb9-6b31-4224-bb38-9f26a5239663"],
+Cell[CellGroupData[{
+Cell[3235, 109, 5916, 143, 694, "Input",ExpressionUUID->"0c937180-bb62-409a-929c-d7adfa56fe11"],
+Cell[9154, 254, 300, 6, 33, "Output",ExpressionUUID->"f684c4df-5e67-4fff-8f8d-11503e5d4ae5"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[9491, 265, 1805, 42, 133, "Input",ExpressionUUID->"a38a4215-e641-474f-9abc-9c2e3723d2f3"],
+Cell[11299, 309, 486, 10, 34, "Output",ExpressionUUID->"f37160fa-fa43-4e42-a61c-0eba5e66b329"],
+Cell[11788, 321, 486, 10, 34, "Output",ExpressionUUID->"3dcb60d1-8e1f-4bdd-a004-22a22bc2166e"]
+}, Open  ]],
+Cell[12289, 334, 804, 20, 69, "Input",ExpressionUUID->"ad2ecb78-2b6d-44e5-a5b6-98f354f96e6c"]
+}, Open  ]]
+}
+]
+*)
+
