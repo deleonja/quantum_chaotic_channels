@@ -1,7 +1,10 @@
 #!/usr/bin/env wolframscript
 (* ::Package:: *)
 
-(* Para correr en el servidor: nohup ./temporal_haar_avg_choi_purity_xxz_open.wls > log/xxz_open_L_7_Jz_1_d_3_omega_0.log 2>&1 & *)
+(* Para correr en el servidor, dentro del directorio del wls: nohup ./<wls-script>.wls > log/<log-file>.log 2>&1 & *)
+
+
+Print["Empec\[EAcute]"];
 
 
 (* Fijar directorio a mis archivos dentro del repositorio *)
@@ -25,8 +28,16 @@ temporalAverageChoi = {};
 (* Lista de tiempos por cada iteraci\[OAcute]n del Do *)
 times={};
 
+hzAndJvalues = Join[Tuples[{Subdivide[2.1,3,9],Subdivide[0.,2,20]}],Tuples[{Subdivide[0.,2,20],Subdivide[2.1,3,9]}]][[83;;]];
+
+(* Encender todos los kernels *)
+LaunchKernels[];
+
 Do[
 startTime = AbsoluteTime[];
+
+(* hz y J *)
+{hz, J} = hzAndJvalues[[hzAndJ]];
 
 (* Hamiltoniano *)
 H=IsingNNOpenHamiltonian[hx, hz, J, L];
@@ -82,13 +93,17 @@ GridLinesStyle->Directive[Gray, Dashed,Thin]
 
 endTime = AbsoluteTime[];
 time= endTime - startTime;
-remainingIterations = (100-(10*(((hz-2.1)/0.1+1)-1)+((J-2.1)/0.1+1)));
+remainingIterations = (420 - hzAndJ);
 AppendTo[times,time];
-Print["hz = ", ToString[NumberForm[hz,{Infinity,1}]], ", J = ", ToString[NumberForm[J,{Infinity,1}]], ": ", ToString[NumberForm[time,{Infinity,0}]], " s. Terminar\[AAcute]: ", DateString[DatePlus[Now,Quantity[remainingIterations*Mean[times]/3600,"Hours"]]]];
+(*Print["hz = ", ToString[NumberForm[hz,{Infinity,1}]], ", J = ", ToString[NumberForm[J,{Infinity,1}]], ": ", ToString[NumberForm[time,{Infinity,0}]], " s. Terminar\[AAcute]: ", DateString[DatePlus[Now,Quantity[remainingIterations*Mean[times]/3600,"Hours"]]]];*)
+Print[DateString[], ". ",ToString[hzAndJ], "/338: ", ToString[NumberForm[time,{Infinity,0}]], " s. Terminar\[AAcute]: ", DateString[DatePlus[Now,Quantity[remainingIterations*Mean[times]/3600,"Hours"]]]];
 
-,{hz, Subdivide[2.1, 3., 9]}, {J, Subdivide[2.1, 3., 9]}]; 
+,{hzAndJ, 338}]; 
 
 
 (* Exportar el promedio temporal del valor esperado de Haar de la pureza de Choi *)
-Export["data/temporal_haar_avg_choi_purity/wisniacki_open_L_"<>ToString[L]<>"_hx_"<>ToString[hx]<>"_2.csv", 
+Export["data/temporal_haar_avg_choi_purity/wisniacki_open_L_"<>ToString[L]<>"_hx_"<>ToString[hx]<>"_4.csv", 
 	Prepend[temporalAverageChoi, {"hz", "J", "promedio temporal de 0 a 100 del valor esperado de Haar de la pureza de Choi"}], "CSV"];
+
+
+Print["Termin\[EAcute]"];
