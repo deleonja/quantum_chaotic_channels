@@ -4,15 +4,15 @@
 (* Para correr en el servidor, dentro del directorio del wls: nohup ./<wls-script>.wls > log/<log-file>.log 2>&1 & *)
 
 
-Print["Empec\[EAcute]"];
-
-
 (* Fijar directorio a mis archivos dentro del repositorio *)
 SetDirectory["/home/jadeleon/Documents/chaos_meets_channels/ja_files"];
 
 
 (* Cargar paquetes *)
 Get["../Mathematica_packages/QMB.wl"];
+
+
+Print["Paquetes cargados. ", DateString[],"."];
 
 
 (* Par\[AAcute]metros fijos L, hx *)
@@ -22,16 +22,16 @@ hx = 1.;
 (* Indices de las Pauli strings en la suma del valor esperado de Haar de la pureza de Choi *)
 indices = Tuples[Range[0, 3], L - 1];
 
-(* Lista de promedios temporales del valor esperado de Haar de la pureza de Choi *)
-temporalAverageChoi = {};
-
 (* Lista de tiempos por cada iteraci\[OAcute]n del Do *)
 times={};
 
-hzAndJvalues = Join[Tuples[{Subdivide[2.1,3,9],Subdivide[0.,2,20]}],Tuples[{Subdivide[0.,2,20],Subdivide[2.1,3,9]}]][[83;;]];
+hzAndJvalues = Tuples[{#,#}]&[Subdivide[0.05,2.95,29]];
+lenhzAndJvalues = Length[hzAndJvalues];
 
 (* Encender todos los kernels *)
 LaunchKernels[];
+Print["Kernels iniciados. ", DateString[],"."];
+
 
 Do[
 startTime = AbsoluteTime[];
@@ -67,43 +67,19 @@ Export["data/haar_avg_choi_purity/wisniacki/open/L_"<>ToString[L]<>"/hx_"<>ToStr
 (* Calcular el promedio temporal de la pureza promedio de Choi *)
 fInterp = Interpolation[haarAvgChoiPurity]; 
 haarAvgChoiPurityTempAvg = NIntegrate[fInterp[t],{t, 0, 100}] / 100.;
-AppendTo[temporalAverageChoi, {hz, J, haarAvgChoiPurityTempAvg}];
 
-(* Graficar la pureza de Choi en el tiempo *)
-(*
-fig=ListPlot[haarAvgChoiPurity,
-PlotRange->{All,{-0.01,1.01}},
-Joined->True,
-PlotMarkers->{False,0.04},
-PlotStyle->Directive[Thickness[0.004]],
-Frame->True,
-FrameLabel->{TraditionalForm[HoldForm[t]],TraditionalForm[HoldForm[\[DoubleStruckCapitalE][Tr[\[ScriptCapitalD]^2]]]]},
-FrameStyle->Directive[Black,FontSize->18],
-PlotLabel->"\!\(\*SubscriptBox[\(J\), \(z\)]\) = "<>ToString[Jz]<>", d = "<>ToString[d]<>", \[Omega] = "<>ToString[\[Omega]]<>", \[Epsilon] = "<>ToString[\[Epsilon]]<>", \!\(\*SubscriptBox[\(J\), \(xy\)]\) = "<>ToString[NumberForm[Jxy,{Infinity,2}]],
-LabelStyle->Directive[Black,FontSize->16],
-ImageSize->400,
-Epilog->{{Opacity[0.25],Thick,Red,Line[{{-10,0.25},{200,0.25}}]},{Opacity[0.25],Thick,Red,Line[{{-10,0.5},{200,0.5}}]},{Opacity[0.35],Thick,Green,Line[{{-10,haarAvgChoiPurityTempAvg},{200,haarAvgChoiPurityTempAvg}}]}},
-GridLines->Automatic,
-GridLinesStyle->Directive[Gray, Dashed,Thin]
-];
-*)
-
-(* Exportar figura *)
-(*Export["figs_ja/choi/haar/Lea_L_"<>ToString[L]<>"_Jz_"<>ToString[Jz]<>"_d_"<>ToString[d]<>"_omega_"<>ToString[\[Omega]]<>"_epsilon_"<>ToString[\[Epsilon]]<>"_Jxy_"<>ToString[NumberForm[Jxy,{Infinity,2}]]<>".pdf",fig,"PDF"];*)
+(* Agregar {hz, J, haarAvgChoiPurityTempAvg} al archivo CSV *)
+stream=OpenAppend["data/temporal_haar_avg_choi_purity/wisniacki_open_L_7_hx_1.csv"];
+WriteString[stream,StringJoin[Riffle[ToString/@{hz, J, haarAvgChoiPurityTempAvg},","]]<>"\n"];
+Close[stream];
 
 endTime = AbsoluteTime[];
-time= endTime - startTime;
-remainingIterations = (420 - hzAndJ);
+time = endTime - startTime;
+remainingIterations = (lenhzAndJvalues - hzAndJ);
 AppendTo[times,time];
-(*Print["hz = ", ToString[NumberForm[hz,{Infinity,1}]], ", J = ", ToString[NumberForm[J,{Infinity,1}]], ": ", ToString[NumberForm[time,{Infinity,0}]], " s. Terminar\[AAcute]: ", DateString[DatePlus[Now,Quantity[remainingIterations*Mean[times]/3600,"Hours"]]]];*)
-Print[DateString[], ". ",ToString[hzAndJ], "/338: ", ToString[NumberForm[time,{Infinity,0}]], " s. Terminar\[AAcute]: ", DateString[DatePlus[Now,Quantity[remainingIterations*Mean[times]/3600,"Hours"]]]];
+Print[DateString[], ". ",ToString[hzAndJ], "/", lenhzAndJvalues,": ", ToString[NumberForm[time,{Infinity,0}]], " s. Terminar\[AAcute]: ", DateString[DatePlus[Now,Quantity[remainingIterations*Mean[times]/3600,"Hours"]]]];
 
-,{hzAndJ, 338}]; 
-
-
-(* Exportar el promedio temporal del valor esperado de Haar de la pureza de Choi *)
-Export["data/temporal_haar_avg_choi_purity/wisniacki_open_L_"<>ToString[L]<>"_hx_"<>ToString[hx]<>"_4.csv", 
-	Prepend[temporalAverageChoi, {"hz", "J", "promedio temporal de 0 a 100 del valor esperado de Haar de la pureza de Choi"}], "CSV"];
+,{hzAndJ, lenhzAndJvalues}]; 
 
 
-Print["Termin\[EAcute]"];
+Print["Termin\[EAcute], ", DateString[],"."];
