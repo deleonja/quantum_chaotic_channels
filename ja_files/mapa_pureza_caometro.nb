@@ -1655,7 +1655,7 @@ Heiko Oberdiek, Oberdiek Package Support Group.\\n==> 1 page written on \
  CellLabel->
   "Out[184]=",ExpressionUUID->"927e7886-e5ff-427b-9390-f6c118ed318e"]
 }, Open  ]]
-}, Open  ]],
+}, Closed]],
 
 Cell[CellGroupData[{
 
@@ -3231,9 +3231,9 @@ Cell[CellGroupData[{
 Cell[86407, 1631, 234, 6, 22, "Input",ExpressionUUID->"3b730439-1538-4e37-abe5-d61937f1fe6e"],
 Cell[86644, 1639, 888, 16, 73, "Output",ExpressionUUID->"927e7886-e5ff-427b-9390-f6c118ed318e"]
 }, Open  ]]
-}, Open  ]],
+}, Closed]],
 Cell[CellGroupData[{
-Cell[87581, 1661, 314, 8, 49, "Section",ExpressionUUID->"354b0cf2-e6f7-48a7-bccb-95a2d6d7ccca"],
+Cell[87581, 1661, 314, 8, 40, "Section",ExpressionUUID->"354b0cf2-e6f7-48a7-bccb-95a2d6d7ccca"],
 Cell[CellGroupData[{
 Cell[87920, 1673, 1507, 34, 52, "Input",ExpressionUUID->"7d39d6b1-67b5-4775-ab5a-a7047c99ab43"],
 Cell[89430, 1709, 825, 16, 37, "Output",ExpressionUUID->"f04e7745-390b-4993-b488-258c9761748f"]
