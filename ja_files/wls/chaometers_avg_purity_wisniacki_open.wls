@@ -8,7 +8,7 @@ Print["Paquetes cargados. ", DateString[],"."];
 
 
 (* Par\[AAcute]metros fijos L, hx *)
-L = 7; 
+L = 6; 
 hx = 1.;
 
 
@@ -58,7 +58,7 @@ Table[
 ];
 
 (* Agregar {hz, J, meanPurity} al archivo CSV *)
-stream=OpenAppend["data/chaometer_purity/wisniacki_open_L_7_hx_1.csv"];
+stream=OpenAppend["data/chaometer_purity/wisniacki_open_L_"<>ToString[L]<>"_hx_1.csv"];
 WriteString[stream,StringJoin[Riffle[ToString/@{hz, J, meanPurity},","]]<>"\n"];
 Close[stream];
 
@@ -69,3 +69,6 @@ AppendTo[times,time];
 Print[DateString[], ". ",ToString[hzAndJ], "/", lenhzAndJvalues,": ", ToString[NumberForm[time,{Infinity,0}]], " s. Terminar\[AAcute]: ", DateString[DatePlus[Now,Quantity[remainingIterations*Mean[times]/3600,"Hours"]]]];
 
 , {hzAndJ, lenhzAndJvalues}];
+
+
+Print["Termin\[EAcute], ", DateString[],"."];
