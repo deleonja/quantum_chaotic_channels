@@ -96,7 +96,7 @@ StyleBox[\"eigenvalues\",\nFontSlant->\"Italic\"]\)] gives \[LeftAngleBracket]\!
 StyleBox[\"eigenvalues\",\nFontSlant->\"Italic\"]\).";
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*Quantum channels*)
 
 
@@ -209,6 +209,10 @@ StyleBox[\",\",\nFontSlant->\"Italic\"]\)\!\(\*
 StyleBox[\"L\",\nFontSlant->\"Italic\"]\)\!\(\*
 StyleBox[\",\",\nFontSlant->\"Italic\"]\)\!\(\*
 StyleBox[\"d\",\nFontSlant->\"Italic\"]\)] returns the spin-1/2 chain of eq. (1) in Am. J. Phys. 80, 246\[Dash]251 (2012).";
+
+
+HeisenbergXXXwNoise::usage = 
+"HeisenbergXXXwNoise[h,L] returns the Heisenberg XXX spin 1/2 chain with noise: \!\(\*SubsuperscriptBox[\(\[Sum]\), \(i = 1\), \(L - 1\)]\) \!\(\*SubsuperscriptBox[\(S\), \(1\), \(x\)]\)\!\(\*SubsuperscriptBox[\(S\), \(1 + i\), \(x\)]\) + \!\(\*SubsuperscriptBox[\(S\), \(1\), \(y\)]\)\!\(\*SubsuperscriptBox[\(S\), \(1 + i\), \(y\)]\) + \!\(\*SubsuperscriptBox[\(S\), \(1\), \(z\)]\)\!\(\*SubsuperscriptBox[\(S\), \(1 + i\), \(z\)]\) + \!\(\*SubsuperscriptBox[\(\[Sum]\), \(i = 1\), \(L\)]\) \!\(\*SubsuperscriptBox[\(h\), \(k\), \(z\)]\) \!\(\*SubsuperscriptBox[\(S\), \(1\), \(z\)]\)";
 
 
 (* ::Subsection::Closed:: *)
@@ -580,7 +584,7 @@ Assignationk[M_,N_,n_]:=If[n[[1;;M-1]]==ConstantArray[0,M-1],M-1,FromDigits[Last
 RenyiEntropy[\[Alpha]_,\[Rho]_]:=1/(1-\[Alpha]) Log[Tr[MatrixPower[\[Rho],\[Alpha]]]]
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*Spins*)
 
 
@@ -597,7 +601,7 @@ Normalize[SparseArray[{FromDigits[#,2]+1->-1.,FromDigits[Reverse[#],2]+1->1.},2^
 ]
 
 
-(* ::Subsubsection:: *)
+(* ::Subsubsection::Closed:: *)
 (*Spin chains*)
 
 
@@ -635,6 +639,19 @@ HamiltonianNN[Jxy_,Jz_,L_]:=
 HamiltonianZ[\[Omega]_,\[Epsilon]d_,L_,d_]:=N[(1/2)*(\[Omega]*Total[Pauli/@(3*IdentityMatrix[L])]+\[Epsilon]d*Pauli[Normal[SparseArray[d->3,L]]])]
 
 LeaSpinChainHamiltonian[Jxy_,Jz_,\[Omega]_,\[Epsilon]d_,L_,d_]:=HamiltonianNN[Jxy,Jz,L]+HamiltonianZ[\[Omega],\[Epsilon]d,L,d]
+
+
+HeisenbergXXXwNoise[h_List,L_]:=
+Module[{NNIndices,firstSum,secondSum},
+(* \sum_{k=1}^{L-1} S_k^xS_{k+1}^x + S_k^zS_{k+1}^z + S_k^zS_{k+1}^z *)
+NNIndices=Normal[SparseArray[Thread[{#,#+1}->1],{L}]&/@Range[L-1]];
+firstSum=1/4*Total[Table[Pauli[i*#]&/@NNIndices,{i,3}],2];
+
+(* \sum_{k=1}^{L} h_k^z S_k^z *)
+secondSum=1/2*h . (Pauli/@DiagonalMatrix[ConstantArray[3,L]]);
+
+firstSum+secondSum
+]
 
 
 (* ::Subsection::Closed:: *)
