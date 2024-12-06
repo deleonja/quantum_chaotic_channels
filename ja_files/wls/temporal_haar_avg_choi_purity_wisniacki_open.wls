@@ -16,7 +16,7 @@ Print["Paquetes cargados. ", DateString[],"."];
 
 
 (* Par\[AAcute]metros fijos L, hx *)
-L = 7; 
+L = 5; 
 hx = 1.;
 
 (* Indices de las Pauli strings en la suma del valor esperado de Haar de la pureza de Choi *)
@@ -25,12 +25,18 @@ indices = Tuples[Range[0, 3], L - 1];
 (* Lista de tiempos por cada iteraci\[OAcute]n del Do *)
 times={};
 
-hzAndJvalues = Tuples[{#,#}]&[Subdivide[0.05,2.95,29]];
+hzAndJvalues = Tuples[{#,#}]&[Subdivide[0.,3.,30]];
 lenhzAndJvalues = Length[hzAndJvalues];
 
 (* Encender todos los kernels *)
 LaunchKernels[];
 Print["Kernels iniciados. ", DateString[],"."];
+
+
+(* Crear archivo de datos *)
+stream=OpenAppend["data/temporal_haar_avg_choi_purity/wisniacki_open_L_"<>ToString[L]<>"_hx_1.csv"];
+WriteString[stream,"hz,J,promedio temporal de 0 a 100 del valor esperado de Haar de la pureza de Choi"<>"\n"];
+Close[stream];
 
 
 Do[
@@ -69,7 +75,7 @@ fInterp = Interpolation[haarAvgChoiPurity];
 haarAvgChoiPurityTempAvg = NIntegrate[fInterp[t],{t, 0, 100}] / 100.;
 
 (* Agregar {hz, J, haarAvgChoiPurityTempAvg} al archivo CSV *)
-stream=OpenAppend["data/temporal_haar_avg_choi_purity/wisniacki_open_L_7_hx_1.csv"];
+stream=OpenAppend["data/temporal_haar_avg_choi_purity/wisniacki_open_L_"<>ToString[L]<>"_hx_1.csv"];
 WriteString[stream,StringJoin[Riffle[ToString/@{hz, J, haarAvgChoiPurityTempAvg},","]]<>"\n"];
 Close[stream];
 

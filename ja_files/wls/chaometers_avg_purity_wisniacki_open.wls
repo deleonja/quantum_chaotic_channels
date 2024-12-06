@@ -8,14 +8,13 @@ Print["Paquetes cargados. ", DateString[],"."];
 
 
 (* Par\[AAcute]metros fijos L, hx *)
-L = 6; 
+L = 5; 
 hx = 1.;
 
 
 (* Lista de tiempos por cada iteraci\[OAcute]n del Do *)
 times = {};
 
-Print["Hola"];
 hzAndJvalues = Tuples[{#,#}]&[Subdivide[0., 3., 30]];
 lenhzAndJvalues = Length[hzAndJvalues];
 
@@ -23,6 +22,12 @@ lenhzAndJvalues = Length[hzAndJvalues];
 (* Encender todos los kernels *)
 LaunchKernels[];
 Print["Kernels iniciados. ", DateString[],"."];
+
+
+(* Crear archivo de datos *)
+stream=OpenAppend["data/chaometer_purity/wisniacki_open_L_"<>ToString[L]<>"_hx_1.csv"];
+WriteString[stream,"hz,J,promedio temporal de 0 a 100 de la pureza del caometro"<>"\n"];
+Close[stream];
 
 
 Do[
