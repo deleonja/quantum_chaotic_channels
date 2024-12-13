@@ -3,6 +3,10 @@
 BeginPackage["QMB`"];
 
 
+(* For usage messages, see https://github.com/MMA-ForScience/ForScience *)
+<<ForScience`
+
+
 (* ::Section:: *)
 (*Notas*)
 
@@ -27,11 +31,14 @@ BeginPackage["QMB`"];
 (*General quantum mechanics*)
 
 
-DensityMatrix::usage = "DensityMatrix[\[Psi]] returns \!\(\*TemplateBox[{\"\[Psi]\"},\n\"Ket\"]\)\!\(\*TemplateBox[{\"\[Psi]\"},\n\"Bra\"]\).";
+(*DensityMatrix::usage = "DensityMatrix[\[Psi]] returns \!\(\*TemplateBox[{\"\[Psi]\"},\n\"Ket\"]\)\!\(\*TemplateBox[{\"\[Psi]\"},\n\"Bra\"]\).";*)
 
 
-Pauli::usage= "Pauli[0-3] gives the Pauli matrices. 
-Pauli[ { \!\(\*SubscriptBox[\(i\), \(1\)]\),\[Ellipsis],\!\(\*SubscriptBox[\(i\), \(n\)]\) } ] gives Pauli[\!\(\*SubscriptBox[\(i\), \(1\)]\)] \[CircleTimes] \[Ellipsis] \[CircleTimes] Pauli[\!\(\*SubscriptBox[\(i\), \(n\)]\)]."
+Usage[DensityMatrix]="DensityMatrix[\[Psi]] returns the density matrix of state vector ```\[Psi]```.";
+
+
+Usage[Pauli]="Pauli[0-3] gives the Pauli matrices. 
+Pauli[{i_1,...,i_N}] returns the ```N```-qubit Pauli string '''Pauli[```i_1```]''' \[CircleTimes] '''...''' \[CircleTimes] '''Pauli[```i_N```]'''."
 
 
 MatrixPartialTrace::usage = "MatrixPartialTrace[mat, n, d] calculates the partial trace of mat over the nth subspace, where all subspaces have dimension d.
@@ -50,13 +57,23 @@ RandomQubitState::usage = "RandomQubitState[] returns a random qubit state.";
 RandomChainProductState::usage = "RandomChainProductState[L] returns a random product state of L qubits.";
 
 
-Dyad::usage = "Dyad[a] returns \!\(\*TemplateBox[{\"a\"},\n\"Ket\"]\)\!\(\*TemplateBox[{\"a\"},\n\"Bra\"]\).
-Dyad[a,b] returns \!\(\*TemplateBox[{\"a\"},\n\"Ket\"]\)\!\(\*TemplateBox[{\"b\"},\n\"Bra\"]\).";
+(*Dyad::usage = "Dyad[a] returns \!\(\*TemplateBox[{\"a\"},\n\"Ket\"]\)\!\(\*TemplateBox[{\"a\"},\n\"Bra\"]\).
+Dyad[a,b] returns \!\(\*TemplateBox[{\"a\"},\n\"Ket\"]\)\!\(\*TemplateBox[{\"b\"},\n\"Bra\"]\).";*)
 
 
-Commutator::usage="Commutator[A,B] returns A.B-B.A";
-CommutationQ::usage="CommutationQ[A,B] yields True if A and B commute, and False otherwise.";
+Usage[Dyad]="Dyad[\[Psi]] returns | \[Psi] \[RightAngleBracket]\[LeftAngleBracket] \[Psi] |.
+Dyad[\[Psi],\[Phi]] returns | \[Psi] \[RightAngleBracket]\[LeftAngleBracket] \[Phi] |.";
+
+
+(*Commutator::usage="Commutator[A,B] returns A.B-B.A";*)
+(*CommutationQ::usage="CommutationQ[A,B] yields True if A and B commute, and False otherwise.";*)
 MutuallyCommutingSetQ::usage="MutuallyCommutingSetQ[ListOfMatrices] yields True if all matrices in the list mutually commute, and False otherwise.";
+
+
+Usage[Commutator]="Commutator[A,B] returns AB - BA.";
+
+
+Usage[CommutationQ]="CommutationQ[A,B] yields True if ```A``` and ```B``` commute, and False otherwise.";
 
 
 Braket::usage = "Braket[a,b] gives \!\(\*TemplateBox[{RowBox[{\"a\", \" \"}], RowBox[{\" \", \"b\"}]},\n\"BraKet\"]\).";
@@ -69,7 +86,10 @@ StateEvolution::usage = "StateEvolution[t, \!\(\*SubscriptBox[\(\[Psi]\), \(0\)]
 StateEvolution[t, {\!\(\*SubscriptBox[\(E\), \(k\)]\)}] calculates \!\(\*TemplateBox[{RowBox[{\"\[Psi]\", RowBox[{\"(\", \"t\", \")\"}]}]},\"Ket\"]\) = \!\(\*SubscriptBox[\(\[Sum]\), \(\(\\\\\)\(i\)\)]\) \!\(\*SuperscriptBox[\(\[ExponentialE]\), \(\(-\[ImaginaryI]\)\\\\\*SubscriptBox[\(E\), \(i\)]\\\\t\)]\)\!\(\*TemplateBox[{SubscriptBox[\"E\", \"i\"], RowBox[{\" \", SubscriptBox[\"\[Psi]\", \"0\"]}]},\"BraKet\"]\)\!\(\*TemplateBox[{SubscriptBox[\"E\", \"i\"]},\"Ket\"]\) having fixed the \!\(\*SubscriptBox[\(c\), \(k\)]\)'s with FixCkForStateEvoultion[\!\(\*SubscriptBox[\(\[Psi]\), \(0\)]\), { \!\(\*TemplateBox[{SubscriptBox[\"E\", \"k\"]},\n\"Ket\"]\) }].";
 
 
-BlochVector::usage = "BlochVector[\[Rho]] calculates \!\(\*SubscriptBox[\(r\), \(i\)]\) = Tr(\!\(\*SubscriptBox[\(\[Sigma]\), \(i\)]\)\[Rho]).";
+(*BlochVector::usage = "BlochVector[\[Rho]] calculates \!\(\*SubscriptBox[\(r\), \(i\)]\) = Tr(\!\(\*SubscriptBox[\(\[Sigma]\), \(i\)]\)\[Rho]).";*)
+
+
+Usage[BlochVector]="BlochVector[\[Rho]] returns the Bloch vector of a single-qubit density matrix \[Rho].";
 
 
 KroneckerVectorProduct::usage = "KroneckerVectorProduct[a,b] calculates \!\(\*TemplateBox[{\"a\"},\n\"Ket\"]\)\[CircleTimes]\!\(\*TemplateBox[{\"b\"},\n\"Ket\"]\).";
@@ -157,18 +177,19 @@ InitializeVariables::usage = "InitializeVariables[n, L, boundaries, FMmodel] set
 FuzzyMeasurement::usage = "FuzzyMeasurement[\[Psi], \!\(\*SubscriptBox[\(p\), \(fuzzy\)]\)] gives \[ScriptCapitalF](\!\(\*TemplateBox[{\"\[Psi]\"},\n\"Ket\"]\)\!\(\*TemplateBox[{\"\[Psi]\"},\n\"Bra\"]\)) = (1 - \!\(\*SubscriptBox[\(p\), \(fuzzy\)]\))\!\(\*TemplateBox[{\"\[Psi]\"},\n\"Ket\"]\)\!\(\*TemplateBox[{\"\[Psi]\"},\n\"Bra\"]\) + \!\(\*SubscriptBox[\(p\), \(fuzzy\)]\) \!\(\*UnderscriptBox[\(\[Sum]\), \(i\)]\) \!\(\*SubscriptBox[\(S\), \(i\)]\)\!\(\*TemplateBox[{\"\[Psi]\"},\n\"Ket\"]\)\!\(\*TemplateBox[{\"\[Psi]\"},\n\"Bra\"]\)\!\(\*SubsuperscriptBox[\(S\), \(i\), \(\[Dagger]\)]\), where \!\(\*SubscriptBox[\(S\), \(i\)]\) must be initizalized runnning InitializeVariables[n, L, boundaries, FMmodel].";
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*Spins*)
 
 
 SpinParityEigenvectors::usage = "SpinParityEigenvectors[L] gives a list of {even, odd} eigenvectors of the L-spin system parity operator P; P\!\(\*TemplateBox[{RowBox[{SubscriptBox[\"k\", \"1\"], \",\", \"\[Ellipsis]\", \",\", SubscriptBox[\"k\", \"L\"]}]},\n\"Ket\"]\) = \!\(\*TemplateBox[{RowBox[{SubscriptBox[\"k\", \"L\"], \",\", \"\[Ellipsis]\", \",\", SubscriptBox[\"k\", \"1\"]}]},\n\"Ket\"]\), \!\(\*SubscriptBox[\(k\), \(i\)]\)=0,1.";
 
 
-(* ::Subsubsection:: *)
+(* ::Subsubsection::Closed:: *)
 (*Spin chains*)
 
 
-IsingNNOpenHamiltonian::usage = "IsingNNOpenHamiltonian[\!\(\*SubscriptBox[\(h\), \(x\)]\), \!\(\*SubscriptBox[\(h\), \(z\)]\), {\!\(\*SubscriptBox[\(J\), \(1\)]\),\[Ellipsis],\!\(\*SubscriptBox[\(J\), \(L - 1\)]\)}, L] returns the Hamiltonian \!\(\*UnderoverscriptBox[\(\[Sum]\), \(i = 1\), \(L\)]\)(\!\(\*SubscriptBox[\(h\), \(x\)]\) \!\(\*SubsuperscriptBox[\(\[Sigma]\), \(i\), \(x\)]\) + \!\(\*SubscriptBox[\(h\), \(z\)]\) \!\(\*SubsuperscriptBox[\(\[Sigma]\), \(i\), \(z\)]\)) - \!\(\*UnderoverscriptBox[\(\[Sum]\), \(i = 1\), \(L - 1\)]\) \!\(\*SubscriptBox[\(J\), \(i\)]\) \!\(\*SubsuperscriptBox[\(\[Sigma]\), \(i\), \(z\)]\)\!\(\*SubsuperscriptBox[\(\[Sigma]\), \(i + 1\), \(z\)]\)";
+Usage[IsingNNOpenHamiltonian]="IsingNNOpenHamiltonian[h_x,h_z,J,L] returns the Hamiltonian H = \[Sum]_{*i=1*}^L (```h_x```\[Sigma]_i^x + ```h_z```\[Sigma]_i^z) - ```J```\[Sum]_{*i=1*}^{*L-1*} \[Sigma]^z_i \[Sigma]^z_{*i+1*}.
+IsingNNOpenHamiltonian[h_x,h_z,{J_1,...,J_L},L] returns the Hamiltonian H = \[Sum]_{*i=1*}^L (```h_x```\[Sigma]_i^x + ```h_z```\[Sigma]_i^z) - \[Sum]_{*i=1*}^{*L-1*} ```J_i``` \[Sigma]^z_i \[Sigma]^z_{*i+1*}.";
 
 
 IsingNNClosedHamiltonian::usage = "IsingNNClosedHamiltonian[\!\(\*
@@ -197,22 +218,11 @@ StyleBox[\",\",\nFontSlant->\"Italic\"]\)\!\(\*
 StyleBox[\"h2\",\nFontSlant->\"Italic\"]\)] returns the open XXZ 1/2-spin chain as in appendix A.2 of Quantum 8, 1510 (2024).";
 
 
-LeaSpinChainHamiltonian::usage = "LeaSpinChainHamiltonian[\!\(\*
-StyleBox[\"Jxy\",\nFontSlant->\"Italic\"]\)\!\(\*
-StyleBox[\",\",\nFontSlant->\"Italic\"]\)\!\(\*
-StyleBox[\"Jz\",\nFontSlant->\"Italic\"]\)\!\(\*
-StyleBox[\",\",\nFontSlant->\"Italic\"]\)\!\(\*
-StyleBox[\"\[Omega]\",\nFontSlant->\"Italic\"]\)\!\(\*
-StyleBox[\",\",\nFontSlant->\"Italic\"]\)\!\(\*
-StyleBox[\"\[Epsilon]d\",\nFontSlant->\"Italic\"]\)\!\(\*
-StyleBox[\",\",\nFontSlant->\"Italic\"]\)\!\(\*
-StyleBox[\"L\",\nFontSlant->\"Italic\"]\)\!\(\*
-StyleBox[\",\",\nFontSlant->\"Italic\"]\)\!\(\*
-StyleBox[\"d\",\nFontSlant->\"Italic\"]\)] returns the spin-1/2 chain of eq. (1) in Am. J. Phys. 80, 246\[Dash]251 (2012).";
+Usage[LeaSpinChainHamiltonian]="LeaSpinChainHamiltonian[J_{*xy*},J_z,\[Omega],\[Epsilon]_d,L,d] returns the spin-1/2 chain H = \[Sum]_{*i=1*}^{*L-1*} ```J_{*xy*}```(S^x_i S^x_{*i+1*} + S^y_i S^y_{*i+1*}) + ```J_z```S^z_i S^z_{*i+1*} + \[Sum]_{*i=1*}^{*L*} ```\[Omega]``` S^z_i + \[Epsilon]_d S^z_d. [Eq. (1) in Am. J. Phys. 80, 246\[Dash]251 (2012)].";
 
 
-HeisenbergXXXwNoise::usage = 
-"HeisenbergXXXwNoise[h,L] returns the Heisenberg XXX spin 1/2 chain with noise: \!\(\*SubsuperscriptBox[\(\[Sum]\), \(i = 1\), \(L - 1\)]\) \!\(\*SubsuperscriptBox[\(S\), \(1\), \(x\)]\)\!\(\*SubsuperscriptBox[\(S\), \(1 + i\), \(x\)]\) + \!\(\*SubsuperscriptBox[\(S\), \(1\), \(y\)]\)\!\(\*SubsuperscriptBox[\(S\), \(1 + i\), \(y\)]\) + \!\(\*SubsuperscriptBox[\(S\), \(1\), \(z\)]\)\!\(\*SubsuperscriptBox[\(S\), \(1 + i\), \(z\)]\) + \!\(\*SubsuperscriptBox[\(\[Sum]\), \(i = 1\), \(L\)]\) \!\(\*SubsuperscriptBox[\(h\), \(k\), \(z\)]\) \!\(\*SubsuperscriptBox[\(S\), \(1\), \(z\)]\)";
+HeisenbergXXXwNoise::usage="HeisenbergXXXwNoise[hz,L] returns the Heisenberg XXX spin 1/2 chain with noise: \!\(\*FormBox[\(H\\\  = \\\ \*FractionBox[\(1\), \(4\)]\\\ \(\*SubsuperscriptBox[\(\[Sum]\), \(i = 1\), \(L - 1\)]\\\ \((\*SubsuperscriptBox[\(\[Sigma]\), \(i\), \(x\)]\\\ \*SubsuperscriptBox[\(\[Sigma]\), \(i + 1\), \(x\)]\\\  + \\\ \*SubsuperscriptBox[\(\[Sigma]\), \(i\), \(y\)]\\\ \*SubsuperscriptBox[\(\[Sigma]\), \(i + 1\), \(y\)]\\\  + \\\ \*SubsuperscriptBox[\(\[Sigma]\), \(i\), \(z\)]\\\ \*SubsuperscriptBox[\(\[Sigma]\), \(i + 1\), \(z\)])\)\)\\\  + \\\ \*FractionBox[\(1\), \(2\)]\\\ \(\*SubsuperscriptBox[\(\[Sum]\), \(i = 1\), \(L\)]\*SubsuperscriptBox[\(h\), \(i\), \(z\)]\\\ \*SubsuperscriptBox[\(\[Sigma]\), \(i\), \(z\)]\\\ \(\((open\\\ boundaries)\)\(.\)\)\)\),
+TraditionalForm]\)";
 
 
 (* ::Subsection::Closed:: *)
