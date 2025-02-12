@@ -1,18 +1,18 @@
 (* ::Package:: *)
 
 (* If ForScience paclet not installed, install it. See https://github.com/MMA-ForScience/ForScience *)
-If[Length[PacletFind["ForScience"]]==0,PacletInstall[FileNameJoin[{DirectoryName[$InputFileName],"ForScience-0.88.45.paclet"}]]]
+If[Length[PacletFind["ForScience"]]==0, PacletInstall[FileNameJoin[{DirectoryName[$InputFileName], "ForScience-0.88.45.paclet"}]]];
 
 
 (* ::Section:: *)
 (*Begin package*)
 
 
-BeginPackage["QMB`"]
+BeginPackage["QMB`"];
 
 
 (* For nice formatting of usage messages, see https://github.com/MMA-ForScience/ForScience *)
-<<ForScience`
+<<ForScience`;
 
 
 (* ::Section:: *)
@@ -39,14 +39,19 @@ BeginPackage["QMB`"]
 (*General quantum mechanics*)
 
 
-(*DensityMatrix::usage = "DensityMatrix[\[Psi]] returns \!\(\*TemplateBox[{\"\[Psi]\"},\n\"Ket\"]\)\!\(\*TemplateBox[{\"\[Psi]\"},\n\"Bra\"]\).";*)
+(* All usage messages are evaluated quietly as FormatUsage[] requires FrontEnd. Therefore, if 
+   QMB.wl is loaded in a .wls no error about FrontEnd pops up. *)
 
 
+Quiet[
 DensityMatrix::usage = FormatUsage["DensityMatrix[\[Psi]] returns the density matrix of state vector ```\[Psi]```."];
+, {FrontEndObject::notavail, First::normal}];
 
 
+Quiet[
 Pauli::usage = FormatUsage["Pauli[0-3] gives the Pauli matrices. 
 Pauli[{i_1,...,i_N}] returns the ```N```-qubit Pauli string '''Pauli[```i_1```]''' \[CircleTimes] '''...''' \[CircleTimes] '''Pauli[```i_N```]'''."];
+, {FrontEndObject::notavail, First::normal}];
 
 
 MatrixPartialTrace::usage = "MatrixPartialTrace[mat, n, d] calculates the partial trace of mat over the nth subspace, where all subspaces have dimension d.
@@ -59,29 +64,35 @@ VectorFromKetInComputationalBasis::usage = "VectorFromKetInComputationalBasis[ke
 KetInComputationalBasisFromVector::usage = "KetInComputationalBasisFromVector[vector] returns the ket representation in computational basis of vector.";
 
 
-RandomQubitState::usage = "RandomQubitState[] returns a random qubit state.";
+Quiet[
+RandomQubitState::usage = FormatUsage["RandomQubitState[] returns a Haar random qubit state."];
+, {FrontEndObject::notavail, First::normal}];
 
 
-RandomChainProductState::usage = "RandomChainProductState[L] returns a random product state of L qubits.";
+Quiet[
+RandomChainProductState::usage = "RandomChainProductState[L] returns a random ```L```-qubit product state.";
+, {FrontEndObject::notavail, First::normal}];
 
 
-(*Dyad::usage = "Dyad[a] returns \!\(\*TemplateBox[{\"a\"},\n\"Ket\"]\)\!\(\*TemplateBox[{\"a\"},\n\"Bra\"]\).
-Dyad[a,b] returns \!\(\*TemplateBox[{\"a\"},\n\"Ket\"]\)\!\(\*TemplateBox[{\"b\"},\n\"Bra\"]\).";*)
-
-
+Quiet[
 Dyad::usage = FormatUsage["Dyad[\[Psi]] returns | \[Psi] \[RightAngleBracket]\[LeftAngleBracket] \[Psi] |.
 Dyad[\[Psi],\[Phi]] returns | \[Psi] \[RightAngleBracket]\[LeftAngleBracket] \[Phi] |."];
+, {FrontEndObject::notavail, First::normal}];
 
 
-(*Commutator::usage="Commutator[A,B] returns A.B-B.A";*)
-(*CommutationQ::usage="CommutationQ[A,B] yields True if A and B commute, and False otherwise.";*)
-MutuallyCommutingSetQ::usage="MutuallyCommutingSetQ[ListOfMatrices] yields True if all matrices in the list mutually commute, and False otherwise.";
-
-
+Quiet[
 Commutator::usage = FormatUsage["Commutator[A,B] returns AB - BA."];
+, {FrontEndObject::notavail, First::normal}];
 
 
+Quiet[
 CommutationQ::usage = FormatUsage["CommutationQ[A,B] yields True if ```A``` and ```B``` commute, and False otherwise."];
+, {FrontEndObject::notavail, First::normal}];
+
+
+Quiet[
+MutuallyCommutingSetQ::usage=FormatUsage["MutuallyCommutingSetQ[{A,B,...}] yields True if all matrices ```{A,B,...}``` mutually commute, and False otherwise."];
+, {FrontEndObject::notavail, First::normal}];
 
 
 Braket::usage = "Braket[a,b] gives \!\(\*TemplateBox[{RowBox[{\"a\", \" \"}], RowBox[{\" \", \"b\"}]},\n\"BraKet\"]\).";
@@ -94,10 +105,9 @@ StateEvolution::usage = "StateEvolution[t, \!\(\*SubscriptBox[\(\[Psi]\), \(0\)]
 StateEvolution[t, {\!\(\*SubscriptBox[\(E\), \(k\)]\)}] calculates \!\(\*TemplateBox[{RowBox[{\"\[Psi]\", RowBox[{\"(\", \"t\", \")\"}]}]},\"Ket\"]\) = \!\(\*SubscriptBox[\(\[Sum]\), \(\(\\\\\)\(i\)\)]\) \!\(\*SuperscriptBox[\(\[ExponentialE]\), \(\(-\[ImaginaryI]\)\\\\\*SubscriptBox[\(E\), \(i\)]\\\\t\)]\)\!\(\*TemplateBox[{SubscriptBox[\"E\", \"i\"], RowBox[{\" \", SubscriptBox[\"\[Psi]\", \"0\"]}]},\"BraKet\"]\)\!\(\*TemplateBox[{SubscriptBox[\"E\", \"i\"]},\"Ket\"]\) having fixed the \!\(\*SubscriptBox[\(c\), \(k\)]\)'s with FixCkForStateEvoultion[\!\(\*SubscriptBox[\(\[Psi]\), \(0\)]\), { \!\(\*TemplateBox[{SubscriptBox[\"E\", \"k\"]},\n\"Ket\"]\) }].";
 
 
-(*BlochVector::usage = "BlochVector[\[Rho]] calculates \!\(\*SubscriptBox[\(r\), \(i\)]\) = Tr(\!\(\*SubscriptBox[\(\[Sigma]\), \(i\)]\)\[Rho]).";*)
-
-
+Quiet[
 BlochVector::usage = FormatUsage["BlochVector[\[Rho]] returns the Bloch vector of a single-qubit density matrix \[Rho]."];
+, {FrontEndObject::notavail, First::normal}];
 
 
 KroneckerVectorProduct::usage = "KroneckerVectorProduct[a,b] calculates \!\(\*TemplateBox[{\"a\"},\n\"Ket\"]\)\[CircleTimes]\!\(\*TemplateBox[{\"b\"},\n\"Ket\"]\).";
@@ -106,10 +116,10 @@ KroneckerVectorProduct::usage = "KroneckerVectorProduct[a,b] calculates \!\(\*Te
 Purity::usage = "Purity[\[Rho]] calculates the purity of \[Rho].";
 
 
-qubit::usage = "Generates a state with the parametrization of the Bloch sphere (\[Theta],\[Phi])"
+qubit::usage = "Generates a state with the parametrization of the Bloch sphere (\[Theta],\[Phi])";
 
 
-coherentstate::usage = "coherentstate[state,L] Generates a spin coherent state of L spins given a general single qubit state"
+coherentstate::usage = "coherentstate[state,L] Generates a spin coherent state of L spins given a general single qubit state";
 
 
 (* ::Subsection::Closed:: *)
@@ -129,7 +139,7 @@ StyleBox[\"eigenvalues\",\nFontSlant->\"Italic\"]\).";
 
 
 Reshuffle::usage = "Reshuffle[m] applies the reshuffle transformation to the matrix m with dimension \!\(\*SuperscriptBox[\(d\), \(2\)]\)\[Times]\!\(\*SuperscriptBox[\(d\), \(2\)]\).
-Reshuffle[A,m,n] reshuffles matrix A, where dim(A) = mn."
+Reshuffle[A,m,n] reshuffles matrix A, where dim(A) = mn.";
 
 
 (* ::Subsection::Closed:: *)
@@ -186,18 +196,24 @@ FuzzyMeasurement::usage = "FuzzyMeasurement[\[Psi], \!\(\*SubscriptBox[\(p\), \(
 
 
 (* ::Subsection:: *)
-(*Spins*)
+(*Spin chains*)
+
+
+(* ::Subsubsection::Closed:: *)
+(*Symmetries*)
 
 
 SpinParityEigenvectors::usage = "SpinParityEigenvectors[L] gives a list of {even, odd} eigenvectors of the L-spin system parity operator P; P\!\(\*TemplateBox[{RowBox[{SubscriptBox[\"k\", \"1\"], \",\", \"\[Ellipsis]\", \",\", SubscriptBox[\"k\", \"L\"]}]},\n\"Ket\"]\) = \!\(\*TemplateBox[{RowBox[{SubscriptBox[\"k\", \"L\"], \",\", \"\[Ellipsis]\", \",\", SubscriptBox[\"k\", \"1\"]}]},\n\"Ket\"]\), \!\(\*SubscriptBox[\(k\), \(i\)]\)=0,1.";
 
 
-(* ::Subsubsection:: *)
-(*Spin chains*)
+(* ::Subsubsection::Closed:: *)
+(*Hamiltonians*)
 
 
+Quiet[
 IsingNNOpenHamiltonian::usage = FormatUsage["IsingNNOpenHamiltonian[h_x,h_z,J,L] returns the Hamiltonian H = \[Sum]_{*i=1*}^L (```h_x```\[Sigma]_i^x + ```h_z```\[Sigma]_i^z) - ```J```\[Sum]_{*i=1*}^{*L-1*} \[Sigma]^z_i \[Sigma]^z_{*i+1*}.
 IsingNNOpenHamiltonian[h_x,h_z,{J_1,...,J_L},L] returns the Hamiltonian H = \[Sum]_{*i=1*}^L (```h_x```\[Sigma]_i^x + ```h_z```\[Sigma]_i^z) - \[Sum]_{*i=1*}^{*L-1*} ```J_i``` \[Sigma]^z_i \[Sigma]^z_{*i+1*}."];
+, {FrontEndObject::notavail, First::normal}];
 
 
 IsingNNClosedHamiltonian::usage = "IsingNNClosedHamiltonian[\!\(\*
@@ -226,7 +242,9 @@ StyleBox[\",\",\nFontSlant->\"Italic\"]\)\!\(\*
 StyleBox[\"h2\",\nFontSlant->\"Italic\"]\)] returns the open XXZ 1/2-spin chain as in appendix A.2 of Quantum 8, 1510 (2024).";
 
 
+Quiet[
 LeaSpinChainHamiltonian::usage = FormatUsage["LeaSpinChainHamiltonian[J_{*xy*},J_z,\[Omega],\[Epsilon]_d,L,d] returns the spin-1/2 chain H = \[Sum]_{*i=1*}^{*L-1*} ```J_{*xy*}```(S^x_i S^x_{*i+1*} + S^y_i S^y_{*i+1*}) + ```J_z```S^z_i S^z_{*i+1*} + \[Sum]_{*i=1*}^{*L*} ```\[Omega]``` S^z_i + \[Epsilon]_d S^z_d. [Eq. (1) in Am. J. Phys. 80, 246\[Dash]251 (2012)]."];
+, {FrontEndObject::notavail, First::normal}];
 
 
 HeisenbergXXXwNoise::usage="HeisenbergXXXwNoise[hz,L] returns the Heisenberg XXX spin 1/2 chain with noise: \!\(\*FormBox[\(H\\\  = \\\ \*FractionBox[\(1\), \(4\)]\\\ \(\*SubsuperscriptBox[\(\[Sum]\), \(i = 1\), \(L - 1\)]\\\ \((\*SubsuperscriptBox[\(\[Sigma]\), \(i\), \(x\)]\\\ \*SubsuperscriptBox[\(\[Sigma]\), \(i + 1\), \(x\)]\\\  + \\\ \*SubsuperscriptBox[\(\[Sigma]\), \(i\), \(y\)]\\\ \*SubsuperscriptBox[\(\[Sigma]\), \(i + 1\), \(y\)]\\\  + \\\ \*SubsuperscriptBox[\(\[Sigma]\), \(i\), \(z\)]\\\ \*SubsuperscriptBox[\(\[Sigma]\), \(i + 1\), \(z\)])\)\)\\\  + \\\ \*FractionBox[\(1\), \(2\)]\\\ \(\*SubsuperscriptBox[\(\[Sum]\), \(i = 1\), \(L\)]\*SubsuperscriptBox[\(h\), \(i\), \(z\)]\\\ \*SubsuperscriptBox[\(\[Sigma]\), \(i\), \(z\)]\\\ \(\((open\\\ boundaries)\)\(.\)\)\)\),
@@ -245,11 +263,11 @@ FuzzyMeasurementChannel::usage =
 FuzzyMeasurementChannel[\[Rho], {\!\(\*SubscriptBox[\(p\), \(totalError\)]\), \!\(\*SubscriptBox[\(p\), \(NN\)]\), \!\(\*SubscriptBox[\(p\), \(SNN\)]\)}, {{\!\(\*SubscriptBox[\(S\), \(i, i + 1\)]\)}, {\!\(\*SubscriptBox[\(S\), \(i, i + 2\)]\)}}] returns \[ScriptCapitalE](\[Rho])=(1-\!\(\*SubscriptBox[\(p\), \(totalError\)]\))\[Rho] + \!\(\*SubscriptBox[\(p\), \(totalError\)]\)(\!\(\*FractionBox[SubscriptBox[\(p\), \(NN\)], \(L - 1\)]\)) \!\(\*SuperscriptBox[SubscriptBox[\(\[Sum]\), \(i = 1\)], \(L - 1\)]\) \!\(\*SubscriptBox[\(S\), \(i, i + 1\)]\) \[Rho] \!\(\*SubscriptBox[\(S\), \(i, i + 1\)]\) + \!\(\*SubscriptBox[\(p\), \(totalError\)]\)(\!\(\*FractionBox[SubscriptBox[\(p\), \(SNN\)], \(L - 2\)]\)) \!\(\*SuperscriptBox[SubscriptBox[\(\[Sum]\), \(i = 1\)], \(L - 2\)]\) \!\(\*SubscriptBox[\(S\), \(i, i + 2\)]\) \[Rho] \!\(\*SubscriptBox[\(S\), \(i, i + 2\)]\).";
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*Beginning of Package*)
 
 
-Begin["`Private`"]
+Begin["`Private`"];
 
 
 (* ::Section:: *)
@@ -257,7 +275,7 @@ Begin["`Private`"]
 
 
 (*no poner los nombres de funciones p\[UAcute]blicas porque se joden la definici\[OAcute]n de uso*)
-ClearAll[SigmaPlusSigmaMinus,SigmaMinusSigmaPlus,SigmaPlusSigmaMinus2,SigmaMinusSigmaPlus2]
+ClearAll[SigmaPlusSigmaMinus,SigmaMinusSigmaPlus,SigmaPlusSigmaMinus2,SigmaMinusSigmaPlus2];
 
 
 (* ::Subsection::Closed:: *)
@@ -721,11 +739,11 @@ SwappedFockState[fockState_, targetSite_, wrongSite_] :=
   ]
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*End of Package*)
 
 
-End[]
+End[];
 
 
-EndPackage[]
+EndPackage[];
