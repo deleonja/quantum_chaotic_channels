@@ -20,7 +20,7 @@ temporalAvgOfHaarAvgOfChoiPurityFilename="data/temporal_haar_avg_choi_purity/wis
 
 
 (* n\[UAcute]mero de kernels a usar *)
-kernels=48;
+kernels=64;
 
 
 Print["Hola"];
