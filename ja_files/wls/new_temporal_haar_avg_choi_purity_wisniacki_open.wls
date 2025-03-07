@@ -1,10 +1,6 @@
 #!/usr/bin/env wolframscript
 (* ::Package:: *)
 
-(* ::Section:: *)
-(*Par\[AAcute]metros*)
-
-
 L=10;(* espines *)
 
 
@@ -27,22 +23,17 @@ temporalAvgOfHaarAvgOfChoiPurityFilename="data/temporal_haar_avg_choi_purity/wis
 kernels=48;
 
 
-(* ::Section::Closed:: *)
-(*Fijar directorio, cargar paquetes y encender kernels*)
+Print["Hola"];
 
 
 (* Fijar directorio a mis archivos dentro del repositorio *)
-SetDirectory[NotebookDirectory[]];
+SetDirectory["/home/miguel.gonzalez/Documents/quantum_chaotic_channels/ja_files"];
 (* Cargar paquetes *)
 Get["../Mathematica_packages/QMB.wl"];
 
 
 (* Encender los kernels *)
 LaunchKernels[kernels];
-
-
-(* ::Section:: *)
-(*Valor esperado de Haar de la pureza de Choi*)
 
 
 pauliIndices=Tuples[Range[0,3],L-1];
