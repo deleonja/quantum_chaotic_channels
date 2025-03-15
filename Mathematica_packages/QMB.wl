@@ -35,7 +35,7 @@ BeginPackage["QMB`"];
 (*Usage definitions*)
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*General quantum mechanics*)
 
 
@@ -132,6 +132,12 @@ coherentstate::usage = "coherentstate[state,L] Generates a spin coherent state o
 MeanLevelSpacingRatio::usage = "MeanLevelSpacingRatio[\!\(\*
 StyleBox[\"eigenvalues\",\nFontSlant->\"Italic\"]\)] gives \[LeftAngleBracket]\!\(\*SubscriptBox[\(r\), \(n\)]\)\[RightAngleBracket] of \!\(\*
 StyleBox[\"eigenvalues\",\nFontSlant->\"Italic\"]\).";
+
+
+Quiet[
+	IPR::usage = 
+		FormatUsage["IPR[\[Psi]] computes the Inverse Participation Ratio of  ```\[Psi]``` in computational basis."];
+, {FrontEndObject::notavail, First::normal}];
 
 
 (* ::Subsection::Closed:: *)
@@ -377,14 +383,21 @@ coherentstate[state_,L_]:=Flatten[KroneckerProduct@@Table[state,L]]
 MeanLevelSpacingRatio[eigenvalues_]:=Mean[Min/@Transpose[{#,1/#}]&[Ratios[Differences[Sort[eigenvalues]]]]]
 
 
-(* ::Subsection::Closed:: *)
+IPR[\[Psi]_] := Total[\[Psi]^4]
+
+
+(* ::Subsection:: *)
 (*Quantum channels*)
+
+
+(* ::Subsubsection:: *)
+(*Reshuffle*)
 
 
 Reshuffle[m_] := ArrayFlatten[ArrayFlatten/@Partition[Partition[ArrayReshape[#,{Sqrt[Dimensions[m][[1]]],Sqrt[Dimensions[m][[1]]]}]&/@m,Sqrt[Dimensions[m][[1]]]],Sqrt[Dimensions[m][[1]]]],1];
 
 
-Reshuffle[A_,m_,n_]:=ArrayFlatten[ArrayReshape[A,{m,n,m,n}]]
+Reshuffle[A_,m_,n_] := ArrayFlatten[ArrayReshape[A, {m, n, m, n}]]
 
 
 (* ::Subsection::Closed:: *)
