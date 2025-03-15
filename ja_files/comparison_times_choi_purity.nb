@@ -1,0 +1,231 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Wolfram 14.2' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       154,          7]
+NotebookDataLength[      9269,        223]
+NotebookOptionsPosition[      2778,         92]
+NotebookOutlinePosition[      8567,        212]
+CellTagsIndexPosition[      8524,        209]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+
+Cell[CellGroupData[{
+Cell["Definiciones", "Section",
+ CellChangeTimes->{{3.950969857455143*^9, 
+  3.950969858430625*^9}},ExpressionUUID->"cfa245a1-1690-4371-ad22-\
+6e81becf61a3"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+  "SetDirectory", 
+   "[", "\"\</home/jadeleon/Documents/chaos_meets_channels/ja_files\>\"", 
+   "]"}], ";"}]], "Input",
+ CellLabel->"In[1]:=",ExpressionUUID->"c982a8fd-9960-480e-babb-42de5df04ade"],
+
+Cell[BoxData[
+ RowBox[{"Get", "[", "\"\<../Mathematica_packages/QMB.wl\>\"", "]"}]], "Input",\
+
+ CellLabel->"In[2]:=",ExpressionUUID->"0b87f3a7-92f8-4b3b-a1ba-25313725a2f4"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"LogSpace", "[", 
+   RowBox[{"start_", ",", "end_", ",", "n_"}], "]"}], ":=", 
+  RowBox[{"Exp", "@", 
+   RowBox[{"Subdivide", "[", 
+    RowBox[{
+     RowBox[{"Log", "[", "start", "]"}], ",", 
+     RowBox[{"Log", "[", "end", "]"}], ",", 
+     RowBox[{"n", "-", "1"}]}], "]"}]}]}]], "Input",
+ CellChangeTimes->{{3.950969726619926*^9, 3.950969727327231*^9}},
+ CellLabel->"In[9]:=",ExpressionUUID->"75e56d60-d22a-4050-ab0f-b146196c58ec"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["c\[AAcute]lculo", "Section",
+ CellChangeTimes->{{3.950969860990407*^9, 
+  3.950969861790141*^9}},ExpressionUUID->"1c3624d7-badb-4a21-bc60-\
+701e04aa8fb3"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"{", 
+   RowBox[{"t0", ",", "tf"}], "}"}], "=", 
+  RowBox[{"{", 
+   RowBox[{
+    RowBox[{"10.", "^", 
+     RowBox[{"-", "1"}]}], ",", 
+    RowBox[{"10.", "^", "3"}]}], "}"}]}]], "Input",
+ CellChangeTimes->{{3.950969605243787*^9, 3.950969625262124*^9}},
+ CellLabel->"In[8]:=",ExpressionUUID->"82c22fe8-a71f-4df1-92c2-2c8a0136bd0e"],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{"0.1`", ",", "1000.`"}], "}"}]], "Output",
+ CellChangeTimes->{3.9509696510326777`*^9},
+ CellLabel->"Out[8]=",ExpressionUUID->"7463ef40-98e0-4fc6-846f-ea0adbd32f24"]
+}, Open  ]],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"t", "=", 
+   RowBox[{"LogSpace", "[", 
+    RowBox[{"t0", ",", "tf", ",", "100"}], "]"}]}], ";"}]], "Input",
+ CellChangeTimes->{{3.9509697293144503`*^9, 3.950969781118381*^9}, {
+  3.9509698709763937`*^9, 3.950969882527236*^9}},
+ CellLabel->"In[16]:=",ExpressionUUID->"8ce23c0d-0f59-4bca-ba97-afb403e646aa"]
+}, Open  ]]
+},
+WindowSize->{1440, 758.25},
+WindowMargins->{{0, Automatic}, {0, Automatic}},
+InputAliases-><|"intt" -> RowBox[{"\[Integral]", 
+     RowBox[{"\[SelectionPlaceholder]", 
+       RowBox[{"\[DifferentialD]", "\[Placeholder]"}]}]}], "dintt" -> 
+  RowBox[{
+     SubsuperscriptBox[
+     "\[Integral]", "\[SelectionPlaceholder]", "\[Placeholder]"], 
+     RowBox[{"\[Placeholder]", 
+       RowBox[{"\[DifferentialD]", "\[Placeholder]"}]}]}], "rintt" -> 
+  RowBox[{
+     UnderscriptBox["\[Integral]", 
+      RowBox[{"\[SelectionPlaceholder]", "\[Element]", "\[Placeholder]"}]], 
+     "\[Placeholder]"}], "sumt" -> RowBox[{
+     UnderoverscriptBox["\[Sum]", 
+      RowBox[{"\[SelectionPlaceholder]", "=", "\[Placeholder]"}], 
+      "\[Placeholder]"], "\[Placeholder]"}], "prodt" -> RowBox[{
+     UnderoverscriptBox["\[Product]", 
+      RowBox[{"\[SelectionPlaceholder]", "=", "\[Placeholder]"}], 
+      "\[Placeholder]"], "\[Placeholder]"}], "dt" -> RowBox[{
+     SubscriptBox["\[PartialD]", "\[SelectionPlaceholder]"], 
+     "\[Placeholder]"}], "cbrt" -> 
+  RadicalBox[
+   "\[SelectionPlaceholder]", "3", SurdForm -> True, MultilineFunction -> 
+    None], "surd" -> 
+  RadicalBox[
+   "\[SelectionPlaceholder]", "\[Placeholder]", SurdForm -> True, 
+    MultilineFunction -> None], "ket" -> 
+  TemplateBox[{"\[SelectionPlaceholder]"}, "Ket"], "bra" -> 
+  TemplateBox[{"\[SelectionPlaceholder]"}, "Bra"], "braket" -> 
+  TemplateBox[{"\[SelectionPlaceholder]", "\[Placeholder]"}, "BraKet"], 
+  "delay" -> TemplateBox[{"\[SelectionPlaceholder]"}, "SystemsModelDelay"], 
+  "grad" -> RowBox[{
+     SubscriptBox["\[Del]", "\[SelectionPlaceholder]"], "\[Placeholder]"}], 
+  "del." -> RowBox[{
+     SubscriptBox["\[Del]", "\[SelectionPlaceholder]"], ".", 
+     "\[Placeholder]"}], "delx" -> RowBox[{
+     SubscriptBox["\[Del]", "\[SelectionPlaceholder]"], "\[Cross]", 
+     "\[Placeholder]"}], "del2" -> RowBox[{
+     SubsuperscriptBox["\[Del]", "\[SelectionPlaceholder]", 2], 
+     "\[Placeholder]"}], "kd" -> 
+  TemplateBox[{"\[SelectionPlaceholder]"}, "KroneckerDeltaSeq"], "algs" -> 
+  TemplateBox[{}, "Algebraics"], "bools" -> TemplateBox[{}, "Booleans"], 
+  "comps" -> TemplateBox[{}, "Complexes"], "ints" -> 
+  TemplateBox[{}, "Integers"], "pris" -> TemplateBox[{}, "Primes"], "rats" -> 
+  TemplateBox[{}, "Rationals"], "reals" -> TemplateBox[{}, "Reals"], "pints" -> 
+  TemplateBox[{}, "PositiveIntegers"], "npints" -> 
+  TemplateBox[{}, "NonPositiveIntegers"], "nnints" -> 
+  TemplateBox[{}, "NonNegativeIntegers"], "nints" -> 
+  TemplateBox[{}, "NegativeIntegers"], "prats" -> 
+  TemplateBox[{}, "PositiveRationals"], "nprats" -> 
+  TemplateBox[{}, "NonPositiveRationals"], "nnrats" -> 
+  TemplateBox[{}, "NonNegativeRationals"], "nrats" -> 
+  TemplateBox[{}, "NegativeRationals"], "preals" -> 
+  TemplateBox[{}, "PositiveReals"], "npreals" -> 
+  TemplateBox[{}, "NonPositiveReals"], "nnreals" -> 
+  TemplateBox[{}, "NonNegativeReals"], "nreals" -> 
+  TemplateBox[{}, "NegativeReals"], "dlim" -> RowBox[{
+     UnderscriptBox["\[Limit]", 
+      RowBox[{"\[SelectionPlaceholder]", 
+        UnderscriptBox["\[Rule]", 
+         TemplateBox[{}, "Integers"]], "\[Infinity]"}]], "\[Placeholder]"}], 
+  "dMlim" -> RowBox[{
+     UnderscriptBox["\[MaxLimit]", 
+      RowBox[{"\[SelectionPlaceholder]", 
+        UnderscriptBox["\[Rule]", 
+         TemplateBox[{}, "Integers"]], "\[Infinity]"}]], "\[Placeholder]"}], 
+  "dmlim" -> RowBox[{
+     UnderscriptBox["\[MinLimit]", 
+      RowBox[{"\[SelectionPlaceholder]", 
+        UnderscriptBox["\[Rule]", 
+         TemplateBox[{}, "Integers"]], "\[Infinity]"}]], "\[Placeholder]"}], 
+  "tue" -> OverscriptBox["\[UndirectedEdge]", "\[Placeholder]"], "tde" -> 
+  OverscriptBox["\[DirectedEdge]", "\[Placeholder]"], "cB" -> 
+  TemplateBox[{}, "CombinatorB"], "cC" -> TemplateBox[{}, "CombinatorC"], 
+  "cI" -> TemplateBox[{}, "CombinatorI"], "cK" -> 
+  TemplateBox[{}, "CombinatorK"], "cS" -> TemplateBox[{}, "CombinatorS"], 
+  "cW" -> TemplateBox[{}, "CombinatorW"], "cY" -> 
+  TemplateBox[{}, "CombinatorY"], "notation" -> RowBox[{"Notation", "[", 
+     RowBox[{
+       TemplateBox[{"\[SelectionPlaceholder]"}, "NotationTemplateTag"], " ", 
+       "\[DoubleLongLeftRightArrow]", " ", 
+       TemplateBox[{"\[Placeholder]"}, "NotationTemplateTag"]}], "]"}], 
+  "notation>" -> RowBox[{"Notation", "[", 
+     RowBox[{
+       TemplateBox[{"\[SelectionPlaceholder]"}, "NotationTemplateTag"], " ", 
+       "\[DoubleLongRightArrow]", " ", 
+       TemplateBox[{"\[Placeholder]"}, "NotationTemplateTag"]}], "]"}], 
+  "notation<" -> RowBox[{"Notation", "[", 
+     RowBox[{
+       TemplateBox[{"\[SelectionPlaceholder]"}, "NotationTemplateTag"], " ", 
+       "\[DoubleLongLeftArrow]", " ", 
+       TemplateBox[{"\[Placeholder]"}, "NotationTemplateTag"]}], "]"}], 
+  "symb" -> RowBox[{"Symbolize", "[", 
+     TemplateBox[{"\[SelectionPlaceholder]"}, "NotationTemplateTag"], "]"}], 
+  "infixnotation" -> RowBox[{"InfixNotation", "[", 
+     RowBox[{
+       TemplateBox[{"\[SelectionPlaceholder]"}, "NotationTemplateTag"], ",", 
+       "\[Placeholder]"}], "]"}], "addia" -> RowBox[{"AddInputAlias", "[", 
+     RowBox[{"\"\[SelectionPlaceholder]\"", "\[Rule]", 
+       TemplateBox[{"\[Placeholder]"}, "NotationTemplateTag"]}], "]"}], 
+  "pattwraper" -> 
+  TemplateBox[{"\[SelectionPlaceholder]"}, "NotationPatternTag"], 
+  "madeboxeswraper" -> 
+  TemplateBox[{"\[SelectionPlaceholder]"}, "NotationMadeBoxesTag"], "cf" -> 
+  SubscriptBox["&", "\[Placeholder]"]|>,
+FrontEndVersion->"14.2 for Linux x86 (64-bit) (December 26, 2024)",
+StyleDefinitions->"Default.nb",
+ExpressionUUID->"e9f7dcf1-10bf-4513-845a-416f42a874be"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[CellGroupData[{
+Cell[576, 22, 157, 3, 49, "Section",ExpressionUUID->"cfa245a1-1690-4371-ad22-6e81becf61a3"],
+Cell[736, 27, 233, 6, 22, "Input",ExpressionUUID->"c982a8fd-9960-480e-babb-42de5df04ade"],
+Cell[972, 35, 173, 3, 22, "Input",ExpressionUUID->"0b87f3a7-92f8-4b3b-a1ba-25313725a2f4"],
+Cell[1148, 40, 467, 11, 22, "Input",ExpressionUUID->"75e56d60-d22a-4050-ab0f-b146196c58ec"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[1652, 56, 160, 3, 49, "Section",ExpressionUUID->"1c3624d7-badb-4a21-bc60-701e04aa8fb3"],
+Cell[CellGroupData[{
+Cell[1837, 63, 364, 10, 22, "Input",ExpressionUUID->"82c22fe8-a71f-4df1-92c2-2c8a0136bd0e"],
+Cell[2204, 75, 203, 4, 25, "Output",ExpressionUUID->"7463ef40-98e0-4fc6-846f-ea0adbd32f24"]
+}, Open  ]],
+Cell[2422, 82, 340, 7, 22, "Input",ExpressionUUID->"8ce23c0d-0f59-4bca-ba97-afb403e646aa"]
+}, Open  ]]
+}
+]
+*)
+
